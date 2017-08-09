@@ -5,6 +5,8 @@ import { Http, Headers } from '@angular/http';
 import { JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 
+import { User } from '../user';
+
 import 'rxjs/add/operator/map';
 //import 'rxjs/add/operator/toPromise';
 
@@ -28,6 +30,10 @@ export class AuthService {
 				localStorage.setItem("token", tokenResponse.auth_token)
 				return this.jwtHelper.decodeToken(tokenResponse.auth_token);
 			});
+	}
+
+	getCurrentUser(): User | undefined {
+		return this.jwtHelper.decodeToken(localStorage.getItem("token"));
 	}
 }
 
