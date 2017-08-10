@@ -5,7 +5,7 @@ import { HomePage } from '../home/home';
 import { NavController } from 'ionic-angular';
 import { ToastController } from 'ionic-angular';
 
-import { AuthService } from '../../services/auth-service';
+import { AuthService } from '../../../providers/auth-service/auth-service';
 
 
 @Component({

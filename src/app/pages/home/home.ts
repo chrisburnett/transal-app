@@ -4,7 +4,7 @@ import { JwtHelper } from 'angular2-jwt';
 import { User } from '../../user';
 import { LoginPage } from '../login/login';
 
-import { AuthService } from '../../services/auth-service';
+import { AuthService } from '../../../providers/auth-service/auth-service';
 
 @Component({
 	selector: 'page-home',

@@ -11,10 +11,11 @@ import { IonicStorageModule } from '@ionic/storage';
 import { MyApp } from './app.component';
 import { HomePage } from './pages/home/home';
 import { LoginPage } from './pages/login/login';
-import { AuthService } from './services/auth-service';
+import { AuthService } from '../providers/auth-service/auth-service';
 
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { APP_CONFIG, AppConfig } from './app.config';
+import { AssignmentServiceProvider } from '../providers/assignment-service/assignment-service';
 
 @NgModule({
 	declarations: [
@@ -41,7 +42,8 @@ import { APP_CONFIG, AppConfig } from './app.config';
 		{ provide: ErrorHandler, useClass: IonicErrorHandler },
 		{ provide: APP_CONFIG, useValue: AppConfig },
 		AuthService,
-		AuthHttp
+		AuthHttp,
+    AssignmentServiceProvider
 	]
 })
 export class AppModule {}

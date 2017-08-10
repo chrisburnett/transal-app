@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Inject } from '@angular/core';
-import { APP_CONFIG } from '../app.config';
+import { APP_CONFIG } from '../../app/app.config';
 import { Http, Headers } from '@angular/http';
 import { JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
 import { Storage } from '@ionic/storage';
-import { User } from '../user';
+import { User } from '../../app/user';
 
 import 'rxjs/add/operator/map';
 //import 'rxjs/add/operator/toPromise';
