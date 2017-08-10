@@ -1,6 +1,5 @@
 import { StatusBar } from '@ionic-native/status-bar';
 import { Platform } from 'ionic-angular';
-import { NavController } from 'ionic-angular';
 import { Component } from '@angular/core';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -13,15 +12,14 @@ import { AuthService } from './services/auth-service';
 	templateUrl: 'app.html'
 })
 export class MyApp {
-    @ViewChild('rootNavController') nav: NavController;
 	rootPage:any = LoginPage;
 	
 	constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, public authService: AuthService) {
 		platform.ready().then(() => {
 			statusBar.styleDefault();
-			if(authService.getCurrentUser()) {
-				this.rootPage = HomePage;
-			}
+			authService.getCurrentUser().then((user) => {
+				if(user) this.rootPage = HomePage;
+			});
 			splashScreen.hide();
 			
 			

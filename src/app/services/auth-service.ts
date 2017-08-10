@@ -4,7 +4,7 @@ import { APP_CONFIG } from '../app.config';
 import { Http, Headers } from '@angular/http';
 import { JwtHelper } from 'angular2-jwt';
 import { Observable } from 'rxjs/Observable';
-
+import { Storage } from '@ionic/storage';
 import { User } from '../user';
 
 import 'rxjs/add/operator/map';
@@ -16,7 +16,7 @@ import 'rxjs/add/operator/map';
  */
 @Injectable()
 export class AuthService {
-	constructor(@Inject(APP_CONFIG) private config, private http: Http) { }
+	constructor(@Inject(APP_CONFIG) private config, private http: Http, private storage: Storage) { }
 
 	jwtHelper: JwtHelper = new JwtHelper();
 	
@@ -27,13 +27,22 @@ export class AuthService {
 		return this.http.get(url, {headers: headers})
 			.map(response => {
 				let tokenResponse: AuthServiceResponse = response.json();
-				localStorage.setItem("token", tokenResponse.auth_token)
+				this.storage.set("token", tokenResponse.auth_token)
 				return this.jwtHelper.decodeToken(tokenResponse.auth_token);
 			});
 	}
 
-	getCurrentUser(): User | undefined {
-		return this.jwtHelper.decodeToken(localStorage.getItem("token"));
+	getCurrentUser(): Promise<User> {
+		return this.storage.get("token")
+			.then((token) => {
+				if(token) {
+					return this.jwtHelper.decodeToken(token) as User;
+				}
+			});
+	}
+
+	logout(): void {
+		this.storage.remove("token");
 	}
 }
 
