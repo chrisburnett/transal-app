@@ -12,10 +12,10 @@ import { MyApp } from './app.component';
 import { HomePage } from './pages/home/home';
 import { LoginPage } from './pages/login/login';
 import { AuthService } from '../providers/auth-service/auth-service';
+import { AssignmentService } from '../providers/assignment-service/assignment-service';
 
 import { AuthHttp, AuthConfig } from 'angular2-jwt';
 import { APP_CONFIG, AppConfig } from './app.config';
-import { AssignmentServiceProvider } from '../providers/assignment-service/assignment-service';
 
 @NgModule({
 	declarations: [
@@ -42,8 +42,8 @@ import { AssignmentServiceProvider } from '../providers/assignment-service/assig
 		{ provide: ErrorHandler, useClass: IonicErrorHandler },
 		{ provide: APP_CONFIG, useValue: AppConfig },
 		AuthService,
-		AuthHttp,
-    AssignmentServiceProvider
+		AssignmentService,
+		AuthHttp
 	]
 })
 export class AppModule {}

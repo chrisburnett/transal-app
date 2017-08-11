@@ -11,6 +11,10 @@
   <div *ngIf="currentUser">
 	  {{currentUser.name}}
   </div>
+
+  <div *ngIf="currentAssignment">
+	  {{currentAssignment.start_date}}
+  </div>
   
   <button ion-button (click)="logout()">Logout</button>
 
