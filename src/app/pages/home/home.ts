@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { JwtHelper } from 'angular2-jwt';
 import { User } from '../../user';
 import { LoginPage } from '../login/login';
 
 import { AuthService } from '../../../providers/auth-service/auth-service';
 import { AssignmentService } from '../../../providers/assignment-service/assignment-service';
 import { Assignment } from '../../assignment';
+import { Waypoint } from '../../waypoint';
+import { Route } from '../../route';
 
 @Component({
 	selector: 'page-home',
@@ -16,9 +17,8 @@ export class HomePage implements OnInit {
 
 	currentUser: User;
 	currentAssignment: Assignment;
+	currentWaypoint: Waypoint;
 	
-	private jwtHelper: JwtHelper = new JwtHelper();
-
 	constructor(public navCtrl: NavController, public authService: AuthService, public assignmentService: AssignmentService) {}
 
 	ngOnInit() {
@@ -27,9 +27,10 @@ export class HomePage implements OnInit {
 				this.currentUser = user;
 			}
 		});
-		this.assignmentService.getCurrentAssignment().subscribe((assignment) => {
+		this.assignmentService.getCurrentAssignment().subscribe((assignment: Assignment) => {
 			console.log(assignment);
 			this.currentAssignment = assignment;
+			this.currentWaypoint = Route.getCurrentWaypoint(assignment.route);
 		});
 	}
 

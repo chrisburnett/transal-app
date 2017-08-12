@@ -1,23 +1,26 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
+	<ion-navbar>
+		<ion-title>
+			Home
+		</ion-title>
+	</ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
-  <div *ngIf="currentUser">
-	  {{currentUser.name}}
-  </div>
+	<div *ngIf="currentAssignment">
+		<ion-card>
+			<ion-card-header>
+				Next Waypoint
+			</ion-card-header>
+			<ion-card-content>
+				{{currentWaypoint.scheduled_date}}
+			</ion-card-content>
+		</ion-card>
+	</div>
+	
+	<button ion-button (click)="logout()">Logout</button>
 
-  <div *ngIf="currentAssignment">
-	  {{currentAssignment.start_date}}
-  </div>
-  
-  <button ion-button (click)="logout()">Logout</button>
-
-  
-  
+	
+	
 </ion-content>
