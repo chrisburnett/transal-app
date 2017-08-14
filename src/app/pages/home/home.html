@@ -8,16 +8,54 @@
 
 <ion-content padding>
 
+	<!-- contingencies -->
+	<div *ngIf="!currentAssignment">
+		You are not currently assigned to a route.
+	</div>
+
+	<!-- waypoint cards -->
 	<div *ngIf="currentAssignment">
-		<ion-card>
+		<ion-card *ngIf="previousWaypoint">
+			<ion-card-header>
+				Previous Waypoint
+			</ion-card-header>
+			<ion-card-content>
+				{{previousWaypoint.scheduled_date}}
+			</ion-card-content>
+		</ion-card>
+		<ion-card *ngIf="currentWaypoint">
+			<ion-card-header>
+				Current Waypoint
+			</ion-card-header>
+			<ion-card-content>
+				<ion-item>
+					<ion-icon name="pin" item-start large></ion-icon>
+					<h2>{{currentWaypoint.location.name}}</h2>
+					<p>{{currentWaypoint.location.address}}</p>
+				</ion-item>
+				<ion-item>
+					<span item-left>{{currentWaypointDatestring}}</span>
+					<span item-left [ngClass]="{'overdue': currentWaypointOverdue, 'pending': !currentWaypointOverdue}">({{timeToCurrentWaypoint}})</span>
+					<button ion-button icon-left clear item-end>
+						<ion-icon name="navigate"></ion-icon>
+						Check-in
+					</button>
+				</ion-item>
+			</ion-card-content>
+		</ion-card>
+		<ion-card *ngIf="nextWaypoint">
 			<ion-card-header>
 				Next Waypoint
 			</ion-card-header>
 			<ion-card-content>
-				{{currentWaypoint.scheduled_date}}
+				{{nextWaypoint.scheduled_date}}
 			</ion-card-content>
 		</ion-card>
 	</div>
+
+	<ion-card-content *ngIf="!currentWaypoint">
+		No further waypoints pending on this route.
+	</ion-card-content>
 	
 	<button ion-button (click)="logout()">Logout</button>
 

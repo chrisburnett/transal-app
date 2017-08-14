@@ -14,7 +14,7 @@ import { LoginPage } from './pages/login/login';
 import { AuthService } from '../providers/auth-service/auth-service';
 import { AssignmentService } from '../providers/assignment-service/assignment-service';
 
-import { AuthHttp, AuthConfig } from 'angular2-jwt';
+import { AuthHttp } from 'angular2-jwt';
 import { APP_CONFIG, AppConfig } from './app.config';
 
 @NgModule({
