@@ -1,6 +1,6 @@
 export class Location {
 	name: string;
-	"type": string;
+	"location_type": string;
 	coords: string;
 	address: string;
 }

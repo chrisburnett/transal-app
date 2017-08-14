@@ -3,6 +3,11 @@
 		<ion-title *ngIf="currentAssignment">
 			Route {{currentAssignment.route.name}}
 		</ion-title>
+		<ion-buttons start>
+			<button ion-button icon-only (click)="logout()">
+				<ion-icon name="log-out"></ion-icon>
+			</button>
+		</ion-buttons>
 	</ion-navbar>
 </ion-header>
 
@@ -15,26 +20,28 @@
 
 	<!-- waypoint cards -->
 	<div *ngIf="currentAssignment">
-		<ion-card *ngIf="previousWaypoint">
+		<ion-card class="previousCard" *ngIf="previousWaypoint">
 			<ion-card-header>
 				Previous Waypoint
 			</ion-card-header>
 			<ion-card-content>
-				{{previousWaypointDatestring}}
+				<h2>{{previousWaypoint.location.name}}</h2>
+				<p>{{previousWaypoint.location.address}}</p>
+				<p>{{previousWaypointDatestring}}</p>
 			</ion-card-content>
 		</ion-card>
-		<ion-card *ngIf="currentWaypoint">
+		<ion-card class="currentCard" *ngIf="currentWaypoint">
 			<ion-card-header>
-				Current Waypoint
+				Driving to: {{currentWaypointLocationText}}
 			</ion-card-header>
 			<ion-card-content>
 				<ion-item>
-					<ion-icon name="pin" item-start large></ion-icon>
+					<ion-icon name="{{currentWaypointIconName}}" item-start large></ion-icon>
 					<h2>{{currentWaypoint.location.name}}</h2>
 					<p>{{currentWaypoint.location.address}}</p>
 				</ion-item>
 				<ion-item>
-					<span item-left>{{currentWaypointDatestring}}</span>
+					<span item-left>Due: {{currentWaypointDatestring}}</span>
 					<span item-left [ngClass]="{'overdue': currentWaypointOverdue, 'pending': !currentWaypointOverdue}">({{timeToCurrentWaypoint}})</span>
 					<button ion-button icon-left clear item-end>
 						<ion-icon name="navigate"></ion-icon>
@@ -43,12 +50,14 @@
 				</ion-item>
 			</ion-card-content>
 		</ion-card>
-		<ion-card *ngIf="nextWaypoint">
+		<ion-card class="nextCard" *ngIf="nextWaypoint">
 			<ion-card-header>
 				Next Waypoint
 			</ion-card-header>
 			<ion-card-content>
-				{{nextWaypoint.scheduled_date}}
+				<h2>{{nextWaypoint.location.name}}</h2>
+				<p>{{nextWaypoint.location.address}}</p>
+				<p>{{nextWaypointDatestring}}</p>
 			</ion-card-content>
 		</ion-card>
 	</div>
@@ -56,9 +65,6 @@
 	<ion-card-content *ngIf="!currentWaypoint">
 		No further waypoints pending on this route.
 	</ion-card-content>
-	
-	<button ion-button (click)="logout()">Logout</button>
-
 	
 	
 </ion-content>

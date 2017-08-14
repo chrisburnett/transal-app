@@ -29,6 +29,29 @@ export class HomePage implements OnInit {
 	currentWaypointDatestring: string;
 	currentWaypointOverdue: boolean;
 	previousWaypointDatestring: string;
+	nextWaypointDatestring: string;
+
+	currentWaypointIconName: string;
+	currentWaypointLocationText: string;
+	
+	locationTypeIconMap = {
+		"pickup": "arrow-up",
+		"deliver": "arrow-down",
+		"service": "build",
+		"fuel": "color-fill",
+		"office": "home",
+		"handover": "home"
+	}
+
+	// NOTE - TRANSLATE THIS
+	locationTypeDisplayTextMap = {
+		"pickup": "Pick up",
+		"deliver": "Delivery",
+		"service": "Service",
+		"fuel": "Fuel stop",
+		"office": "Return to base",
+		"handover": "Driver changeover"
+	}
 	
 	constructor(public navCtrl: NavController, public authService: AuthService, public assignmentService: AssignmentService) {}
 
@@ -56,8 +79,14 @@ export class HomePage implements OnInit {
 
 				if(this.previousWaypoint) {
 					this.previousWaypointDatestring = moment(this.previousWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
-
 				}
+
+				if(this.nextWaypoint) {
+					this.nextWaypointDatestring = moment(this.nextWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
+				}
+
+				this.currentWaypointIconName = this.locationTypeIconMap[this.currentWaypoint.location.location_type];
+				this.currentWaypointLocationText = this.locationTypeDisplayTextMap[this.currentWaypoint.location.location_type];
 			}
 		});
 	}
