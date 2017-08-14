@@ -1,7 +1,7 @@
 <ion-header>
 	<ion-navbar>
-		<ion-title>
-			Home
+		<ion-title *ngIf="currentAssignment">
+			Route {{currentAssignment.route.name}}
 		</ion-title>
 	</ion-navbar>
 </ion-header>
@@ -20,7 +20,7 @@
 				Previous Waypoint
 			</ion-card-header>
 			<ion-card-content>
-				{{previousWaypoint.scheduled_date}}
+				{{previousWaypointDatestring}}
 			</ion-card-content>
 		</ion-card>
 		<ion-card *ngIf="currentWaypoint">

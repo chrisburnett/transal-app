@@ -28,6 +28,7 @@ export class HomePage implements OnInit {
 
 	currentWaypointDatestring: string;
 	currentWaypointOverdue: boolean;
+	previousWaypointDatestring: string;
 	
 	constructor(public navCtrl: NavController, public authService: AuthService, public assignmentService: AssignmentService) {}
 
@@ -51,6 +52,11 @@ export class HomePage implements OnInit {
 						moment(this.currentWaypoint.scheduled_date).fromNow();
 					this.currentWaypointDatestring = moment(this.currentWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
 					this.currentWaypointOverdue = Date.now().valueOf() > this.currentWaypoint.scheduled_date.valueOf();
+				}
+
+				if(this.previousWaypoint) {
+					this.previousWaypointDatestring = moment(this.previousWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
+
 				}
 			}
 		});
