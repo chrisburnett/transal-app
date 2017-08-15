@@ -6,7 +6,6 @@ export class Waypoint {
 	trailer: Trailer;
 	scheduled_date: Date;
 	actual_date: Date;
-	status: string;
 	activity: string;
 	cargo: string;
 	scheduled: boolean;
