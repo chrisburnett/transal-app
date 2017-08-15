@@ -43,7 +43,7 @@
 				<ion-item>
 					<span item-left>Due: {{currentWaypointDatestring}}</span>
 					<span item-left [ngClass]="{'overdue': currentWaypointOverdue, 'pending': !currentWaypointOverdue}">({{timeToCurrentWaypoint}})</span>
-					<button ion-button icon-left clear item-end>
+					<button ion-button icon-left clear item-end (click)="showConfirm()">
 						<ion-icon name="navigate"></ion-icon>
 						Check-in
 					</button>

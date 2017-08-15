@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { AlertController } from 'ionic-angular';
 import { User } from '../../user';
 import { LoginPage } from '../login/login';
 
@@ -53,7 +54,7 @@ export class HomePage implements OnInit {
 		"handover": "Driver changeover"
 	}
 	
-	constructor(public navCtrl: NavController, public authService: AuthService, public assignmentService: AssignmentService) {}
+	constructor(public alertCtrl: AlertController, public navCtrl: NavController, public authService: AuthService, public assignmentService: AssignmentService) {}
 
 	ngOnInit() {
 		this.authService.getCurrentUser().then((user) => {
@@ -93,5 +94,27 @@ export class HomePage implements OnInit {
 	logout(): void {
 		this.authService.logout();
 		this.navCtrl.setRoot(LoginPage);
+	}
+
+	showConfirm(): void {
+		let confirm = this.alertCtrl.create({
+			title: 'Check-in',
+			message: 'Are you sure you want to check in to this waypoint?',
+			buttons: [
+				{
+				text: 'No',
+				handler: () => {
+					
+				}
+			},
+				{
+				text: 'Yes',
+				handler: () => {
+					// TODO: SET CURRENT WAYPOINT ACTUAL_DATE THEN REFRESH
+				}
+			}
+			]
+		});
+		confirm.present();
 	}
 }
