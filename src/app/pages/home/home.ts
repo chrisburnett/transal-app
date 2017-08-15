@@ -75,6 +75,8 @@ export class HomePage implements OnInit {
 						moment(this.currentWaypoint.scheduled_date).fromNow();
 					this.currentWaypointDatestring = moment(this.currentWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
 					this.currentWaypointOverdue = Date.now().valueOf() > this.currentWaypoint.scheduled_date.valueOf();
+					this.currentWaypointIconName = this.locationTypeIconMap[this.currentWaypoint.location.location_type];
+					this.currentWaypointLocationText = this.locationTypeDisplayTextMap[this.currentWaypoint.location.location_type];
 				}
 
 				if(this.previousWaypoint) {
@@ -84,9 +86,6 @@ export class HomePage implements OnInit {
 				if(this.nextWaypoint) {
 					this.nextWaypointDatestring = moment(this.nextWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
 				}
-
-				this.currentWaypointIconName = this.locationTypeIconMap[this.currentWaypoint.location.location_type];
-				this.currentWaypointLocationText = this.locationTypeDisplayTextMap[this.currentWaypoint.location.location_type];
 			}
 		});
 	}
