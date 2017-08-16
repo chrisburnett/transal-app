@@ -13,6 +13,7 @@ import { HomePage } from './pages/home/home';
 import { LoginPage } from './pages/login/login';
 import { AuthService } from '../providers/auth-service/auth-service';
 import { AssignmentService } from '../providers/assignment-service/assignment-service';
+import { WaypointService } from '../providers/waypoint-service/waypoint-service';
 
 import { AuthHttp } from 'angular2-jwt';
 import { APP_CONFIG, AppConfig } from './app.config';
@@ -43,6 +44,7 @@ import { APP_CONFIG, AppConfig } from './app.config';
 		{ provide: APP_CONFIG, useValue: AppConfig },
 		AuthService,
 		AssignmentService,
+		WaypointService,
 		AuthHttp
 	]
 })

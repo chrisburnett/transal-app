@@ -6,6 +6,7 @@ import { LoginPage } from '../login/login';
 
 import { AuthService } from '../../../providers/auth-service/auth-service';
 import { AssignmentService } from '../../../providers/assignment-service/assignment-service';
+import { WaypointService } from '../../../providers/waypoint-service/waypoint-service';
 import { Assignment } from '../../assignment';
 import { Waypoint } from '../../waypoint';
 import { Route } from '../../route';
@@ -54,7 +55,7 @@ export class HomePage implements OnInit {
 		"handover": "Driver changeover"
 	}
 	
-	constructor(public alertCtrl: AlertController, public navCtrl: NavController, public authService: AuthService, public assignmentService: AssignmentService) {}
+	constructor(public alertCtrl: AlertController, public navCtrl: NavController, public authService: AuthService, public assignmentService: AssignmentService, public waypointService: WaypointService) {}
 
 	ngOnInit() {
 		this.authService.getCurrentUser().then((user) => {
@@ -62,6 +63,10 @@ export class HomePage implements OnInit {
 				this.currentUser = user;
 			}
 		});
+		this.load();
+	}
+
+	load(): void {
 		this.assignmentService.getCurrentAssignment().subscribe((assignment: Assignment) => {
 			if(assignment)
 			{
@@ -96,6 +101,13 @@ export class HomePage implements OnInit {
 		this.navCtrl.setRoot(LoginPage);
 	}
 
+	checkIn(): void {
+		this.currentWaypoint.actual_date = new Date(Date.now());
+
+		// lazy... reloading entire component. Necessary to do this?
+		this.waypointService.update(this.currentWaypoint).subscribe(() => this.load());
+	}
+	
 	showConfirm(): void {
 		let confirm = this.alertCtrl.create({
 			title: 'Check-in',
@@ -110,7 +122,7 @@ export class HomePage implements OnInit {
 				{
 				text: 'Yes',
 				handler: () => {
-					// TODO: SET CURRENT WAYPOINT ACTUAL_DATE THEN REFRESH
+					this.checkIn();
 				}
 			}
 			]
