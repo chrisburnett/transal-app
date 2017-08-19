@@ -50,7 +50,8 @@ export function createTranslateLoader(http: Http) {
 	entryComponents: [
 		MyApp,
 		HomePage,
-		LoginPage
+		LoginPage,
+		WaypointFormPage
 	],
 	providers: [
 		StatusBar,

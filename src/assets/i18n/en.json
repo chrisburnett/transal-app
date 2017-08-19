@@ -19,5 +19,8 @@
 		"FUEL": "Fuel stop",
 		"OFFICE": "Return to base",
 		"HANDOVER": "Driver changeover"
+	},
+	"NEW_WAYPOINT": {
+		"NEW_WAYPOINT": "New Waypoint"
 	}
 }

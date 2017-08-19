@@ -1,5 +1,5 @@
 <ion-header>
-	<ion-navbar>
+	<ion-navbar color="primary">
 		<ion-title *ngIf="currentAssignment">
 			{{'HOME.ROUTE'|translate}} {{currentAssignment.route.name}}
 		</ion-title>
@@ -43,6 +43,8 @@
 				<ion-item>
 					<span item-left>{{'HOME.DUE'|translate}}: {{currentWaypointDatestring}}</span>
 					<span item-left [ngClass]="{'overdue': currentWaypointOverdue, 'pending': !currentWaypointOverdue}">({{timeToCurrentWaypoint}})</span>
+				</ion-item>
+				<ion-item>
 					<button ion-button icon-left clear item-end (click)="showConfirm()">
 						<ion-icon name="navigate"></ion-icon>
 						{{'HOME.CHECK_IN'|translate}}
@@ -66,5 +68,9 @@
 		{{'HOME.NO_MORE_WAYPOINTS_MSG'|translate}}
 	</ion-card-content>
 	
-	
+	<ion-footer>
+		<ion-toolbar>
+			<button [navPush]="waypointFormPage" ion-button block>New Waypoint</button>
+		</ion-toolbar>
+	</ion-footer>
 </ion-content>

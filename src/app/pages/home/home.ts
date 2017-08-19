@@ -4,6 +4,7 @@ import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { User } from '../../user';
 import { LoginPage } from '../login/login';
+import { WaypointFormPage } from '../waypoint-form/waypoint-form';
 
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../providers/auth-service/auth-service';
@@ -49,9 +50,12 @@ export class HomePage implements OnInit {
 		"handover": "home"
 	}
 
+	waypointFormPage: any;
+
 	constructor(@Inject(APP_CONFIG) private config, public alertCtrl: AlertController, public navCtrl: NavController, public authService: AuthService, public assignmentService: AssignmentService, public waypointService: WaypointService, public translate: TranslateService) {}
 
 	ngOnInit() {
+		this.waypointFormPage = WaypointFormPage;
 		this.authService.getCurrentUser().then((user) => {
 			if(user) {
 				this.currentUser = user;
