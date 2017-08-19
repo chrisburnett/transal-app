@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { Inject } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { User } from '../../user';
 import { LoginPage } from '../login/login';
 
+import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../providers/auth-service/auth-service';
 import { AssignmentService } from '../../../providers/assignment-service/assignment-service';
 import { WaypointService } from '../../../providers/waypoint-service/waypoint-service';
 import { Assignment } from '../../assignment';
 import { Waypoint } from '../../waypoint';
 import { Route } from '../../route';
+
+import { APP_CONFIG } from '../../app.config';
 
 import * as moment from 'moment';
 
@@ -45,17 +49,7 @@ export class HomePage implements OnInit {
 		"handover": "home"
 	}
 
-	// NOTE - TRANSLATE THIS
-	locationTypeDisplayTextMap = {
-		"pickup": "Pick up",
-		"deliver": "Delivery",
-		"service": "Service",
-		"fuel": "Fuel stop",
-		"office": "Return to base",
-		"handover": "Driver changeover"
-	}
-	
-	constructor(public alertCtrl: AlertController, public navCtrl: NavController, public authService: AuthService, public assignmentService: AssignmentService, public waypointService: WaypointService) {}
+	constructor(@Inject(APP_CONFIG) private config, public alertCtrl: AlertController, public navCtrl: NavController, public authService: AuthService, public assignmentService: AssignmentService, public waypointService: WaypointService, public translate: TranslateService) {}
 
 	ngOnInit() {
 		this.authService.getCurrentUser().then((user) => {
@@ -67,6 +61,9 @@ export class HomePage implements OnInit {
 	}
 
 	load(): void {
+		// set locale from config
+		moment.locale(this.config.lang);
+		
 		this.assignmentService.getCurrentAssignment().subscribe((assignment: Assignment) => {
 			if(assignment)
 			{
@@ -82,7 +79,10 @@ export class HomePage implements OnInit {
 					this.currentWaypointDatestring = moment(this.currentWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
 					this.currentWaypointOverdue = Date.now().valueOf() > this.currentWaypoint.scheduled_date.valueOf();
 					this.currentWaypointIconName = this.locationTypeIconMap[this.currentWaypoint.location.location_type];
-					this.currentWaypointLocationText = this.locationTypeDisplayTextMap[this.currentWaypoint.location.location_type];
+
+					this.translate.get('HOME.' + this.currentWaypoint.location.location_type.toUpperCase()).subscribe((text: string) => {
+						this.currentWaypointLocationText = text;
+					});
 				}
 
 				if(this.previousWaypoint) {

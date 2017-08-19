@@ -1,7 +1,7 @@
 <ion-header>
 	<ion-navbar>
 		<ion-title>
-			Login
+			{{ 'LOGIN.LOGIN' | translate }}
 		</ion-title>
 	</ion-navbar>
 </ion-header>
@@ -12,18 +12,18 @@
 		<ion-list>
 			
 			<ion-item>
-				<ion-label stacked>Username</ion-label>
+				<ion-label stacked>{{'LOGIN.USERNAME' | translate}}</ion-label>
 				<ion-input #username="ngModel" type="text" name="username" [(ngModel)]="model.username" required></ion-input>
 			</ion-item>
 
 			<ion-item>
-				<ion-label stacked>Password</ion-label>
+				<ion-label stacked>{{'LOGIN.PASSWORD' | translate}}</ion-label>
 				<ion-input #password="ngModel" type="password" name="password" [(ngModel)]="model.password" required></ion-input>
 			</ion-item>
 
 		</ion-list>
 
-		<button type="submit" ion-button>Log in</button>
+		<button type="submit" ion-button>{{ 'LOGIN.LOGIN' | translate }}</button>
 	</form>
 	
 </ion-content>

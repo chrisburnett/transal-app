@@ -1,7 +1,7 @@
 <ion-header>
 	<ion-navbar>
 		<ion-title *ngIf="currentAssignment">
-			Route {{currentAssignment.route.name}}
+			{{'HOME.ROUTE'|translate}} {{currentAssignment.route.name}}
 		</ion-title>
 		<ion-buttons start>
 			<button ion-button icon-only (click)="logout()">
@@ -15,14 +15,14 @@
 
 	<!-- contingencies -->
 	<div *ngIf="!currentAssignment">
-		You are not currently assigned to a route.
+		{{'HOME.NO_ROUTE_MSG'|translate}}
 	</div>
 
 	<!-- waypoint cards -->
 	<div *ngIf="currentAssignment">
 		<ion-card class="previousCard" *ngIf="previousWaypoint">
 			<ion-card-header>
-				Previous Waypoint
+				{{'HOME.PREVIOUS_WAYPOINT'|translate}}
 			</ion-card-header>
 			<ion-card-content>
 				<h2>{{previousWaypoint.location.name}}</h2>
@@ -32,7 +32,7 @@
 		</ion-card>
 		<ion-card class="currentCard" *ngIf="currentWaypoint">
 			<ion-card-header>
-				Driving to: {{currentWaypointLocationText}}
+				{{'HOME.DRIVING_TO'|translate}}: {{currentWaypointLocationText}}
 			</ion-card-header>
 			<ion-card-content>
 				<ion-item>
@@ -41,18 +41,18 @@
 					<p>{{currentWaypoint.location.address}}</p>
 				</ion-item>
 				<ion-item>
-					<span item-left>Due: {{currentWaypointDatestring}}</span>
+					<span item-left>{{'HOME.DUE'|translate}}: {{currentWaypointDatestring}}</span>
 					<span item-left [ngClass]="{'overdue': currentWaypointOverdue, 'pending': !currentWaypointOverdue}">({{timeToCurrentWaypoint}})</span>
 					<button ion-button icon-left clear item-end (click)="showConfirm()">
 						<ion-icon name="navigate"></ion-icon>
-						Check-in
+						{{'HOME.CHECK_IN'|translate}}
 					</button>
 				</ion-item>
 			</ion-card-content>
 		</ion-card>
 		<ion-card class="nextCard" *ngIf="nextWaypoint">
 			<ion-card-header>
-				Next Waypoint
+				{{'HOME.NEXT_WAYPOINT'|translate}}
 			</ion-card-header>
 			<ion-card-content>
 				<h2>{{nextWaypoint.location.name}}</h2>
@@ -63,7 +63,7 @@
 	</div>
 
 	<ion-card-content *ngIf="!currentWaypoint">
-		No further waypoints pending on this route.
+		{{'HOME.NO_MORE_WAYPOINTS_MSG'|translate}}
 	</ion-card-content>
 	
 	
