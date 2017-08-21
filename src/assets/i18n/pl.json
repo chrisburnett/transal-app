@@ -1,0 +1,32 @@
+{
+	"LOGIN": {
+		"USERNAME": "Użytkownik",
+		"PASSWORD": "Hasło",
+		"LOGIN": "Zaloguj się"
+	},
+	"HOME": {
+		"ROUTE": "Trasa",
+		"NO_ROUTE_MSG": "Nie ma dla ciebie wyznaczonej trasy w tym momencie.",
+		"PREVIOUS_WAYPOINT": "Poprzedni punkt trasy",
+		"DRIVING_TO": "W drodze do",
+		"DUE": "Spodziewany",
+		"CHECK_IN": "Zamelduj się",
+		"NEXT_WAYPOINT": "Następny punkt trasy",
+		"NO_MORE_WAYPOINTS_MSG": "Koniec trasy.",
+		"PICKUP": "Załadowanie",
+		"DELIVER": "Rozwładowanie",
+		"SERVICE": "Serwis",
+		"FUEL": "Tankowanie",
+		"OFFICE": "Biuro transal",
+		"HANDOVER": "Zmiana kierowcy",
+		"NEW_WAYPOINT": "Nowy punkt trasy"
+	},
+	"NEW_WAYPOINT": {
+		"NEW_WAYPOINT": "Nowy punkt trasy",
+		"LOCATION_NAME": "Nazwa miejsca",
+		"ADDRESS": "Adres",
+		"LOCATION_TYPE": "Czynność",
+		"SUBMIT": "Wprowadź",
+		"CANCEL": "Anuluj"
+	}
+}

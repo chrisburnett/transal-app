@@ -10,18 +10,25 @@
 <ion-content padding>
 	<form [formGroup]="waypointForm" (ngSubmit)="submit()">
 		<ion-item>
-			<ion-label>Location Name</ion-label>
+			<ion-label>{{'NEW_WAYPOINT.LOCATION_NAME'|translate}}</ion-label>
 			<ion-input type="text" formControlName="name"></ion-input>
 		</ion-item>
 		<ion-item>
-			<ion-label>Location Type</ion-label>
-			<ion-input type="text" formControlName="locationType"></ion-input>
+			<ion-label>{{'NEW_WAYPOINT.LOCATION_TYPE'|translate}}</ion-label>
+			<ion-select formControlName="locationType">
+				<ion-option value="pickup">{{'HOME.PICKUP'|translate}}</ion-option>
+				<ion-option value="deliver">{{'HOME.DELIVER'|translate}}</ion-option>
+				<ion-option value="service">{{'HOME.SERVICE'|translate}}</ion-option>
+				<ion-option value="fuel">{{'HOME.FUEL'|translate}}</ion-option>
+				<ion-option value="office">{{'HOME.OFFICE'|translate}}</ion-option>
+				<ion-option value="handover">{{'HOME.HANDOVER'|translate}}</ion-option>
+			</ion-select>
 		</ion-item>
 		<ion-item>
-			<ion-label>Address</ion-label>
+			<ion-label>{{'NEW_WAYPOINT.ADDRESS'|translate}}</ion-label>
 			<ion-textarea formControlName="address"></ion-textarea>
 		</ion-item>
 	</form>
-	<button type="submit" ion-button>Submit</button>
-	<button color="light" ion-button navPop>Cancel</button>
+	<button type="submit" ion-button>{{'NEW_WAYPOINT.SUBMIT'|translate}}</button>
+	<button color="light" ion-button navPop>{{'NEW_WAYPOINT.CANCEL'|translate}}</button>
 </ion-content>

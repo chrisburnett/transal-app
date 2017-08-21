@@ -9,5 +9,5 @@ export interface IAppConfig {
 
 export const AppConfig: IAppConfig = {
 	apiEndpoint: "localhost:3000/api/v1",
-	lang: 'en'
+	lang: 'pl'
 }

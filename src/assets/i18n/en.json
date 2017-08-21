@@ -21,6 +21,11 @@
 		"HANDOVER": "Driver changeover"
 	},
 	"NEW_WAYPOINT": {
-		"NEW_WAYPOINT": "New Waypoint"
+		"NEW_WAYPOINT": "New Waypoint",
+		"LOCATION_NAME": "Location Name",
+		"ADDRESS": "Address",
+		"LOCATION_TYPE": "Location Type",
+		"SUBMIT": "Submit",
+		"CANCEL": "Cancel"
 	}
 }
