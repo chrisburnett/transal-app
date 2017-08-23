@@ -18,16 +18,28 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class WaypointService {
 
+	url = `http://${this.config.apiEndpoint}/waypoints`;
+	
 	constructor(@Inject(APP_CONFIG) private config, public http: Http, public storage: Storage) {}
 
 	update(waypoint: Waypoint): Observable<any> {
-		const url = `http://${this.config.apiEndpoint}/waypoints`;
+		
 		let headers: Headers = new Headers();
 		
 		return Observable.fromPromise(this.storage.get("token"))
 			.mergeMap(token => {
 				headers.append('Authorization', 'Bearer ' + token);
-				return this.http.put(url + '/' + waypoint.id, { waypoint: waypoint }, {headers: headers})
+				return this.http.put(this.url + '/' + waypoint.id, { waypoint: waypoint }, {headers: headers})
+					.map(response => response.json() as Waypoint);
+			});
+	}
+
+	create(waypoint: Waypoint): Observable<any> {
+		let headers: Headers = new Headers();
+		return Observable.fromPromise(this.storage.get("token"))
+			.mergeMap(token => {
+				headers.append('Authorization', 'Bearer ' + token);
+				return this.http.post(this.url + '/', { waypoint: waypoint }, {headers: headers})
 					.map(response => response.json() as Waypoint);
 			});
 	}

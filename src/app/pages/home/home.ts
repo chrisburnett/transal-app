@@ -41,7 +41,7 @@ export class HomePage implements OnInit {
 	currentWaypointIconName: string;
 	currentWaypointLocationText: string;
 	
-	locationTypeIconMap = {
+	activityIconMap = {
 		"pickup": "arrow-up",
 		"deliver": "arrow-down",
 		"service": "build",
@@ -82,9 +82,9 @@ export class HomePage implements OnInit {
 						moment(this.currentWaypoint.scheduled_date).fromNow();
 					this.currentWaypointDatestring = moment(this.currentWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
 					this.currentWaypointOverdue = Date.now().valueOf() > this.currentWaypoint.scheduled_date.valueOf();
-					this.currentWaypointIconName = this.locationTypeIconMap[this.currentWaypoint.location.location_type];
+					this.currentWaypointIconName = this.activityIconMap[this.currentWaypoint.activity];
 
-					this.translate.get('HOME.' + this.currentWaypoint.location.location_type.toUpperCase()).subscribe((text: string) => {
+					this.translate.get('HOME.' + this.currentWaypoint.activity.toUpperCase()).subscribe((text: string) => {
 						this.currentWaypointLocationText = text;
 					});
 				}

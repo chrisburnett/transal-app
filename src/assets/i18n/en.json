@@ -24,7 +24,13 @@
 		"NEW_WAYPOINT": "New Waypoint",
 		"LOCATION_NAME": "Location Name",
 		"ADDRESS": "Address",
-		"LOCATION_TYPE": "Location Type",
+		"ACTIVITY": "Location Type",
+		"SUBMIT": "Submit",
+		"CANCEL": "Cancel"
+	},
+	"NEW_READING": {
+		"ODOMETER": "Odometer",
+		"MAUT": "Maut",
 		"SUBMIT": "Submit",
 		"CANCEL": "Cancel"
 	}

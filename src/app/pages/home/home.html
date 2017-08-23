@@ -70,7 +70,7 @@
 	
 	<ion-footer>
 		<ion-toolbar>
-			<button [navPush]="waypointFormPage" ion-button block>{{'HOME.NEW_WAYPOINT'|translate}}</button>
+			<button [navPush]="waypointFormPage" [navParams]="{ currentAssignment: currentAssignment }" ion-button block>{{'HOME.NEW_WAYPOINT'|translate}}</button>
 		</ion-toolbar>
 	</ion-footer>
 </ion-content>

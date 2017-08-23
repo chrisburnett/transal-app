@@ -10,12 +10,8 @@
 <ion-content padding>
 	<form [formGroup]="waypointForm" (ngSubmit)="submit()">
 		<ion-item>
-			<ion-label>{{'NEW_WAYPOINT.LOCATION_NAME'|translate}}</ion-label>
-			<ion-input type="text" formControlName="name"></ion-input>
-		</ion-item>
-		<ion-item>
-			<ion-label>{{'NEW_WAYPOINT.LOCATION_TYPE'|translate}}</ion-label>
-			<ion-select formControlName="locationType">
+			<ion-label>{{'NEW_WAYPOINT.ACTIVITY'|translate}}</ion-label>
+			<ion-select formControlName="activity">
 				<ion-option value="pickup">{{'HOME.PICKUP'|translate}}</ion-option>
 				<ion-option value="deliver">{{'HOME.DELIVER'|translate}}</ion-option>
 				<ion-option value="service">{{'HOME.SERVICE'|translate}}</ion-option>
@@ -24,11 +20,29 @@
 				<ion-option value="handover">{{'HOME.HANDOVER'|translate}}</ion-option>
 			</ion-select>
 		</ion-item>
-		<ion-item>
-			<ion-label>{{'NEW_WAYPOINT.ADDRESS'|translate}}</ion-label>
-			<ion-textarea formControlName="address"></ion-textarea>
-		</ion-item>
+
+		<div formGroupName="location_attributes">
+			<ion-item>
+				<ion-label>{{'NEW_WAYPOINT.LOCATION_NAME'|translate}}</ion-label>
+				<ion-input type="text" formControlName="name"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label>{{'NEW_WAYPOINT.ADDRESS'|translate}}</ion-label>
+				<ion-textarea formControlName="address"></ion-textarea>
+			</ion-item>
+		</div>
+		
+		<div formGroupName="reading_attributes">
+			<ion-item>
+				<ion-label>{{'NEW_READING.ODOMETER'|translate}}</ion-label>
+				<ion-input type="text" formControlName="odometer"></ion-input>
+			</ion-item>
+			<ion-item>
+				<ion-label>{{'NEW_READING.MAUT'|translate}}</ion-label>
+				<ion-input formControlName="maut"></ion-input>
+			</ion-item>
+		</div>
+	   	<button type="submit" ion-button>{{'NEW_WAYPOINT.SUBMIT'|translate}}</button>
+		<button color="light" ion-button navPop>{{'NEW_WAYPOINT.CANCEL'|translate}}</button>
 	</form>
-	<button type="submit" ion-button>{{'NEW_WAYPOINT.SUBMIT'|translate}}</button>
-	<button color="light" ion-button navPop>{{'NEW_WAYPOINT.CANCEL'|translate}}</button>
 </ion-content>

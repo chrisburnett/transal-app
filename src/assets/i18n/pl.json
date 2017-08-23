@@ -25,8 +25,14 @@
 		"NEW_WAYPOINT": "Nowy punkt trasy",
 		"LOCATION_NAME": "Nazwa miejsca",
 		"ADDRESS": "Adres",
-		"LOCATION_TYPE": "Czynność",
+		"ACTIVITY": "Czynność",
 		"SUBMIT": "Wprowadź",
 		"CANCEL": "Anuluj"
+	},
+	"NEW_READING": {
+		"ODOMETER": "Stan licznika",
+		"MAUT": "Stan maut",
+		"SUBMIT": "Submit",
+		"CANCEL": "Cancel"
 	}
 }
