@@ -19,7 +19,11 @@
 		"FUEL": "Tankowanie",
 		"OFFICE": "Biuro transal",
 		"HANDOVER": "Zmiana kierowcy",
-		"NEW_WAYPOINT": "Nowy punkt trasy"
+		"NEW_WAYPOINT": "Nowy punkt trasy",
+		"CHECK_IN_TITLE": "Potwierdzenie",
+		"CHECK_IN_MSG": "Czy jesteś pewny, że chcesz zameldować się?",
+		"CHECK_IN_NO": "Nie",
+		"CHECK_IN_YES": "Tak"
 	},
 	"NEW_WAYPOINT": {
 		"NEW_WAYPOINT": "Nowy punkt trasy",

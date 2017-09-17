@@ -96,6 +96,8 @@ export class HomePage implements OnInit {
 				if(this.nextWaypoint) {
 					this.nextWaypointDatestring = moment(this.nextWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
 				}
+
+				
 			}
 		});
 	}
@@ -114,17 +116,17 @@ export class HomePage implements OnInit {
 	
 	showConfirm(): void {
 		let confirm = this.alertCtrl.create({
-			title: 'Check-in',
-			message: 'Are you sure you want to check in to this waypoint?',
+			title: this.translate.instant('HOME.CHECK_IN_TITLE'),
+			message: this.translate.instant('HOME.CHECK_IN_MSG'),
 			buttons: [
 				{
-				text: 'No',
+				text: this.translate.instant('HOME.CHECK_IN_NO'),
 				handler: () => {
 					
 				}
 			},
 				{
-				text: 'Yes',
+				text: this.translate.instant('HOME.CHECK_IN_YES'),
 				handler: () => {
 					this.checkIn();
 				}

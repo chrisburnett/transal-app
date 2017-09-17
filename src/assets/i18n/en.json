@@ -18,7 +18,12 @@
 		"SERVICE": "Service",
 		"FUEL": "Fuel stop",
 		"OFFICE": "Return to base",
-		"HANDOVER": "Driver changeover"
+		"HANDOVER": "Driver changeover",
+		"NEW_WAYPOINT": "New waypoint",
+		"CHECK_IN_TITLE": "Confirm",
+		"CHECK_IN_MSG": "Are you sure you want to check in?",
+		"CHECK_IN_NO": "No",
+		"CHECK_IN_YES": "Yes"
 	},
 	"NEW_WAYPOINT": {
 		"NEW_WAYPOINT": "New Waypoint",
