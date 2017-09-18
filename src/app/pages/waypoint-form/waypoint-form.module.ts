@@ -4,7 +4,6 @@ import { WaypointFormPage } from './waypoint-form';
 
 @NgModule({
   declarations: [
-    WaypointFormPage,
   ],
   imports: [
     IonicPageModule.forChild(WaypointFormPage),
