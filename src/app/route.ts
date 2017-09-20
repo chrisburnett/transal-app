@@ -33,6 +33,6 @@ export class Route {
 		}
 		return route.waypoints
 			.filter(wp => wp.actual_date != null)
-			.sort((wpA, wpB) => new Date(wpB.scheduled_date).valueOf() - new Date(wpA.scheduled_date).valueOf())[0]; 
+			.sort((wpA, wpB) => new Date(wpB.actual_date).valueOf() - new Date(wpA.actual_date).valueOf())[0]; 
 	}
 }

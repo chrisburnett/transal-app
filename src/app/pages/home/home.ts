@@ -98,7 +98,7 @@ export class HomePage implements OnInit {
 				}
 
 				if(this.previousWaypoint && this.previousWaypoint.scheduled) {
-					this.previousWaypointDatestring = moment(this.previousWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
+					this.previousWaypointDatestring = moment(this.previousWaypoint.actual_date).format("ddd, D MMM YYYY, H:mm:ss a");
 				}
 
 				if(this.nextWaypoint && this.nextWaypoint.scheduled) {
