@@ -37,10 +37,13 @@ export class WaypointFormPage implements OnInit {
 		let currentAssignment: Assignment = this.navParams.get("currentAssignment");
 		this.waypoint = this.waypointForm.value;
 		this.waypoint.route_id = currentAssignment.route.id;
+		this.waypoint.scheduled = false;
 		this.waypoint.reading_attributes.truck_id = currentAssignment.truck_id;
-		
+		this.waypoint.scheduled_date = new Date();
+		this.waypoint.actual_date = this.waypoint.scheduled_date;
+
 		//TODO: THIS IS WHERE CALL WILL START TO POST NEW WP, CHECK THIS WORKS
-		this.waypointService.create(this.waypoint).subscribe(() => console.log("done something"));
+		this.waypointService.create(this.waypoint).subscribe(() => this.navCtrl.pop());
 	}
 	
 }

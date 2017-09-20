@@ -64,6 +64,10 @@ export class HomePage implements OnInit {
 		this.load();
 	}
 
+	ionViewDidEnter() {
+		this.load();
+	}
+
 	load(): void {
 		// set locale from config
 		moment.locale(this.config.lang);
@@ -76,12 +80,16 @@ export class HomePage implements OnInit {
 				this.previousWaypoint = Route.getPreviousWaypoint(assignment.route);
 				this.nextWaypoint = Route.getNextWaypoint(assignment.route);
 
-				if(this.currentWaypoint) {
-					this.timeToCurrentWaypoint = Date.now().valueOf() > this.currentWaypoint.scheduled_date.valueOf() ?
-						moment(this.currentWaypoint.scheduled_date).toNow() :
-						moment(this.currentWaypoint.scheduled_date).fromNow();
-					this.currentWaypointDatestring = moment(this.currentWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
-					this.currentWaypointOverdue = Date.now().valueOf() > this.currentWaypoint.scheduled_date.valueOf();
+				if(this.currentWaypoint)
+				{
+					if(this.currentWaypoint.scheduled)
+					{
+						this.timeToCurrentWaypoint = Date.now().valueOf() > this.currentWaypoint.scheduled_date.valueOf() ?
+							moment(this.currentWaypoint.scheduled_date).toNow() :
+							moment(this.currentWaypoint.scheduled_date).fromNow();
+						this.currentWaypointDatestring = moment(this.currentWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
+						this.currentWaypointOverdue = Date.now().valueOf() > this.currentWaypoint.scheduled_date.valueOf();
+					}
 					this.currentWaypointIconName = this.activityIconMap[this.currentWaypoint.activity];
 
 					this.translate.get('HOME.' + this.currentWaypoint.activity.toUpperCase()).subscribe((text: string) => {
@@ -89,11 +97,11 @@ export class HomePage implements OnInit {
 					});
 				}
 
-				if(this.previousWaypoint) {
+				if(this.previousWaypoint && this.previousWaypoint.scheduled) {
 					this.previousWaypointDatestring = moment(this.previousWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
 				}
 
-				if(this.nextWaypoint) {
+				if(this.nextWaypoint && this.nextWaypoint.scheduled) {
 					this.nextWaypointDatestring = moment(this.nextWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
 				}
 
