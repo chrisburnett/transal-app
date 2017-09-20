@@ -44,8 +44,8 @@
 					<p>{{currentWaypoint.location.address}}</p>
 				</ion-item>
 				<ion-item>
-					<span item-left>{{'HOME.DUE'|translate}}: {{currentWaypointDatestring}}</span>
-					<span item-left [ngClass]="{'overdue': currentWaypointOverdue, 'pending': !currentWaypointOverdue}">({{timeToCurrentWaypoint}})</span>
+					<h4>{{'HOME.DUE'|translate}}</h4>
+					<div>{{currentWaypointDatestring}} <span [ngClass]="{'overdue': currentWaypointOverdue, 'pending': !currentWaypointOverdue}">({{timeToCurrentWaypoint}})</span></div>
 				</ion-item>
 				<ion-item>
 					<button ion-button icon-left clear item-end (click)="showConfirm()">
