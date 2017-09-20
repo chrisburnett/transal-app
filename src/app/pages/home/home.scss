@@ -1,19 +1,25 @@
 page-home {
-	.overdue {
-		color: map-get($colors, danger);
-	}
+	
 	.pending {
 		color: map-get($colors, primary);
+		border-color: map-get($colors, primary);
 	}
-
 	.previousCard {
-		border-left: 6px solid map-get($colors, light);
+		border-left: 6px solid map-get($colors, secondary);
+	}
+	.unexpected {
+		color: map-get($colors, warning);
+		border-color: map-get($colors, warning);
 	}
 	.currentCard {
-		border-left: 6px solid map-get($colors, primary);
+		border-left: 6px solid map-get($colors, secondary);
+	}
+	.overdue {
+		color: map-get($colors, danger);
+		border-color: map-get($colors, danger);
 	}
 	.nextCard {
-		border-left: 6px solid map-get($colors, light);
+		border-left: 6px solid map-get($colors, primary);
 	}
 	
 }

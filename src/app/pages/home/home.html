@@ -23,7 +23,7 @@
 
 	<!-- waypoint cards -->
 	<div *ngIf="currentAssignment">
-		<ion-card class="previousCard" *ngIf="previousWaypoint">
+		<ion-card class="previousCard" [ngClass]="{'unexpected': !previousWaypoint.scheduled}" *ngIf="previousWaypoint">
 			<ion-card-header>
 				{{'HOME.PREVIOUS_WAYPOINT'|translate}}
 			</ion-card-header>
@@ -33,7 +33,7 @@
 				<p>{{previousWaypointDatestring}}</p>
 			</ion-card-content>
 		</ion-card>
-		<ion-card class="currentCard" *ngIf="currentWaypoint">
+		<ion-card class="currentCard" [ngClass]="{'overdue': currentWaypointOverdue}" *ngIf="currentWaypoint">
 			<ion-card-header>
 				{{'HOME.DRIVING_TO'|translate}}: {{currentWaypointLocationText}}
 			</ion-card-header>
