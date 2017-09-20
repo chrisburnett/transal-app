@@ -22,7 +22,7 @@ import { AuthHttp } from 'angular2-jwt';
 import { APP_CONFIG, AppConfig } from './app.config';
 
 export function createTranslateLoader(http: Http) {
-    return new TranslateHttpLoader(http, '../assets/i18n/', '.json');
+    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
