@@ -31,7 +31,10 @@
 		"ADDRESS": "Address",
 		"ACTIVITY": "Location Type",
 		"SUBMIT": "Submit",
-		"CANCEL": "Cancel"
+		"CANCEL": "Cancel",
+		"ADDITIONAL_KM": "Additional Km",
+		"LITRES_DIESEL": "No. litres",
+		"PRICE_PER_LITRE": "Diesel price"
 	},
 	"NEW_READING": {
 		"ODOMETER": "Odometer",

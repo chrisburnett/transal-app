@@ -31,7 +31,10 @@
 		"ADDRESS": "Adres",
 		"ACTIVITY": "Czynność",
 		"SUBMIT": "Wprowadź",
-		"CANCEL": "Anuluj"
+		"CANCEL": "Anuluj",
+		"ADDITIONAL_KM": "Km dodatkowe",
+		"LITRES_DIESEL": "Ilość litrów",
+		"PRICE_PER_LITRE": "Cena diesla"
 	},
 	"NEW_READING": {
 		"ODOMETER": "Stan licznika",

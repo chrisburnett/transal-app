@@ -11,7 +11,7 @@
 	<form [formGroup]="waypointForm" (ngSubmit)="submit()">
 		<ion-item>
 			<ion-label>{{'NEW_WAYPOINT.ACTIVITY'|translate}}</ion-label>
-			<ion-select formControlName="activity">
+			<ion-select #activityCtrl formControlName="activity">
 				<ion-option value="pickup">{{'HOME.PICKUP'|translate}}</ion-option>
 				<ion-option value="deliver">{{'HOME.DELIVER'|translate}}</ion-option>
 				<ion-option value="service">{{'HOME.SERVICE'|translate}}</ion-option>
@@ -42,6 +42,23 @@
 				<ion-input formControlName="maut"></ion-input>
 			</ion-item>
 		</div>
+
+		<ion-item>
+			<ion-label>{{'NEW_WAYPOINT.ADDITIONAL_KM'|translate}}</ion-label>
+			<ion-input formControlName="additional_km"></ion-input>
+		</ion-item>
+
+		<!-- only if fuelling -->
+		<ion-item *ngIf="activityCtrl.value=='fuel'">
+			<ion-label>{{'NEW_WAYPOINT.PRICE_PER_LITRE'|translate}}</ion-label>
+			<ion-input formControlName="price_per_litre"></ion-input>
+		</ion-item>
+		<ion-item *ngIf="activityCtrl.value=='fuel'">
+			<ion-label>{{'NEW_WAYPOINT.LITRES_DIESEL'|translate}}</ion-label>
+			<ion-input formControlName="litres_diesel"></ion-input>
+		</ion-item>
+		<!-- end only if fuelling -->
+
 	   	<button type="submit" ion-button>{{'NEW_WAYPOINT.SUBMIT'|translate}}</button>
 		<button color="light" ion-button navPop>{{'NEW_WAYPOINT.CANCEL'|translate}}</button>
 	</form>
