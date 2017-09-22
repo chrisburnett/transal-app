@@ -39,7 +39,10 @@ export class HomePage implements OnInit {
 	nextWaypointDatestring: string;
 
 	currentWaypointIconName: string;
+	nextWaypointIconName: string;
+	previousWaypointIconName: string;
 	currentWaypointLocationText: string;
+	nextWaypointLocationText: string;
 	
 	activityIconMap = {
 		"pickup": "arrow-up",
@@ -97,12 +100,17 @@ export class HomePage implements OnInit {
 					});
 				}
 
-				if(this.previousWaypoint && this.previousWaypoint.scheduled) {
+				if(this.previousWaypoint) {
 					this.previousWaypointDatestring = moment(this.previousWaypoint.actual_date).format("ddd, D MMM YYYY, H:mm:ss a");
+					this.previousWaypointIconName = this.activityIconMap[this.previousWaypoint.activity];
 				}
 
-				if(this.nextWaypoint && this.nextWaypoint.scheduled) {
+				if(this.nextWaypoint) {
 					this.nextWaypointDatestring = moment(this.nextWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
+					this.nextWaypointIconName = this.activityIconMap[this.nextWaypoint.activity];
+					this.translate.get('HOME.' + this.currentWaypoint.activity.toUpperCase()).subscribe((text: string) => {
+						this.nextWaypointLocationText = text;
+					});
 				}
 
 				
