@@ -9,7 +9,7 @@
 
 <ion-content padding>
 	<form [formGroup]="waypointForm" (ngSubmit)="submit()">
-		<ion-item>
+		<ion-item [ngClass]="{'has-error': !waypointForm.controls.activity.valid && waypointForm.controls.activity.touched}">
 			<ion-label>{{'NEW_WAYPOINT.ACTIVITY'|translate}}</ion-label>
 			<ion-select #activityCtrl formControlName="activity">
 				<ion-option value="pickup">{{'HOME.PICKUP'|translate}}</ion-option>
@@ -22,10 +22,12 @@
 		</ion-item>
 
 		<div formGroupName="location_attributes">
-			<ion-item>
+			<ion-item [ngClass]="{'has-error': !waypointForm.controls.location_attributes.controls.name.valid && waypointForm.controls.location_attributes.controls.name.touched}">
 				<ion-label>{{'NEW_WAYPOINT.LOCATION_NAME'|translate}}</ion-label>
 				<ion-input type="text" formControlName="name"></ion-input>
 			</ion-item>
+			<!--><ion-item *ngIf="waypointForm.controls.location_attributes.controls.name.hasError('required') && waypointForm.controls.location_attributes.controls.name.touched"><p class="alert alert-danger">{{'NEW_WAYPOINT.LOCATION_NAME_VALIDATION_MSG'|translate}}<p></ion-item>-->
+
 			<ion-item>
 				<ion-label>{{'NEW_WAYPOINT.ADDRESS'|translate}}</ion-label>
 				<ion-textarea formControlName="address"></ion-textarea>
@@ -49,17 +51,17 @@
 		</ion-item>
 
 		<!-- only if fuelling -->
-		<ion-item *ngIf="activityCtrl.value=='fuel'">
+		<ion-item *ngIf="activityCtrl.value=='fuel'" [ngClass]="{'has-error': !waypointForm.controls.price_per_litre.valid && waypointForm.controls.price_per_litre.touched}">
 			<ion-label>{{'NEW_WAYPOINT.PRICE_PER_LITRE'|translate}}</ion-label>
 			<ion-input formControlName="price_per_litre"></ion-input>
 		</ion-item>
-		<ion-item *ngIf="activityCtrl.value=='fuel'">
+		<ion-item *ngIf="activityCtrl.value=='fuel'" [ngClass]="{'has-error': !waypointForm.controls.litres_diesel.valid && waypointForm.controls.litres_diesel.touched}">
 			<ion-label>{{'NEW_WAYPOINT.LITRES_DIESEL'|translate}}</ion-label>
 			<ion-input formControlName="litres_diesel"></ion-input>
 		</ion-item>
 		<!-- end only if fuelling -->
 
-	   	<button type="submit" ion-button>{{'NEW_WAYPOINT.SUBMIT'|translate}}</button>
+	   	<button type="submit" [disabled]="!waypointForm.valid" ion-button>{{'NEW_WAYPOINT.SUBMIT'|translate}}</button>
 		<button color="light" ion-button navPop>{{'NEW_WAYPOINT.CANCEL'|translate}}</button>
 	</form>
 </ion-content>

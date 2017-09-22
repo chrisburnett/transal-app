@@ -34,7 +34,8 @@
 		"CANCEL": "Anuluj",
 		"ADDITIONAL_KM": "Km dodatkowe",
 		"LITRES_DIESEL": "Ilość litrów",
-		"PRICE_PER_LITRE": "Cena diesla"
+		"PRICE_PER_LITRE": "Cena diesla",
+		"LOCATION_NAME_VALIDATION_MSG": "Podaj nazwę miejsca"
 	},
 	"NEW_READING": {
 		"ODOMETER": "Stan licznika",

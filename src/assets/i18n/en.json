@@ -34,7 +34,8 @@
 		"CANCEL": "Cancel",
 		"ADDITIONAL_KM": "Additional Km",
 		"LITRES_DIESEL": "No. litres",
-		"PRICE_PER_LITRE": "Diesel price"
+		"PRICE_PER_LITRE": "Diesel price",
+		"LOCATION_NAME_VALIDATION_MSG": "Location Name is required"
 	},
 	"NEW_READING": {
 		"ODOMETER": "Odometer",
