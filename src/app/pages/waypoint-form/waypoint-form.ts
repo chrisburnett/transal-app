@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { TranslateService } from '@ngx-translate/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Waypoint } from '../../waypoint';
 import { Reading } from '../../reading';
@@ -16,8 +17,10 @@ export class WaypointFormPage implements OnInit {
 	waypoint: Waypoint;
 	waypointForm: FormGroup;
 	currentAssignment: Assignment;
+
+	title: string;
 	
-	constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private waypointService: WaypointService) {
+	constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private waypointService: WaypointService, public translate: TranslateService) {
 		this.waypointForm = this.formBuilder.group({
 			activity: ['', Validators.required],
 			location_attributes : this.formBuilder.group({
@@ -60,6 +63,16 @@ export class WaypointFormPage implements OnInit {
 			this.waypoint.reading_attributes = new Reading();
 			this.waypoint.scheduled_date = new Date();
 			this.waypoint.actual_date = this.waypoint.scheduled_date;
+
+			this.translate.get('NEW_WAYPOINT.NEW_WAYPOINT').subscribe((text: string) => this.title = text);
+		}
+		else
+		{
+			this.translate.get('CHECK_IN.CHECK_IN').subscribe((text: string) => this.title = text);
+			this.waypointForm.controls.activity.setValue(this.waypoint.activity);
+
+			// for existing waypoints we don't need this structure
+			this.waypointForm.removeControl('location_attributes');
 		}
 	}
 
@@ -68,6 +81,15 @@ export class WaypointFormPage implements OnInit {
 		let waypoint = { ...this.waypoint, ...this.waypointForm.value };
 		waypoint.reading_attributes.truck_id = this.currentAssignment.truck_id;
 		waypoint.route_id = this.currentAssignment.route.id;
-		this.waypointService.create(waypoint).subscribe(() => this.navCtrl.pop());
+
+		if(waypoint.scheduled)
+		{
+			this.waypointService.update(waypoint).subscribe(() => this.navCtrl.pop());	
+		}
+		else
+		{
+			this.waypointService.create(waypoint).subscribe(() => this.navCtrl.pop());	
+		}
+		
 	}
 }

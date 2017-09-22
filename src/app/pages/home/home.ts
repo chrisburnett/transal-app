@@ -125,9 +125,7 @@ export class HomePage implements OnInit {
 
 	checkIn(): void {
 		this.currentWaypoint.actual_date = new Date(Date.now());
-
-		// lazy... reloading entire component. Necessary to do this?
-		this.waypointService.update(this.currentWaypoint).subscribe(() => this.load());
+		this.navCtrl.push(WaypointFormPage, { waypoint: this.currentWaypoint, currentAssignment: this.currentAssignment });
 	}
 	
 	showConfirm(): void {

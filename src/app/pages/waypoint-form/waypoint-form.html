@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>{{'NEW_WAYPOINT.NEW_WAYPOINT'|translate}}</ion-title>
+    <ion-title>{{title}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -9,7 +9,7 @@
 
 <ion-content padding>
 	<form [formGroup]="waypointForm" (ngSubmit)="submit()">
-		<ion-item [ngClass]="{'has-error': !waypointForm.controls.activity.valid && waypointForm.controls.activity.touched}">
+		<ion-item [hidden]="waypoint.scheduled" [ngClass]="{'has-error': !waypointForm.controls.activity.valid && waypointForm.controls.activity.touched}">
 			<ion-label>{{'NEW_WAYPOINT.ACTIVITY'|translate}}</ion-label>
 			<ion-select #activityCtrl formControlName="activity">
 				<ion-option value="pickup">{{'HOME.PICKUP'|translate}}</ion-option>
@@ -21,7 +21,7 @@
 			</ion-select>
 		</ion-item>
 
-		<div formGroupName="location_attributes">
+		<div formGroupName="location_attributes" *ngIf="!waypoint.scheduled">
 			<ion-item [ngClass]="{'has-error': !waypointForm.controls.location_attributes.controls.name.valid && waypointForm.controls.location_attributes.controls.name.touched}">
 				<ion-label>{{'NEW_WAYPOINT.LOCATION_NAME'|translate}}</ion-label>
 				<ion-input type="text" formControlName="name"></ion-input>

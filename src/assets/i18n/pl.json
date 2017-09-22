@@ -7,11 +7,11 @@
 	"HOME": {
 		"ROUTE": "Trasa",
 		"NO_ROUTE_MSG": "Nie ma dla ciebie wyznaczonej trasy w tym momencie.",
-		"PREVIOUS_WAYPOINT": "Poprzedni punkt trasy",
+		"PREVIOUS_WAYPOINT": "Poprzedni",
 		"DRIVING_TO": "W drodze do",
 		"DUE": "Planowana data i czas przyjazdu",
 		"CHECK_IN": "Zamelduj się",
-		"NEXT_WAYPOINT": "Następny punkt trasy",
+		"NEXT_WAYPOINT": "Następny",
 		"NO_MORE_WAYPOINTS_MSG": "Koniec trasy.",
 		"PICKUP": "Załadowanie",
 		"DELIVER": "Rozładowanie",
@@ -21,7 +21,7 @@
 		"HANDOVER": "Zmiana kierowcy",
 		"NEW_WAYPOINT": "Dodaj nieplanowany punkt trasy",
 		"CHECK_IN_TITLE": "Potwierdzenie",
-		"CHECK_IN_MSG": "Czy jesteś pewny, że chcesz zameldować się?",
+		"CHECK_IN_MSG": "Czy jesteś pewny, że chcesz się zameldować?",
 		"CHECK_IN_NO": "Nie",
 		"CHECK_IN_YES": "Tak"
 	},
@@ -36,6 +36,9 @@
 		"LITRES_DIESEL": "Ilość litrów",
 		"PRICE_PER_LITRE": "Cena diesla",
 		"LOCATION_NAME_VALIDATION_MSG": "Podaj nazwę miejsca"
+	},
+	"CHECK_IN": {
+		"CHECK_IN": "Zameldowanie się to punktu trasy"
 	},
 	"NEW_READING": {
 		"ODOMETER": "Stan licznika",
