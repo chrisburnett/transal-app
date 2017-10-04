@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Inject } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
+import { LoadingController } from 'ionic-angular';
 import { User } from '../../user';
 import { LoginPage } from '../login/login';
 import { WaypointFormPage } from '../waypoint-form/waypoint-form';
@@ -55,7 +56,7 @@ export class HomePage implements OnInit {
 
 	waypointFormPage: any;
 
-	constructor(@Inject(APP_CONFIG) private config, public alertCtrl: AlertController, public navCtrl: NavController, public authService: AuthService, public assignmentService: AssignmentService, public waypointService: WaypointService, public translate: TranslateService) {}
+	constructor(@Inject(APP_CONFIG) private config, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public navCtrl: NavController, public authService: AuthService, public assignmentService: AssignmentService, public waypointService: WaypointService, public translate: TranslateService) {}
 
 	ngOnInit() {
 		this.waypointFormPage = WaypointFormPage;
@@ -72,50 +73,62 @@ export class HomePage implements OnInit {
 	}
 
 	load(): void {
-		// set locale from config
+		const loading = this.loadingCtrl.create();
+		loading.present();
+
 		moment.locale(this.config.lang);
 		
-		this.assignmentService.getCurrentAssignment().subscribe((assignment: Assignment) => {
-			if(assignment)
-			{
-				this.currentAssignment = assignment;
-				this.currentWaypoint = Route.getCurrentWaypoint(assignment.route);	
-				this.previousWaypoint = Route.getPreviousWaypoint(assignment.route);
-				this.nextWaypoint = Route.getNextWaypoint(assignment.route);
-
-				if(this.currentWaypoint)
-				{
-					if(this.currentWaypoint.scheduled)
+		this.assignmentService.getCurrentAssignment()
+			.subscribe(
+				(assignment: Assignment) => {
+					if(assignment)
 					{
-						this.timeToCurrentWaypoint = Date.now().valueOf() > this.currentWaypoint.scheduled_date.valueOf() ?
-							moment(this.currentWaypoint.scheduled_date).toNow() :
-							moment(this.currentWaypoint.scheduled_date).fromNow();
-						this.currentWaypointDatestring = moment(this.currentWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
-						this.currentWaypointOverdue = Date.now().valueOf() > this.currentWaypoint.scheduled_date.valueOf();
+						this.currentAssignment = assignment;
+						this.currentWaypoint = Route.getCurrentWaypoint(assignment.route);	
+						this.previousWaypoint = Route.getPreviousWaypoint(assignment.route);
+						this.nextWaypoint = Route.getNextWaypoint(assignment.route);
+						
+						if(this.currentWaypoint)
+						{
+							if(this.currentWaypoint.scheduled)
+							{
+								this.timeToCurrentWaypoint = Date.now().valueOf() > this.currentWaypoint.scheduled_date.valueOf() ?
+									moment(this.currentWaypoint.scheduled_date).toNow() :
+									moment(this.currentWaypoint.scheduled_date).fromNow();
+								this.currentWaypointDatestring = moment(this.currentWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
+								this.currentWaypointOverdue = Date.now().valueOf() > this.currentWaypoint.scheduled_date.valueOf();
+							}
+							this.currentWaypointIconName = this.activityIconMap[this.currentWaypoint.activity];
+							
+							this.translate.get('HOME.' + this.currentWaypoint.activity.toUpperCase()).subscribe((text: string) => {
+								this.currentWaypointLocationText = text;
+							});
+						}
+						
+						if(this.previousWaypoint) {
+							this.previousWaypointDatestring = moment(this.previousWaypoint.actual_date).format("ddd, D MMM YYYY, H:mm:ss a");
+							this.previousWaypointIconName = this.activityIconMap[this.previousWaypoint.activity];
+						}
+						
+						if(this.nextWaypoint) {
+							this.nextWaypointDatestring = moment(this.nextWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
+							this.nextWaypointIconName = this.activityIconMap[this.nextWaypoint.activity];
+							this.translate.get('HOME.' + this.currentWaypoint.activity.toUpperCase()).subscribe((text: string) => {
+								this.nextWaypointLocationText = text;
+							});
+						}
 					}
-					this.currentWaypointIconName = this.activityIconMap[this.currentWaypoint.activity];
-
-					this.translate.get('HOME.' + this.currentWaypoint.activity.toUpperCase()).subscribe((text: string) => {
-						this.currentWaypointLocationText = text;
-					});
+					loading.dismiss();
+				},
+				(error: any) => {
+					// TODO: CHECK TYPE OF ERROR - HANDLE NO CONNECTION
+					if(error.status == 401) {
+						loading.dismiss();
+						this.navCtrl.setRoot(LoginPage);	
+					}
+					// TODO: ELSE OFFLINE
 				}
-
-				if(this.previousWaypoint) {
-					this.previousWaypointDatestring = moment(this.previousWaypoint.actual_date).format("ddd, D MMM YYYY, H:mm:ss a");
-					this.previousWaypointIconName = this.activityIconMap[this.previousWaypoint.activity];
-				}
-
-				if(this.nextWaypoint) {
-					this.nextWaypointDatestring = moment(this.nextWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
-					this.nextWaypointIconName = this.activityIconMap[this.nextWaypoint.activity];
-					this.translate.get('HOME.' + this.currentWaypoint.activity.toUpperCase()).subscribe((text: string) => {
-						this.nextWaypointLocationText = text;
-					});
-				}
-
-				
-			}
-		});
+			)
 	}
 
 	logout(): void {
