@@ -23,7 +23,9 @@
 		"CHECK_IN_TITLE": "Potwierdzenie",
 		"CHECK_IN_MSG": "Czy jesteś pewny, że chcesz się zameldować?",
 		"CHECK_IN_NO": "Nie",
-		"CHECK_IN_YES": "Tak"
+		"CHECK_IN_YES": "Tak",
+		"CURRENT_WAYPOINT_UNCONFIRMED": "Naciśnij, aby potwierdzić punkt",
+		"CURRENT_WAYPOINT_CONFIRMED": "Potwierdzony"
 	},
 	"NEW_WAYPOINT": {
 		"NEW_WAYPOINT": "Dodaj nieplanowany punkt trasy",

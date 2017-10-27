@@ -24,6 +24,8 @@
 		"CHECK_IN_MSG": "Are you sure you want to check in?",
 		"CHECK_IN_NO": "No",
 		"CHECK_IN_YES": "Yes"
+		"CURRENT_WAYPOINT_UNCONFIRMED": "Tap to confirm waypoint",
+		"CURRENT_WAYPOINT_CONFIRMED": "Confirmed"
 	},
 	"NEW_WAYPOINT": {
 		"NEW_WAYPOINT": "New Waypoint",

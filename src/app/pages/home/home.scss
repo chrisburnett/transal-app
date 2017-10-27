@@ -21,5 +21,11 @@ page-home {
 	.nextCard {
 		border-left: 6px solid map-get($colors, primary);
 	}
+	.current-waypoint-unconfirmed {
+		color: map-get($colors, primary);
+	}
+	.current-waypoint-confirmed {
+		color: map-get($colors, secondary);
+	}
 	
 }

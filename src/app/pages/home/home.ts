@@ -162,4 +162,9 @@ export class HomePage implements OnInit {
 		});
 		confirm.present();
 	}
+
+	currentCardTapped(event): void {
+		this.currentWaypoint.read = true;
+		this.waypointService.update(this.currentWaypoint).subscribe();
+	}
 }

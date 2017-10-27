@@ -18,4 +18,5 @@ export class Waypoint {
 	additional_km_reason: string;
 	reading_attributes: Reading;
 	route_id: string;
+	read: boolean;
 }

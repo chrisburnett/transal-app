@@ -33,11 +33,17 @@
 				<p>{{previousWaypointDatestring}}</p>
 			</ion-card-content>
 		</ion-card>
-		<ion-card class="currentCard" [ngClass]="{'overdue': currentWaypointOverdue}" *ngIf="currentWaypoint">
+		<ion-card (tap)="currentCardTapped($event)" class="currentCard" [ngClass]="{'overdue': currentWaypointOverdue}" *ngIf="currentWaypoint">
 			<ion-card-header>
 				{{'HOME.DRIVING_TO'|translate}}: {{currentWaypointLocationText}}
 			</ion-card-header>
 			<ion-card-content>
+				<ion-item *ngIf="!currentWaypoint.read" class="current-waypoint-unconfirmed">
+					<ion-icon name="ios-alert-outline"></ion-icon> {{'HOME.CURRENT_WAYPOINT_UNCONFIRMED'|translate}}
+				</ion-item>
+				<ion-item *ngIf="currentWaypoint.read" class="current-waypoint-confirmed">
+					<ion-icon name="ios-checkmark-circle-outline"></ion-icon> {{'HOME.CURRENT_WAYPOINT_CONFIRMED'|translate}}
+				</ion-item>
 				<ion-item>
 					<ion-icon name="{{currentWaypointIconName}}" item-start large></ion-icon>
 					<h2>{{currentWaypoint.location.name}}</h2>
