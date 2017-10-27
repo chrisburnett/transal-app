@@ -33,6 +33,7 @@
 		"SUBMIT": "Submit",
 		"CANCEL": "Cancel",
 		"ADDITIONAL_KM": "Additional Km",
+		"ADDITIONAL_KM": "Reason",
 		"LITRES_DIESEL": "No. litres",
 		"PRICE_PER_LITRE": "Diesel price",
 		"LOCATION_NAME_VALIDATION_MSG": "Location Name is required"

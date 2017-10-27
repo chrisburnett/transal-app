@@ -33,7 +33,8 @@ export class WaypointFormPage implements OnInit {
 			}),
 			additional_km: [''],
 			price_per_litre: [''],
-			litres_diesel: ['']
+			litres_diesel: [''],
+			additional_km_reason: ['']
 		});
 
 		// conditionally require values if fuelling selected

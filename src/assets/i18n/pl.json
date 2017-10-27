@@ -33,6 +33,7 @@
 		"SUBMIT": "Wprowadź",
 		"CANCEL": "Anuluj",
 		"ADDITIONAL_KM": "Km dodatkowe",
+		"ADDITIONAL_KM_REASON": "Dodatkowa informacja",
 		"LITRES_DIESEL": "Ilość litrów",
 		"PRICE_PER_LITRE": "Cena diesla",
 		"LOCATION_NAME_VALIDATION_MSG": "Podaj nazwę miejsca"

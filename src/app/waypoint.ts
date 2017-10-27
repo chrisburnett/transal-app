@@ -12,6 +12,10 @@ export class Waypoint {
 	activity: string;
 	cargo: string;
 	scheduled: boolean;
+	additional_km: Number;
+	litres_diesel: Number;
+	price_per_litre: Number;
+	additional_km_reason: string;
 	reading_attributes: Reading;
 	route_id: string;
 }
