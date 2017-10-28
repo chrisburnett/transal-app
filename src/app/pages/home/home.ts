@@ -3,6 +3,7 @@ import { Inject } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
+import { Network } from '@ionic-native/network';
 import { User } from '../../user';
 import { LoginPage } from '../login/login';
 import { WaypointFormPage } from '../waypoint-form/waypoint-form';
@@ -44,6 +45,8 @@ export class HomePage implements OnInit {
 	previousWaypointIconName: string;
 	currentWaypointLocationText: string;
 	nextWaypointLocationText: string;
+
+	online: boolean;
 	
 	activityIconMap = {
 		"pickup": "arrow-up",
@@ -56,7 +59,7 @@ export class HomePage implements OnInit {
 
 	waypointFormPage: any;
 
-	constructor(@Inject(APP_CONFIG) private config, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public navCtrl: NavController, public authService: AuthService, public assignmentService: AssignmentService, public waypointService: WaypointService, public translate: TranslateService) {}
+	constructor(@Inject(APP_CONFIG) private config, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public navCtrl: NavController, public authService: AuthService, public assignmentService: AssignmentService, public waypointService: WaypointService, public translate: TranslateService, public network: Network) {}
 
 	ngOnInit() {
 		this.waypointFormPage = WaypointFormPage;
@@ -77,6 +80,14 @@ export class HomePage implements OnInit {
 		loading.present();
 
 		moment.locale(this.config.lang);
+
+		// track network status - don't send confirm when offline
+		this.network.onConnect().subscribe(() => {
+			this.online = true;
+		});
+		this.network.onDisconnect().subscribe(() => {
+			this.online = false;
+		});
 		
 		this.assignmentService.getCurrentAssignment()
 			.subscribe(

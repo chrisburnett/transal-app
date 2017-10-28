@@ -38,10 +38,10 @@
 				{{'HOME.DRIVING_TO'|translate}}: {{currentWaypointLocationText}}
 			</ion-card-header>
 			<ion-card-content>
-				<ion-item *ngIf="!currentWaypoint.read" class="current-waypoint-unconfirmed">
+				<ion-item *ngIf="online && !currentWaypoint.read" class="current-waypoint-unconfirmed">
 					<ion-icon name="ios-alert-outline"></ion-icon> {{'HOME.CURRENT_WAYPOINT_UNCONFIRMED'|translate}}
 				</ion-item>
-				<ion-item *ngIf="currentWaypoint.read" class="current-waypoint-confirmed">
+				<ion-item *ngIf="online && currentWaypoint.read" class="current-waypoint-confirmed">
 					<ion-icon name="ios-checkmark-circle-outline"></ion-icon> {{'HOME.CURRENT_WAYPOINT_CONFIRMED'|translate}}
 				</ion-item>
 				<ion-item>
