@@ -36,6 +36,7 @@ export class HomePage implements OnInit {
 	timeToNextWaypoint: string;
 
 	currentWaypointDatestring: string;
+	currentWaypointArrivalDatestring: string;
 	currentWaypointOverdue: boolean;
 	previousWaypointDatestring: string;
 	nextWaypointDatestring: string;
@@ -110,6 +111,7 @@ export class HomePage implements OnInit {
 								this.currentWaypointDatestring = moment(this.currentWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
 								this.currentWaypointOverdue = Date.now().valueOf() > this.currentWaypoint.scheduled_date.valueOf();
 							}
+							this.currentWaypointArrivalDatestring = moment(this.currentWaypoint.actual_date).format("ddd, D MMM YYYY, H:mm:ss a");
 							this.currentWaypointIconName = this.activityIconMap[this.currentWaypoint.activity];
 							
 							this.translate.get('HOME.' + this.currentWaypoint.activity.toUpperCase()).subscribe((text: string) => {
@@ -118,7 +120,7 @@ export class HomePage implements OnInit {
 						}
 						
 						if(this.previousWaypoint) {
-							this.previousWaypointDatestring = moment(this.previousWaypoint.actual_date).format("ddd, D MMM YYYY, H:mm:ss a");
+							this.previousWaypointDatestring = moment(this.previousWaypoint.actual_departure_date).format("ddd, D MMM YYYY, H:mm:ss a");
 							this.previousWaypointIconName = this.activityIconMap[this.previousWaypoint.activity];
 							this.translate.get('HOME.' + this.previousWaypoint.activity.toUpperCase()).subscribe((text: string) => {
 								this.previousWaypointLocationText = text;
