@@ -33,9 +33,12 @@
 				<p>{{previousWaypointDatestring}}</p>
 			</ion-card-content>
 		</ion-card>
-		<ion-card (tap)="currentCardTapped($event)" class="currentCard" [ngClass]="{'overdue': currentWaypointOverdue}" *ngIf="currentWaypoint">
-			<ion-card-header>
+		<ion-card (tap)="currentCardTapped($event)" class="currentCard" [ngClass]="{'overdue': currentWaypointOverdue, 'currentCardCheckedIn': currentWaypoint.actual_date != null}" *ngIf="currentWaypoint">
+			<ion-card-header *ngIf="currentWaypoint.actual_date == null">
 				{{'HOME.DRIVING_TO'|translate}}: {{currentWaypointLocationText}}
+			</ion-card-header>
+			<ion-card-header *ngIf="currentWaypoint.actual_date">
+				{{'HOME.CURRENTLY_AT'|translate}}: {{currentWaypointLocationText}}
 			</ion-card-header>
 			<ion-card-content>
 				<ion-item *ngIf="online && !currentWaypoint.read" class="current-waypoint-unconfirmed">
@@ -53,10 +56,16 @@
 					<h4>{{'HOME.DUE'|translate}}</h4>
 					<div>{{currentWaypointDatestring}} <span [ngClass]="{'overdue': currentWaypointOverdue, 'pending': !currentWaypointOverdue}">({{timeToCurrentWaypoint}})</span></div>
 				</ion-item>
-				<ion-item>
+				<ion-item *ngIf="currentWaypoint.actual_date == null">
 					<button ion-button icon-left clear item-end (click)="showConfirm()">
 						<ion-icon name="navigate"></ion-icon>
 						{{'HOME.CHECK_IN'|translate}}
+					</button>
+				</ion-item>
+				<ion-item *ngIf="currentWaypoint.actual_date">
+					<button ion-button icon-left clear item-end (click)="checkOut()">
+						<ion-icon name="navigate"></ion-icon>
+						{{'HOME.CHECK_OUT'|translate}}
 					</button>
 				</ion-item>
 			</ion-card-content>

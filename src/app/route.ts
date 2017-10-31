@@ -13,7 +13,7 @@ export class Route {
 			return null;
 		}
 		return route.waypoints
-			.filter(wp => wp.actual_date == null)
+			.filter(wp => wp.actual_departure_date == null)
 			.sort((wpA, wpB) => new Date(wpA.scheduled_date).valueOf() - new Date(wpB.scheduled_date).valueOf())[1];
 	}
 	static getCurrentWaypoint(route): Waypoint {
@@ -22,7 +22,7 @@ export class Route {
 			return null;
 		}
 		return route.waypoints
-			.filter(wp => wp.actual_date == null)
+			.filter(wp => wp.actual_departure_date == null)
 			.sort((wpA, wpB) => new Date(wpA.scheduled_date).valueOf() - new Date(wpB.scheduled_date).valueOf())[0];
 	}
 
@@ -32,7 +32,7 @@ export class Route {
 			return null;
 		}
 		return route.waypoints
-			.filter(wp => wp.actual_date != null)
-			.sort((wpA, wpB) => new Date(wpB.actual_date).valueOf() - new Date(wpA.actual_date).valueOf())[0]; 
+			.filter(wp => wp.actual_departure_date != null)
+			.sort((wpA, wpB) => new Date(wpB.actual_departure_date).valueOf() - new Date(wpA.actual_departure_date).valueOf())[0]; 
 	}
 }

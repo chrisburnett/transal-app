@@ -124,7 +124,7 @@ export class HomePage implements OnInit {
 						if(this.nextWaypoint) {
 							this.nextWaypointDatestring = moment(this.nextWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
 							this.nextWaypointIconName = this.activityIconMap[this.nextWaypoint.activity];
-							this.translate.get('HOME.' + this.currentWaypoint.activity.toUpperCase()).subscribe((text: string) => {
+							this.translate.get('HOME.' + this.nextWaypoint.activity.toUpperCase()).subscribe((text: string) => {
 								this.nextWaypointLocationText = text;
 							});
 						}
@@ -148,8 +148,13 @@ export class HomePage implements OnInit {
 	}
 
 	checkIn(): void {
-		this.currentWaypoint.actual_date = new Date(Date.now());
 		this.navCtrl.push(WaypointFormPage, { waypoint: this.currentWaypoint, currentAssignment: this.currentAssignment });
+	}
+
+	checkOut(): void {
+		this.currentWaypoint.actual_departure_date = new Date(Date.now());
+		// TODO: DO SOMETHING IN SUBSCRIBE, REQUERY?
+		this.waypointService.update(this.currentWaypoint).subscribe(() => { this.load() });
 	}
 	
 	showConfirm(): void {

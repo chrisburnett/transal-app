@@ -12,6 +12,9 @@ page-home {
 		border-color: map-get($colors, warning);
 	}
 	.currentCard {
+		border-left: 6px solid map-get($colors, warning);
+	}
+	.currentCardCheckedIn {
 		border-left: 6px solid map-get($colors, secondary);
 	}
 	.overdue {
