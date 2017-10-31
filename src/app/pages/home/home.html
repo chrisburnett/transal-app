@@ -25,7 +25,7 @@
 	<div *ngIf="currentAssignment">
 		<ion-card class="previousCard" [ngClass]="{'unexpected': !previousWaypoint.scheduled}" *ngIf="previousWaypoint">
 			<ion-card-header>
-				<ion-icon name="{{previousWaypointIconName}}" item-start small></ion-icon> {{'HOME.PREVIOUS_WAYPOINT'|translate}}
+				<ion-icon name="{{previousWaypointIconName}}" item-start small></ion-icon> {{'HOME.PREVIOUS_WAYPOINT'|translate}}: {{previousWaypointLocationText}}
 			</ion-card-header>
 			<ion-card-content>
 				<h2>{{previousWaypoint.location.name}}</h2>

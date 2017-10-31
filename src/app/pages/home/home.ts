@@ -45,6 +45,7 @@ export class HomePage implements OnInit {
 	previousWaypointIconName: string;
 	currentWaypointLocationText: string;
 	nextWaypointLocationText: string;
+	previousWaypointLocationText: string;
 
 	online: boolean;
 	
@@ -119,6 +120,9 @@ export class HomePage implements OnInit {
 						if(this.previousWaypoint) {
 							this.previousWaypointDatestring = moment(this.previousWaypoint.actual_date).format("ddd, D MMM YYYY, H:mm:ss a");
 							this.previousWaypointIconName = this.activityIconMap[this.previousWaypoint.activity];
+							this.translate.get('HOME.' + this.previousWaypoint.activity.toUpperCase()).subscribe((text: string) => {
+								this.previousWaypointLocationText = text;
+							});
 						}
 						
 						if(this.nextWaypoint) {
