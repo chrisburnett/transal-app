@@ -34,7 +34,9 @@ export class WaypointFormPage implements OnInit {
 			additional_km: [''],
 			price_per_litre: [''],
 			litres_diesel: [''],
-			additional_km_reason: ['']
+			additional_km_reason: [''],
+			confirm_pickup_trailer_id: [''],
+			confirm_leaving_trailer_id: ['']
 		});
 
 		// conditionally require values if fuelling selected

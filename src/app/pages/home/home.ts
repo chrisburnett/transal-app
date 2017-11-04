@@ -56,7 +56,8 @@ export class HomePage implements OnInit {
 		"service": "build",
 		"fuel": "color-fill",
 		"office": "home",
-		"handover": "home"
+		"handover": "home",
+		"trailer_change": "swap"
 	}
 
 	waypointFormPage: any;

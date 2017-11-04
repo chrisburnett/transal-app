@@ -7,6 +7,8 @@ export class Waypoint {
 	location_attributes: Location;
 	location_id: string;
 	trailer: Trailer;
+	confirm_leaving_trailer: Number;
+	confirm_pickup_trailer: Number;
 	scheduled_date: Date;
 	actual_date: Date;
 	actual_departure_date: Date;

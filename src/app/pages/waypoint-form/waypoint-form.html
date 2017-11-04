@@ -18,6 +18,7 @@
 				<ion-option value="fuel">{{'HOME.FUEL'|translate}}</ion-option>
 				<ion-option value="office">{{'HOME.OFFICE'|translate}}</ion-option>
 				<ion-option value="handover">{{'HOME.HANDOVER'|translate}}</ion-option>
+				<ion-option value="trailer_change">{{'HOME.TRAILER_CHANGE'|translate}}</ion-option>
 			</ion-select>
 		</ion-item>
 
@@ -64,6 +65,17 @@
 			<ion-input formControlName="litres_diesel"></ion-input>
 		</ion-item>
 		<!-- end only if fuelling -->
+
+		<!-- only if changing trailers -->
+		<ion-item *ngIf="activityCtrl.value=='trailer_change'">
+			<ion-label>{{'NEW_WAYPOINT.TRAILER_LEAVING'|translate}}</ion-label>
+			<ion-input formControlName="confirm_leaving_trailer_id"></ion-input>
+		</ion-item>
+		<ion-item *ngIf="activityCtrl.value=='trailer_change'">
+			<ion-label>{{'NEW_WAYPOINT.TRAILER_PICKUP'|translate}}</ion-label>
+			<ion-input formControlName="confirm_pickup_trailer_id"></ion-input>
+		</ion-item>
+		<!-- end only if changing trailers -->
 
 	   	<button type="submit" [disabled]="!waypointForm.valid" ion-button>{{'NEW_WAYPOINT.SUBMIT'|translate}}</button>
 		<button color="light" ion-button navPop>{{'NEW_WAYPOINT.CANCEL'|translate}}</button>

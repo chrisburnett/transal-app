@@ -23,10 +23,11 @@
 		"OFFICE": "Return to base",
 		"HANDOVER": "Driver changeover",
 		"NEW_WAYPOINT": "New waypoint",
+		"TRAILER_CHANGE": "Trailer change",
 		"CHECK_IN_TITLE": "Confirm",
 		"CHECK_IN_MSG": "Are you sure you want to check in?",
 		"CHECK_IN_NO": "No",
-		"CHECK_IN_YES": "Yes"
+		"CHECK_IN_YES": "Yes",
 		"CURRENT_WAYPOINT_UNCONFIRMED": "Tap to confirm waypoint",
 		"CURRENT_WAYPOINT_CONFIRMED": "Confirmed"
 	},
@@ -37,8 +38,10 @@
 		"ACTIVITY": "Location Type",
 		"SUBMIT": "Submit",
 		"CANCEL": "Cancel",
+		"TRAILER_LEAVING": "Nr. previous trailer",
+		"TRAILER_PICKUP": "Nr. next trailer",
 		"ADDITIONAL_KM": "Additional Km",
-		"ADDITIONAL_KM": "Reason",
+		"ADDITIONAL_KM_REASON": "Additional Km Reason",
 		"LITRES_DIESEL": "No. litres",
 		"PRICE_PER_LITRE": "Diesel price",
 		"LOCATION_NAME_VALIDATION_MSG": "Location Name is required"
