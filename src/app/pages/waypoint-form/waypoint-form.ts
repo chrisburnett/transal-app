@@ -7,6 +7,8 @@ import { Reading } from '../../reading';
 import { WaypointService } from '../../../providers/waypoint-service/waypoint-service';
 import { Assignment } from '../../assignment';
 
+import { Geolocation } from '@ionic-native/geolocation';
+
 @IonicPage()
 @Component({
 	selector: 'page-waypoint-form',
@@ -20,7 +22,7 @@ export class WaypointFormPage implements OnInit {
 
 	title: string;
 	
-	constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private waypointService: WaypointService, public translate: TranslateService) {
+	constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private waypointService: WaypointService, public translate: TranslateService, private geolocation: Geolocation) {
 		this.waypointForm = this.formBuilder.group({
 			activity: ['', Validators.required],
 			location_attributes : this.formBuilder.group({
@@ -82,18 +84,26 @@ export class WaypointFormPage implements OnInit {
 	submit(): void {
 		// typescript merge dictionaries
 		this.waypoint.actual_date = new Date(Date.now());
-		let waypoint = { ...this.waypoint, ...this.waypointForm.value };
+		let waypoint: Waypoint = { ...this.waypoint, ...this.waypointForm.value };
 		waypoint.reading_attributes.truck_id = this.currentAssignment.truck_id;
 		waypoint.route_id = this.currentAssignment.route.id;
-
-		if(waypoint.scheduled)
-		{
-			this.waypointService.update(waypoint).subscribe(() => this.navCtrl.pop());	
-		}
-		else
-		{
-			this.waypointService.create(waypoint).subscribe(() => this.navCtrl.pop());	
-		}
 		
+		this.geolocation.getCurrentPosition()
+			.then((resp) => {
+ 				waypoint.gps_location_lat = String(resp.coords.latitude);
+ 				waypoint.gps_location_long = String(resp.coords.longitude);
+			})
+			.then(() => {
+				if(waypoint.scheduled)
+				{
+					this.waypointService.update(waypoint).subscribe(() => this.navCtrl.pop());	
+				}
+				else
+				{
+					this.waypointService.create(waypoint).subscribe(() => this.navCtrl.pop());	
+				}
+			}).catch((error) => {
+  				console.log('Error getting location', error);
+			});
 	}
 }

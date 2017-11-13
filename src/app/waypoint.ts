@@ -12,6 +12,8 @@ export class Waypoint {
 	scheduled_date: Date;
 	actual_date: Date;
 	actual_departure_date: Date;
+	gps_location_lat: string;
+	gps_location_long: string;
 	activity: string;
 	cargo: string;
 	scheduled: boolean;
