@@ -12,13 +12,20 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class LocationService implements AutoCompleteService {
 	formValueAttribute = "";
-	labelAttribute = "name";
+	labelAttribute = "displayValue";
 	constructor(@Inject(APP_CONFIG) private config, public http: Http) {}
 
 	getResults(term: string) {
 		return this.http.get(`http://${this.config.apiEndpoint}/locations?term=${term}`)
 			.map(
-				result => { return term.length > 4 ? result.json() : [] }
+				result => {
+					return term.length > 3 ?
+						result.json().map(location => {
+							location["displayValue"] = location["name"] + " (" + location["code"] + ")";
+							return location; })
+						:
+						[]
+				}
 			);
 	}
 	
