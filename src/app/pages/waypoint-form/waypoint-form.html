@@ -1,83 +1,123 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>{{title}}</ion-title>
-  </ion-navbar>
+	<ion-navbar>
+		<ion-title>{{title}}</ion-title>
+	</ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
 	<form [formGroup]="waypointForm" (ngSubmit)="submit()">
-		<ion-item [hidden]="waypoint.scheduled" [ngClass]="{'has-error': !waypointForm.controls.activity.valid && waypointForm.controls.activity.touched}">
-			<ion-label>{{'NEW_WAYPOINT.ACTIVITY'|translate}}</ion-label>
-			<ion-select #activityCtrl formControlName="activity">
-				<ion-option value="pickup">{{'HOME.PICKUP'|translate}}</ion-option>
-				<ion-option value="deliver">{{'HOME.DELIVER'|translate}}</ion-option>
-				<ion-option value="service">{{'HOME.SERVICE'|translate}}</ion-option>
-				<ion-option value="fuel">{{'HOME.FUEL'|translate}}</ion-option>
-				<ion-option value="office">{{'HOME.OFFICE'|translate}}</ion-option>
-				<ion-option value="handover">{{'HOME.HANDOVER'|translate}}</ion-option>
-				<ion-option value="trailer_change">{{'HOME.TRAILER_CHANGE'|translate}}</ion-option>
-			</ion-select>
-		</ion-item>
-
-		<div formGroupName="location_attributes" *ngIf="!waypoint.scheduled">
-			<ion-item [ngClass]="{'has-error': !waypointForm.controls.location_attributes.controls.name.valid && waypointForm.controls.location_attributes.controls.name.touched}">
-				<ion-label>{{'NEW_WAYPOINT.LOCATION_NAME'|translate}}</ion-label>
-				<ion-input type="text" formControlName="name"></ion-input>
+		<ion-item-group>
+			<ion-item [hidden]="waypoint.scheduled" [ngClass]="{'has-error': !waypointForm.controls.activity.valid && waypointForm.controls.activity.touched}">
+				<ion-label>{{'NEW_WAYPOINT.ACTIVITY'|translate}}</ion-label>
+				<ion-select #activityCtrl formControlName="activity">
+					<ion-option value="pickup">{{'HOME.PICKUP'|translate}}</ion-option>
+					<ion-option value="deliver">{{'HOME.DELIVER'|translate}}</ion-option>
+					<ion-option value="service">{{'HOME.SERVICE'|translate}}</ion-option>
+					<ion-option value="fuel">{{'HOME.FUEL'|translate}}</ion-option>
+					<ion-option value="office">{{'HOME.OFFICE'|translate}}</ion-option>
+					<ion-option value="handover">{{'HOME.HANDOVER'|translate}}</ion-option>
+					<ion-option value="trailer_change">{{'HOME.TRAILER_CHANGE'|translate}}</ion-option>
+				</ion-select>
 			</ion-item>
-			<!--><ion-item *ngIf="waypointForm.controls.location_attributes.controls.name.hasError('required') && waypointForm.controls.location_attributes.controls.name.touched"><p class="alert alert-danger">{{'NEW_WAYPOINT.LOCATION_NAME_VALIDATION_MSG'|translate}}<p></ion-item>-->
-
+			
 			<ion-item>
-				<ion-label>{{'NEW_WAYPOINT.ADDRESS'|translate}}</ion-label>
-				<ion-textarea formControlName="address"></ion-textarea>
+				<ion-label>{{'NEW_WAYPOINT.ADDITIONAL_KM'|translate}}</ion-label>
+				<ion-input #reasonCtrl formControlName="additional_km"></ion-input>
 			</ion-item>
-		</div>
-		
-		<div formGroupName="reading_attributes">
-			<ion-item>
-				<ion-label>{{'NEW_READING.ODOMETER'|translate}}</ion-label>
-				<ion-input type="text" formControlName="odometer"></ion-input>
+			<ion-item *ngIf="reasonCtrl.value!=''">
+				<ion-label>{{'NEW_WAYPOINT.ADDITIONAL_KM_REASON'|translate}}</ion-label>
+				<ion-input formControlName="additional_km_reason"></ion-input>
 			</ion-item>
-			<ion-item>
-				<ion-label>{{'NEW_READING.MAUT'|translate}}</ion-label>
-				<ion-input formControlName="maut"></ion-input>
-			</ion-item>
-		</div>
 
-		<ion-item>
-			<ion-label>{{'NEW_WAYPOINT.ADDITIONAL_KM'|translate}}</ion-label>
-			<ion-input #reasonCtrl formControlName="additional_km"></ion-input>
-		</ion-item>
-		<ion-item *ngIf="reasonCtrl.value!=''">
-			<ion-label>{{'NEW_WAYPOINT.ADDITIONAL_KM_REASON'|translate}}</ion-label>
-			<ion-input formControlName="additional_km_reason"></ion-input>
-		</ion-item>
+			<div formGroupName="reading_attributes">
+				<ion-item>
+					<ion-label>{{'NEW_READING.ODOMETER'|translate}}</ion-label>
+					<ion-input type="text" formControlName="odometer"></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label>{{'NEW_READING.MAUT'|translate}}</ion-label>
+					<ion-input formControlName="maut"></ion-input>
+				</ion-item>
+			</div>
 
-		<!-- only if fuelling -->
-		<ion-item *ngIf="activityCtrl.value=='fuel'" [ngClass]="{'has-error': !waypointForm.controls.price_per_litre.valid && waypointForm.controls.price_per_litre.touched}">
-			<ion-label>{{'NEW_WAYPOINT.PRICE_PER_LITRE'|translate}}</ion-label>
-			<ion-input formControlName="price_per_litre"></ion-input>
-		</ion-item>
-		<ion-item *ngIf="activityCtrl.value=='fuel'" [ngClass]="{'has-error': !waypointForm.controls.litres_diesel.valid && waypointForm.controls.litres_diesel.touched}">
-			<ion-label>{{'NEW_WAYPOINT.LITRES_DIESEL'|translate}}</ion-label>
-			<ion-input formControlName="litres_diesel"></ion-input>
-		</ion-item>
-		<!-- end only if fuelling -->
+			<div formGroupName="location_attributes" *ngIf="!waypoint.scheduled">
+				<ion-item-divider color="light">
+					<ion-label>
+						{{'NEW_WAYPOINT.LOCATION'|translate}}
+					</ion-label>
+				</ion-item-divider>
+				<ion-auto-complete (itemSelected)="locationSelected($event)"[dataProvider]="locationService" #locationSearchbar></ion-auto-complete>
+				<ion-item>
+					<ion-label>{{'NEW_WAYPOINT.LOCATION_CODE'|translate}}</ion-label>
+					<ion-input type="text" formControlName="code"></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label>{{'NEW_WAYPOINT.LOCATION_NAME'|translate}}</ion-label>
+					<ion-input type="text" formControlName="name"></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label>{{'NEW_WAYPOINT.LOCATION_NUMBER'|translate}}</ion-label>
+					<ion-input type="text" formControlName="number"></ion-input>
+				</ion-item>
+				<ion-item [ngClass]="{'has-error': !waypointForm.controls.location_attributes.controls.street.valid && waypointForm.controls.location_attributes.controls.street.touched}">>
+					<ion-label>{{'NEW_WAYPOINT.LOCATION_STREET'|translate}}</ion-label>
+					<ion-input type="text" formControlName="street"></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label>{{'NEW_WAYPOINT.LOCATION_CITY'|translate}}</ion-label>
+					<ion-input type="text" formControlName="city"></ion-input>
+				</ion-item>
+				<ion-item [ngClass]="{'has-error': !waypointForm.controls.location_attributes.controls.postcode.valid && waypointForm.controls.location_attributes.controls.postcode.touched}">>>
+					<ion-label>{{'NEW_WAYPOINT.LOCATION_POSTCODE'|translate}}</ion-label>
+					<ion-input type="text" formControlName="postcode"></ion-input>
+				</ion-item>
+				<ion-item [ngClass]="{'has-error': !waypointForm.controls.location_attributes.controls.country_code.valid && waypointForm.controls.location_attributes.controls.country_code.touched}">>>
+					<ion-label>{{'NEW_WAYPOINT.LOCATION_COUNTRY_CODE'|translate}}</ion-label>
+					<ion-input type="text" formControlName="country_code"></ion-input>
+				</ion-item>
+			</div>
+			
+			<!-- only if fuelling -->
+			<div *ngIf="activityCtrl.value=='fuel'">
+				<ion-item-divider color="light">
+					<ion-label>
+						{{'NEW_WAYPOINT.FUELLING'|translate}}
+					</ion-label>
+				</ion-item-divider>
+				<ion-item [ngClass]="{'has-error': !waypointForm.controls.price_per_litre.valid && waypointForm.controls.price_per_litre.touched}">
+					<ion-label>{{'NEW_WAYPOINT.PRICE_PER_LITRE'|translate}}</ion-label>
+					<ion-input formControlName="price_per_litre"></ion-input>
+				</ion-item>
+				<ion-item *ngIf="activityCtrl.value=='fuel'" [ngClass]="{'has-error': !waypointForm.controls.litres_diesel.valid && waypointForm.controls.litres_diesel.touched}">
+					<ion-label>{{'NEW_WAYPOINT.LITRES_DIESEL'|translate}}</ion-label>
+					<ion-input formControlName="litres_diesel"></ion-input>
+				</ion-item>
+			</div>
+			<!-- end only if fuelling -->
 
-		<!-- only if changing trailers -->
-		<ion-item *ngIf="activityCtrl.value=='trailer_change'">
-			<ion-label>{{'NEW_WAYPOINT.TRAILER_LEAVING'|translate}}</ion-label>
-			<ion-input formControlName="confirm_leaving_trailer_id"></ion-input>
-		</ion-item>
-		<ion-item *ngIf="activityCtrl.value=='trailer_change'">
-			<ion-label>{{'NEW_WAYPOINT.TRAILER_PICKUP'|translate}}</ion-label>
-			<ion-input formControlName="confirm_pickup_trailer_id"></ion-input>
-		</ion-item>
-		<!-- end only if changing trailers -->
+			<!-- only if changing trailers -->
+			<div *ngIf="activityCtrl.value=='trailer_change'">
+				<ion-item-divider color="light">
+					<ion-label>
+						{{'NEW_WAYPOINT.TRAILER_CHANGE'|translate}}
+					</ion-label>
+				</ion-item-divider>
+				<ion-item>
+					<ion-label>{{'NEW_WAYPOINT.TRAILER_LEAVING'|translate}}</ion-label>
+					<ion-input formControlName="confirm_leaving_trailer_id"></ion-input>
+				</ion-item>
+				<ion-item *ngIf="activityCtrl.value=='trailer_change'">
+					<ion-label>{{'NEW_WAYPOINT.TRAILER_PICKUP'|translate}}</ion-label>
+					<ion-input formControlName="confirm_pickup_trailer_id"></ion-input>
+				</ion-item>
+			</div>
+			<!-- end only if changing trailers -->
 
-	   	<button type="submit" [disabled]="!waypointForm.valid" ion-button>{{'NEW_WAYPOINT.SUBMIT'|translate}}</button>
-		<button color="light" ion-button navPop>{{'NEW_WAYPOINT.CANCEL'|translate}}</button>
+	   		<button type="submit" [disabled]="!waypointForm.valid" ion-button>{{'NEW_WAYPOINT.SUBMIT'|translate}}</button>
+			<button color="light" ion-button navPop>{{'NEW_WAYPOINT.CANCEL'|translate}}</button>
+		</ion-item-group>
 	</form>
 </ion-content>

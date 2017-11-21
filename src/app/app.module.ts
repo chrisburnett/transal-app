@@ -11,6 +11,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { IonicStorageModule } from '@ionic/storage';
 import { Network } from '@ionic-native/network';
 import { Geolocation } from '@ionic-native/geolocation';
+import { AutoCompleteModule } from 'ionic2-auto-complete';
 
 import { MyApp } from './app.component';
 import { HomePage } from './pages/home/home';
@@ -19,6 +20,7 @@ import { WaypointFormPage } from './pages/waypoint-form/waypoint-form';
 import { AuthService } from '../providers/auth-service/auth-service';
 import { AssignmentService } from '../providers/assignment-service/assignment-service';
 import { WaypointService } from '../providers/waypoint-service/waypoint-service';
+import { LocationService } from '../providers/location-service/location-service';
 
 import { AuthHttp } from 'angular2-jwt';
 import { APP_CONFIG, AppConfig } from './app.config';
@@ -46,7 +48,8 @@ export function createTranslateLoader(http: Http) {
                 useFactory: (createTranslateLoader),
                 deps: [Http]
             }
-        })
+        }),
+		AutoCompleteModule
 	],
 	bootstrap: [IonicApp],
 	entryComponents: [
@@ -63,6 +66,7 @@ export function createTranslateLoader(http: Http) {
 		AuthService,
 		AssignmentService,
 		WaypointService,
+		LocationService,
 		AuthHttp,
 		Network,
 		Geolocation
