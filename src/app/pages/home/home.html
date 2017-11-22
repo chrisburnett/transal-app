@@ -29,7 +29,8 @@
 			</ion-card-header>
 			<ion-card-content>
 				<h2>{{previousWaypoint.location.name}}</h2>
-				<p>{{previousWaypoint.location.address}}</p>
+				<p>{{previousWaypoint.location.number}} {{previousWaypoint.location.street}}</p>
+				<p>{{previousWaypoint.location.city}} {{previousWaypoint.location.postcode}} {{previousWaypoint.location.country_code}}</p>
 				<p>{{previousWaypointDatestring}}</p>
 			</ion-card-content>
 		</ion-card>
@@ -50,7 +51,8 @@
 				<ion-item>
 					<ion-icon name="{{currentWaypointIconName}}" item-start large></ion-icon>
 					<h2>{{currentWaypoint.location.name}}</h2>
-					<p>{{currentWaypoint.location.address}}</p>
+					<p>{{currentWaypoint.location.number}} {{currentWaypoint.location.street}}</p>
+					<p>{{currentWaypoint.location.city}} {{currentWaypoint.location.postcode}} {{currentWaypoint.location.country_code}}</p>
 				</ion-item>
 				<ion-item>
 					<h4>{{'HOME.DUE'|translate}}</h4>
@@ -80,7 +82,8 @@
 			</ion-card-header>
 			<ion-card-content>
 				<h2>{{nextWaypoint.location.name}}</h2>
-				<p>{{nextWaypoint.location.address}}</p>
+				<p>{{nextWaypoint.location.number}} {{nextWaypoint.location.street}}</p>
+				<p>{{nextWaypoint.location.city}} {{nextWaypoint.location.postcode}} {{nextWaypoint.location.country_code}}</p>
 				<p>{{nextWaypointDatestring}}</p>
 			</ion-card-content>
 		</ion-card>
