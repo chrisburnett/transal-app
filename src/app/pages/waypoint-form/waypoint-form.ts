@@ -97,23 +97,27 @@ export class WaypointFormPage implements OnInit {
 		let waypoint: Waypoint = { ...this.waypoint, ...this.waypointForm.value };
 		waypoint.reading_attributes.truck_id = this.currentAssignment.truck_id;
 		waypoint.route_id = this.currentAssignment.route.id;
+
+		let doSubmit = () => {
+			if(waypoint.scheduled)
+			{
+				this.waypointService.update(waypoint).subscribe(() => this.navCtrl.pop());
+			}
+			else
+			{
+				this.waypointService.create(waypoint).subscribe(() => this.navCtrl.pop());
+			}
+		};
 		
 		this.geolocation.getCurrentPosition()
 			.then((resp) => {
  				waypoint.gps_location_lat = String(resp.coords.latitude);
  				waypoint.gps_location_long = String(resp.coords.longitude);
+				doSubmit();
 			})
-			.then(() => {
-				if(waypoint.scheduled)
-				{
-					this.waypointService.update(waypoint).subscribe(() => this.navCtrl.pop());	
-				}
-				else
-				{
-					this.waypointService.create(waypoint).subscribe(() => this.navCtrl.pop());	
-				}
-			}).catch((error) => {
-  				console.log('Error getting location', error);
+			.catch((error) => {
+				console.log('Error getting location', error);
+				doSubmit();
 			});
 	}
 
