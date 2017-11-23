@@ -108,7 +108,7 @@ export class WaypointFormPage implements OnInit {
 		waypoint.reading_attributes.truck_id = this.currentAssignment.truck_id;
 		waypoint.route_id = this.currentAssignment.route.id;
 
-		if(waypoint.location_attributes.id != '')
+		if(waypoint.location_attributes && waypoint.location_attributes.id != '')
 		{
 			waypoint.location_id = waypoint.location_attributes.id;
 		}
