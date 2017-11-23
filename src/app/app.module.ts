@@ -17,6 +17,7 @@ import { MyApp } from './app.component';
 import { HomePage } from './pages/home/home';
 import { LoginPage } from './pages/login/login';
 import { WaypointFormPage } from './pages/waypoint-form/waypoint-form';
+import { LocationSearchModal } from './pages/location-search-modal/location-search-modal';
 import { AuthService } from '../providers/auth-service/auth-service';
 import { AssignmentService } from '../providers/assignment-service/assignment-service';
 import { WaypointService } from '../providers/waypoint-service/waypoint-service';
@@ -34,7 +35,8 @@ export function createTranslateLoader(http: Http) {
 		MyApp,
 		HomePage,
 		LoginPage,
-		WaypointFormPage
+		WaypointFormPage,
+		LocationSearchModal
 	],
 	imports: [
 		BrowserModule,
@@ -56,7 +58,8 @@ export function createTranslateLoader(http: Http) {
 		MyApp,
 		HomePage,
 		LoginPage,
-		WaypointFormPage
+		WaypointFormPage,
+		LocationSearchModal
 	],
 	providers: [
 		StatusBar,

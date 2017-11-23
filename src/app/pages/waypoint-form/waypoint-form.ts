@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, ModalController, NavParams } from 'ionic-angular';
 import { Waypoint } from '../../waypoint';
 import { Reading } from '../../reading';
 import { WaypointService } from '../../../providers/waypoint-service/waypoint-service';
-import { LocationService } from '../../../providers/location-service/location-service';
+import { LocationSearchModal } from '../location-search-modal/location-search-modal';
 import { Assignment } from '../../assignment';
 import { AutoCompleteComponent } from 'ionic2-auto-complete';
 
@@ -27,10 +27,11 @@ export class WaypointFormPage implements OnInit {
 
 	title: string;
 	
-	constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public navParams: NavParams, private waypointService: WaypointService, public translate: TranslateService, private geolocation: Geolocation, private locationService: LocationService) {
+	constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private waypointService: WaypointService, public translate: TranslateService, private geolocation: Geolocation) {
 		this.waypointForm = this.formBuilder.group({
 			activity: ['', Validators.required],
 			location_attributes : this.formBuilder.group({
+				id: [''],
 				code: [''],
 				name: ['', Validators.required],
 				number: [''],
@@ -64,6 +65,15 @@ export class WaypointFormPage implements OnInit {
 				}
 			}
 		);
+
+		// if location manually edited, clear id/code
+		// fingers crossed this doesn't create an infinite loop
+		this.waypointForm.controls.location_attributes.valueChanges.subscribe(
+			data => {
+				this.waypointForm.controls.location_attributes.get('code').setValue('', {emitEvent: false});
+				this.waypointForm.controls.location_attributes.get('id').setValue('', {emitEvent: false});
+			});
+
 	}
 
 	ngOnInit(): void {
@@ -98,6 +108,11 @@ export class WaypointFormPage implements OnInit {
 		waypoint.reading_attributes.truck_id = this.currentAssignment.truck_id;
 		waypoint.route_id = this.currentAssignment.route.id;
 
+		if(waypoint.location_attributes.id != '')
+		{
+			waypoint.location_id = waypoint.location_attributes.id;
+		}
+
 		let doSubmit = () => {
 			if(waypoint.scheduled)
 			{
@@ -121,15 +136,9 @@ export class WaypointFormPage implements OnInit {
 			});
 	}
 
-	locationSelected(event): void {
-		this.waypointForm.controls.location_attributes.get('code').setValue(event.code);
-		this.waypointForm.controls.location_attributes.get('name').setValue(event.name);
-		this.waypointForm.controls.location_attributes.get('number').setValue(event.number);
-		this.waypointForm.controls.location_attributes.get('street').setValue(event.street);
-		this.waypointForm.controls.location_attributes.get('city').setValue(event.city);
-		this.waypointForm.controls.location_attributes.get('postcode').setValue(event.postcode);
-		this.waypointForm.controls.location_attributes.get('country_code').setValue(event.country_code);
-
-
+	showLocationSearchModal(): void {
+		let lsm = this.modalCtrl.create(LocationSearchModal, {location_attributes: this.waypointForm.controls.location_attributes});
+		lsm.present();
 	}
+	
 }
