@@ -53,7 +53,8 @@
 		"ADDITIONAL_KM_REASON": "Additional Km Reason",
 		"LITRES_DIESEL": "No. litres",
 		"PRICE_PER_LITRE": "Diesel price",
-		"LOCATION_NAME_VALIDATION_MSG": "Location Name is required"
+		"LOCATION_NAME_VALIDATION_MSG": "Location Name is required",
+		"SEARCH": "Search"
 	},
 	"CHECK_IN": {
 		"CHECK_IN": "Check-in to Waypoint"
@@ -62,6 +63,10 @@
 		"ODOMETER": "Odometer",
 		"MAUT": "Maut",
 		"SUBMIT": "Submit",
+		"CANCEL": "Cancel"
+	},
+	"LOCATION_SEARCH_MODAL": {
+		"TITLE": "Search locations",
 		"CANCEL": "Cancel"
 	}
 }

@@ -53,7 +53,8 @@
 		"ADDITIONAL_KM_REASON": "Dodatkowa informacja",
 		"LITRES_DIESEL": "Ilość litrów",
 		"PRICE_PER_LITRE": "Cena diesla",
-		"LOCATION_NAME_VALIDATION_MSG": "Podaj nazwę miejsca"
+		"LOCATION_NAME_VALIDATION_MSG": "Podaj nazwę miejsca",
+		"SEARCH": "Wyszukaj lokalizację"
 	},
 	"CHECK_IN": {
 		"CHECK_IN": "Zameldowanie się to punktu trasy"
@@ -63,5 +64,10 @@
 		"MAUT": "Stan maut",
 		"SUBMIT": "Submit",
 		"CANCEL": "Cancel"
+	},
+	"LOCATION_SEARCH_MODAL": {
+		"TITLE": "Wyszukaj lokalizację",
+		"CANCEL": "Anuluj",
+		"PLACEHOLDER": "Szukaj"
 	}
 }
