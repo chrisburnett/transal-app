@@ -37,7 +37,7 @@
 					<ion-label>{{'NEW_READING.ODOMETER'|translate}}</ion-label>
 					<ion-input type="text" formControlName="odometer"></ion-input>
 				</ion-item>
-				<ion-item>
+				<ion-item *ngIf="activityCtrl.value=='handover'">
 					<ion-label>{{'NEW_READING.MAUT'|translate}}</ion-label>
 					<ion-input formControlName="maut"></ion-input>
 				</ion-item>
@@ -75,7 +75,7 @@
 					<ion-label>{{'NEW_WAYPOINT.LOCATION_CITY'|translate}}</ion-label>
 					<ion-input type="text" formControlName="city"></ion-input>
 				</ion-item>
-				<ion-item [ngClass]="{'has-error': !waypointForm.controls.location_attributes.controls.postcode.valid && waypointForm.controls.location_attributes.controls.postcode.touched}">>>
+				<ion-item [ngClass]="{'has-error': !waypointForm.controls.location_attributes.controls.postcode.valid && waypointForm.controls.location_attributes.controls.postcode.touched}">
 					<ion-label>{{'NEW_WAYPOINT.LOCATION_POSTCODE'|translate}}</ion-label>
 					<ion-input type="text" formControlName="postcode"></ion-input>
 				</ion-item>
