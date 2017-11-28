@@ -103,7 +103,6 @@ export class WaypointFormPage implements OnInit {
 
 	submit(): void {
 		// typescript merge dictionaries
-		this.waypoint.actual_date = new Date(Date.now());
 		let waypoint: Waypoint = { ...this.waypoint, ...this.waypointForm.value };
 		waypoint.reading_attributes.truck_id = this.currentAssignment.truck_id;
 		waypoint.route_id = this.currentAssignment.route.id;

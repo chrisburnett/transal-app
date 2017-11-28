@@ -155,13 +155,20 @@ export class HomePage implements OnInit {
 	}
 
 	checkIn(): void {
+		this.currentWaypoint.actual_date = new Date(Date.now());
 		this.navCtrl.push(WaypointFormPage, { waypoint: this.currentWaypoint, currentAssignment: this.currentAssignment });
 	}
 
 	checkOut(): void {
 		this.currentWaypoint.actual_departure_date = new Date(Date.now());
-		// TODO: DO SOMETHING IN SUBSCRIBE, REQUERY?
-		this.waypointService.update(this.currentWaypoint).subscribe(() => { this.load() });
+		// for driver changeover, collect a reading on checkout
+		if(this.currentWaypoint.activity == "handover") {
+			this.navCtrl.push(WaypointFormPage, { waypoint: this.currentWaypoint, currentAssignment: this.currentAssignment });	
+		}
+		else
+		{
+			this.waypointService.update(this.currentWaypoint).subscribe(() => { this.load() });
+		}
 	}
 	
 	showConfirm(): void {
