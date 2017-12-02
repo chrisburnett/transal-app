@@ -5,7 +5,7 @@
 		"LOGIN": "Zaloguj się"
 	},
 	"HOME": {
-		"ROUTE": "Trasa",
+		"ROUTE": "trasa",
 		"NO_ROUTE_MSG": "Nie ma dla ciebie wyznaczonej trasy w tym momencie.",
 		"PREVIOUS_WAYPOINT": "Poprzedni",
 		"DRIVING_TO": "W drodze do",
@@ -29,7 +29,9 @@
 		"CHECK_IN_NO": "Nie",
 		"CHECK_IN_YES": "Tak",
 		"CURRENT_WAYPOINT_UNCONFIRMED": "Naciśnij, aby potwierdzić punkt",
-		"CURRENT_WAYPOINT_CONFIRMED": "Potwierdzony"
+		"CURRENT_WAYPOINT_CONFIRMED": "Potwierdzony",
+		"TRAILER": "Obecna naczepa",
+		"NEXT_TRAILER": "Następna naczepa"
 	},
 	"NEW_WAYPOINT": {
 		"NEW_WAYPOINT": "Dodaj nieplanowany punkt trasy",

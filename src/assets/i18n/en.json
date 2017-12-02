@@ -5,7 +5,7 @@
 		"LOGIN": "Log in"
 	},
 	"HOME": {
-		"ROUTE": "Route",
+		"ROUTE": "route",
 		"NO_ROUTE_MSG": "You are not currently assigned to a route.",
 		"PREVIOUS_WAYPOINT": "Previous Waypoint",
 		"DRIVING_TO": "Driving to",
@@ -29,7 +29,9 @@
 		"CHECK_IN_NO": "No",
 		"CHECK_IN_YES": "Yes",
 		"CURRENT_WAYPOINT_UNCONFIRMED": "Tap to confirm waypoint",
-		"CURRENT_WAYPOINT_CONFIRMED": "Confirmed"
+		"CURRENT_WAYPOINT_CONFIRMED": "Confirmed",
+		"TRAILER": "Current trailer",
+		"NEXT_TRAILER": "Next trailer"
 	},
 	"NEW_WAYPOINT": {
 		"NEW_WAYPOINT": "New Waypoint",

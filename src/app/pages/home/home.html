@@ -1,10 +1,11 @@
 <ion-header>
 	<ion-navbar color="primary">
 		<ion-title *ngIf="currentAssignment">
-			{{'HOME.ROUTE'|translate}} {{currentAssignment.route.name}}
+			{{currentAssignment.truck.registration}} ({{'HOME.ROUTE'|translate}} {{currentAssignment.route.name}})
 		</ion-title>
 		<ion-buttons start>
-			<button ion-button icon-only (click)="logout()">
+			<button *ngIf="currentUser" ion-button icon-only (click)="logout()">
+				{{currentUser.username}}
 				<ion-icon name="log-out"></ion-icon>
 			</button>
 			<button ion-button icon-only (click)="load()">
@@ -61,6 +62,21 @@
 				<ion-item *ngIf="currentWaypoint.actual_date">
 					<h4>{{'HOME.ACTUAL'|translate}}</h4>
 					<div>{{currentWaypointArrivalDatestring}}</div>
+				</ion-item>
+				<ion-item>
+					<ion-row *ngIf="currentAssignment">
+						<ion-col *ngIf="currentWaypoint.trailer" col-5 no-padding>
+							<h4>{{'HOME.TRAILER'|translate}}</h4>
+							{{currentWaypoint.trailer.registration}}
+						</ion-col>
+						<ion-col *ngIf="nextWaypoint.trailer.registration != currentWaypoint.trailer.registration" col-2>
+							<ion-icon name="arrow-forward" item-start large></ion-icon>
+						</ion-col>
+						<ion-col *ngIf="nextWaypoint.trailer.registration != currentWaypoint.trailer.registration" col-5>
+							<h4>{{'HOME.NEXT_TRAILER'|translate}}</h4>
+							{{nextWaypoint.trailer.registration}}
+						</ion-col>
+					</ion-row>
 				</ion-item>
 				<ion-item *ngIf="currentWaypoint.actual_date == null">
 					<button ion-button icon-left clear item-end (click)="showConfirm()">
