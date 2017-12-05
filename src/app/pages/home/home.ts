@@ -161,13 +161,22 @@ export class HomePage implements OnInit {
 
 	checkOut(): void {
 		this.currentWaypoint.actual_departure_date = new Date(Date.now());
+		this.assignmentService.updateStoredCurrentAssignment(this.currentAssignment);
+
 		// for driver changeover, collect a reading on checkout
 		if(this.currentWaypoint.activity == "handover") {
 			this.navCtrl.push(WaypointFormPage, { waypoint: this.currentWaypoint, currentAssignment: this.currentAssignment });	
 		}
 		else
 		{
-			this.waypointService.update(this.currentWaypoint).subscribe(() => { this.load() });
+			// reload from storage regardless of connection
+			this.waypointService.update(this.currentWaypoint).subscribe(
+				() => {
+					this.load(); // on success
+				},
+				() => {
+					this.load(); // on failure
+				});
 		}
 	}
 	

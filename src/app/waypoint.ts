@@ -1,8 +1,9 @@
 import { Location } from './location';
 import { Trailer } from './trailer';
 import { Reading } from './reading';
+import { Offline } from './offline';
 
-export class Waypoint {
+export class Waypoint implements Offline {
 	id: Number;
 	location_attributes: Location;
 	location_id: string;
@@ -24,4 +25,5 @@ export class Waypoint {
 	reading_attributes: Reading;
 	route_id: string;
 	read: boolean;
+	dirty: boolean;
 }

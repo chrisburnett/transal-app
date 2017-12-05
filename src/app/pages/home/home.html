@@ -64,15 +64,15 @@
 					<div>{{currentWaypointArrivalDatestring}}</div>
 				</ion-item>
 				<ion-item>
-					<ion-row *ngIf="currentAssignment">
+					<ion-row *ngIf="currentWaypoint">
 						<ion-col *ngIf="currentWaypoint.trailer" col-5 no-padding>
 							<h4>{{'HOME.TRAILER'|translate}}</h4>
 							{{currentWaypoint.trailer.registration}}
 						</ion-col>
-						<ion-col *ngIf="nextWaypoint.trailer.registration != currentWaypoint.trailer.registration" col-2>
+						<ion-col *ngIf="nextWaypoint && nextWaypoint.trailer.registration != currentWaypoint.trailer.registration" col-2>
 							<ion-icon name="arrow-forward" item-start large></ion-icon>
 						</ion-col>
-						<ion-col *ngIf="nextWaypoint.trailer.registration != currentWaypoint.trailer.registration" col-5>
+						<ion-col *ngIf="nextWaypoint && nextWaypoint.trailer.registration != currentWaypoint.trailer.registration" col-5>
 							<h4>{{'HOME.NEXT_TRAILER'|translate}}</h4>
 							{{nextWaypoint.trailer.registration}}
 						</ion-col>

@@ -7,6 +7,8 @@ import { Storage } from '@ionic/storage';
 
 import { Assignment } from '../../app/assignment';
 
+import { WaypointService } from '../waypoint-service/waypoint-service';
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 //import 'rxjs/add/operator/throw';
@@ -22,7 +24,11 @@ const CURRENT_ASSIGNMENT_STORAGE_KEY = "currentAssignment";
 @Injectable()
 export class AssignmentService {
 	
-	constructor(@Inject(APP_CONFIG) private config, public http: Http, public storage: Storage) {}
+	constructor(@Inject(APP_CONFIG) private config, public http: Http, public storage: Storage, public waypointService: WaypointService) {
+		// listen for app coming online and send any checkins/new waypoints created while offline
+		document.addEventListener("online", () => this.syncCurrentAssignment.call(this), false);
+		window.addEventListener("online", () => this.syncCurrentAssignment.call(this), false);
+	}
 
 	/*
 	  Calls backend for current assignment. If backend cannot be
@@ -38,13 +44,11 @@ export class AssignmentService {
 				return this.http.get(url, {headers: headers})
 					.map(response => {
 						let assignment: Assignment = response.json() as Assignment;
-						this.storage.set("currentAssignment", assignment);
-						console.log("[AssignmentService] Retrieved current assignment from backend");
+						this.updateStoredCurrentAssignment(assignment);
 						return assignment;
 					})
 					.catch(error => {
 						if(error.status === 0) {
-							console.log("[AssignmentService] No connection: retrieving current assignment from store");
 							return Observable.fromPromise(this.storage.get("currentAssignment"));
 						} else {
 							throw(error);
@@ -52,5 +56,36 @@ export class AssignmentService {
 					});
 			});
 	}
-	
+
+	/*
+	  Update storage after updates (e.g. to waypoints)
+	*/
+	updateStoredCurrentAssignment(assignment: Assignment): Promise<any> {
+		return this.storage.set("currentAssignment", assignment);
+	}
+
+	/*
+	  Sync dirty waypoints on current assignment with the backend
+	*/
+	syncCurrentAssignment(): Promise<any> {
+		if(this.storage)
+		{
+			return this.storage.get("currentAssignment")
+				.then((assignment) => {
+					// call WaypointService.update on each on that is dirty
+					for(let wp of assignment.route.waypoints.filter(w => w.dirty))
+					{
+						this.waypointService.update(wp).subscribe(() => {
+							wp.dirty = false;
+						});
+					}
+					// store updated assignment (which should have no dirties)
+					return this.updateStoredCurrentAssignment(assignment);
+				})
+		}
+		else
+		{
+			return Promise.resolve();
+		}
+	}
 }

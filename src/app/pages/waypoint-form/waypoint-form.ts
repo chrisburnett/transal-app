@@ -5,11 +5,14 @@ import { IonicPage, NavController, ModalController, NavParams } from 'ionic-angu
 import { Waypoint } from '../../waypoint';
 import { Reading } from '../../reading';
 import { WaypointService } from '../../../providers/waypoint-service/waypoint-service';
+import { AssignmentService } from '../../../providers/assignment-service/assignment-service';
 import { LocationSearchModal } from '../location-search-modal/location-search-modal';
 import { Assignment } from '../../assignment';
 import { AutoCompleteComponent } from 'ionic2-auto-complete';
 
 import { Geolocation } from '@ionic-native/geolocation';
+
+import 'rxjs/add/operator/finally';
 
 @IonicPage()
 @Component({
@@ -27,7 +30,7 @@ export class WaypointFormPage implements OnInit {
 
 	title: string;
 	
-	constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private waypointService: WaypointService, public translate: TranslateService, private geolocation: Geolocation) {
+	constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private waypointService: WaypointService, private assignmentService: AssignmentService, public translate: TranslateService, private geolocation: Geolocation) {
 		this.waypointForm = this.formBuilder.group({
 			activity: ['', Validators.required],
 			location_attributes : this.formBuilder.group({
@@ -115,11 +118,18 @@ export class WaypointFormPage implements OnInit {
 		let doSubmit = () => {
 			if(waypoint.scheduled)
 			{
-				this.waypointService.update(waypoint).subscribe(() => this.navCtrl.pop());
+				// regardless of connection status, update locally saved assignment and nav back
+				this.waypointService.update(waypoint)
+					.finally(() => {
+						this.assignmentService.updateStoredCurrentAssignment(this.currentAssignment).then(() => this.navCtrl.pop())
+					}).subscribe();
 			}
 			else
 			{
-				this.waypointService.create(waypoint).subscribe(() => this.navCtrl.pop());
+				this.waypointService.create(waypoint)
+					.finally(() => {
+						this.assignmentService.updateStoredCurrentAssignment(this.currentAssignment).then(() => this.navCtrl.pop())
+					}).subscribe()
 			}
 		};
 		

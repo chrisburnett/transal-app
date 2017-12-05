@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { Waypoint } from '../../app/waypoint';
 
 import 'rxjs/add/operator/map';
+import 'rxjs/add/observable/empty';
 
 /*
   Generated class for the WaypointServiceProvider provider.
@@ -28,9 +29,13 @@ export class WaypointService {
 		
 		return Observable.fromPromise(this.storage.get("token"))
 			.mergeMap(token => {
+				waypoint.dirty = true;
 				headers.append('Authorization', 'Bearer ' + token);
 				return this.http.put(this.url + '/' + waypoint.id, { waypoint: waypoint }, {headers: headers})
-					.map(response => response.json() as Waypoint);
+					.map(response => {
+						waypoint.dirty = false;
+						response.json() as Waypoint;
+					});
 			});
 	}
 
@@ -40,7 +45,10 @@ export class WaypointService {
 			.mergeMap(token => {
 				headers.append('Authorization', 'Bearer ' + token);
 				return this.http.post(this.url + '/', { waypoint: waypoint }, {headers: headers})
-					.map(response => response.json() as Waypoint);
+					.map(response => {
+						waypoint.dirty = false;
+						response.json() as Waypoint;	
+					});
 			});
 	}
 
