@@ -26,4 +26,6 @@ export class Waypoint implements Offline {
 	route_id: string;
 	read: boolean;
 	dirty: boolean;
+	next_waypoint_id: Number;
+	next_waypoint: Waypoint;
 }

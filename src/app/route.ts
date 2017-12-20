@@ -6,24 +6,22 @@ export class Route {
 	name: string;
 	client: Client;
 	waypoints: Waypoint[];
+	starting_waypoint: Waypoint;
 
 	static getNextWaypoint(route): Waypoint {
-		if(route.waypoints.length === 0)
-		{
-			return null;
-		}
-		return route.waypoints
-			.filter(wp => wp.actual_departure_date == null)
-			.sort((wpA, wpB) => new Date(wpA.scheduled_date).valueOf() - new Date(wpB.scheduled_date).valueOf())[1];
+		return route.waypoints.filter(wp => wp.id == Route.getCurrentWaypoint(route).next_waypoint_id)[0];
 	}
+
 	static getCurrentWaypoint(route): Waypoint {
-		if(route.waypoints.length === 0)
+		let prevWP = Route.getPreviousWaypoint(route);
+		if(!prevWP)
 		{
-			return null;
+			return route.starting_waypoint;
 		}
-		return route.waypoints
-			.filter(wp => wp.actual_departure_date == null)
-			.sort((wpA, wpB) => new Date(wpA.scheduled_date).valueOf() - new Date(wpB.scheduled_date).valueOf())[0];
+		else
+		{
+			return prevWP.next_waypoint;
+		}
 	}
 
 	static getPreviousWaypoint(route): Waypoint {
