@@ -73,7 +73,7 @@ export class AssignmentService {
 			return this.storage.get("currentAssignment")
 				.then((assignment) => {
 					// call WaypointService.update on each on that is dirty
-					for(let wp of assignment.route.waypoints.filter(w => w.dirty))
+					for(let wp of assignment.order.waypoints.filter(w => w.dirty))
 					{
 						this.waypointService.update(wp).subscribe(() => {
 							wp.dirty = false;

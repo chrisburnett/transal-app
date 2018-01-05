@@ -14,7 +14,7 @@ import { AssignmentService } from '../../../providers/assignment-service/assignm
 import { WaypointService } from '../../../providers/waypoint-service/waypoint-service';
 import { Assignment } from '../../assignment';
 import { Waypoint } from '../../waypoint';
-import { Route } from '../../route';
+import { Order } from '../../order';
 
 import { APP_CONFIG } from '../../app.config';
 
@@ -98,9 +98,9 @@ export class HomePage implements OnInit {
 					if(assignment)
 					{
 						this.currentAssignment = assignment;
-						this.currentWaypoint = Route.getCurrentWaypoint(assignment.route);	
-						this.previousWaypoint = Route.getPreviousWaypoint(assignment.route);
-						this.nextWaypoint = Route.getNextWaypoint(assignment.route);
+						this.currentWaypoint = Order.getCurrentWaypoint(assignment.order);	
+						this.previousWaypoint = Order.getPreviousWaypoint(assignment.order);
+						this.nextWaypoint = Order.getNextWaypoint(assignment.order);
 						
 						if(this.currentWaypoint)
 						{

@@ -23,7 +23,7 @@ export class Waypoint implements Offline {
 	price_per_litre: Number;
 	additional_km_reason: string;
 	reading_attributes: Reading;
-	route_id: string;
+	order_id: string;
 	read: boolean;
 	dirty: boolean;
 	next_waypoint_id: Number;

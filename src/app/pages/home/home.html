@@ -1,7 +1,7 @@
 <ion-header>
 	<ion-navbar color="primary">
 		<ion-title *ngIf="currentAssignment">
-			{{currentAssignment.truck.registration}} ({{'HOME.ROUTE'|translate}} {{currentAssignment.route.name}})
+			{{currentAssignment.truck.registration}} ({{'HOME.ORDER'|translate}} {{currentAssignment.order.name}})
 		</ion-title>
 		<ion-buttons start>
 			<button *ngIf="currentUser" ion-button icon-only (click)="logout()">
@@ -19,7 +19,7 @@
 
 	<!-- contingencies -->
 	<div *ngIf="!currentAssignment">
-		{{'HOME.NO_ROUTE_MSG'|translate}}
+		{{'HOME.NO_ORDER_MSG'|translate}}
 	</div>
 
 	<!-- waypoint cards -->

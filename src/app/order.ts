@@ -1,22 +1,22 @@
 import { Waypoint } from './waypoint';
 import { Client } from './client';
 
-export class Route {
+export class Order {
 	id: string;
 	name: string;
 	client: Client;
 	waypoints: Waypoint[];
 	starting_waypoint: Waypoint;
 
-	static getNextWaypoint(route): Waypoint {
-		return route.waypoints.filter(wp => wp.id == Route.getCurrentWaypoint(route).next_waypoint_id)[0];
+	static getNextWaypoint(order): Waypoint {
+		return order.waypoints.filter(wp => wp.id == Order.getCurrentWaypoint(order).next_waypoint_id)[0];
 	}
 
-	static getCurrentWaypoint(route): Waypoint {
-		let prevWP = Route.getPreviousWaypoint(route);
+	static getCurrentWaypoint(order): Waypoint {
+		let prevWP = Order.getPreviousWaypoint(order);
 		if(!prevWP)
 		{
-			return route.starting_waypoint;
+			return order.starting_waypoint;
 		}
 		else
 		{
@@ -24,12 +24,12 @@ export class Route {
 		}
 	}
 
-	static getPreviousWaypoint(route): Waypoint {
-		if(route.waypoints.length === 0)
+	static getPreviousWaypoint(order): Waypoint {
+		if(order.waypoints.length === 0)
 		{
 			return null;
 		}
-		return route.waypoints
+		return order.waypoints
 			.filter(wp => wp.actual_departure_date != null)
 			.sort((wpA, wpB) => new Date(wpB.actual_departure_date).valueOf() - new Date(wpA.actual_departure_date).valueOf())[0]; 
 	}

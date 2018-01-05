@@ -5,8 +5,8 @@
 		"LOGIN": "Zaloguj się"
 	},
 	"HOME": {
-		"ROUTE": "trasa",
-		"NO_ROUTE_MSG": "Nie ma dla ciebie wyznaczonej trasy w tym momencie.",
+		"ORDER": "trasa",
+		"NO_ORDER_MSG": "Nie ma dla ciebie wyznaczonej trasy w tym momencie.",
 		"PREVIOUS_WAYPOINT": "Poprzedni",
 		"DRIVING_TO": "W drodze do",
 		"CURRENTLY_AT": "Teraz w",

@@ -1,8 +1,8 @@
-import { Route } from './route';
+import { Order } from './order';
 import { Truck } from './truck';
 
 export class Assignment {
-	route: Route;
+	order: Order;
 	truck: Truck;
 	truck_id: string;
 	start_date: Date;
