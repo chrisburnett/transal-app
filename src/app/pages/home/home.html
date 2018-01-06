@@ -1,7 +1,7 @@
 <ion-header>
 	<ion-navbar color="primary">
 		<ion-title *ngIf="currentAssignment">
-			{{currentAssignment.truck.registration}} ({{'HOME.ORDER'|translate}} {{currentAssignment.order.name}})
+			{{currentAssignment.truck.registration}} ({{'HOME.ORDER'|translate}} {{currentAssignment.order.our_reference}})
 		</ion-title>
 		<ion-buttons start>
 			<button *ngIf="currentUser" ion-button icon-only (click)="logout()">

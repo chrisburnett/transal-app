@@ -5,7 +5,7 @@
 		"LOGIN": "Zaloguj się"
 	},
 	"HOME": {
-		"ORDER": "trasa",
+		"ORDER": "Zlecenie",
 		"NO_ORDER_MSG": "Nie ma dla ciebie wyznaczonej trasy w tym momencie.",
 		"PREVIOUS_WAYPOINT": "Poprzedni",
 		"DRIVING_TO": "W drodze do",
