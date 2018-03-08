@@ -107,7 +107,7 @@ export class WaypointFormPage implements OnInit {
 	submit(): void {
 		// typescript merge dictionaries
 		let waypoint: Waypoint = { ...this.waypoint, ...this.waypointForm.value };
-		waypoint.reading_attributes.truck_id = this.currentAssignment.truck_id;
+		waypoint.reading_attributes.truck_id = this.currentAssignment.driver_truck_assignment.truck.id;
 		waypoint.order_id = this.currentAssignment.order.id;
 
 		if(waypoint.location_attributes && waypoint.location_attributes.id != '')

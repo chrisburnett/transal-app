@@ -1,10 +1,10 @@
 import { Order } from './order';
-import { Truck } from './truck';
+import { DriverTruckAssignment } from './driver-truck-assignment';
 
 export class Assignment {
 	order: Order;
-	truck: Truck;
-	truck_id: string;
-	start_date: Date;
-	end_date: Date;
+	driver_truck_assignment: DriverTruckAssignment;
+	reference: string;
+	priority: number;
+	year: number;
 }
