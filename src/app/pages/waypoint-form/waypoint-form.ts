@@ -9,6 +9,7 @@ import { AssignmentService } from '../../../providers/assignment-service/assignm
 import { LocationSearchModal } from '../location-search-modal/location-search-modal';
 import { Assignment } from '../../assignment';
 import { AutoCompleteComponent } from 'ionic2-auto-complete';
+import { LoadingController } from 'ionic-angular';
 
 import { Geolocation } from '@ionic-native/geolocation';
 
@@ -30,7 +31,7 @@ export class WaypointFormPage implements OnInit {
 
 	title: string;
 	
-	constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private waypointService: WaypointService, private assignmentService: AssignmentService, public translate: TranslateService, private geolocation: Geolocation) {
+	constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private waypointService: WaypointService, private assignmentService: AssignmentService, public translate: TranslateService, private geolocation: Geolocation, private loadingCtrl: LoadingController) {
 		this.waypointForm = this.formBuilder.group({
 			activity: ['', Validators.required],
 			location_attributes : this.formBuilder.group({
@@ -105,6 +106,8 @@ export class WaypointFormPage implements OnInit {
 	}
 
 	submit(): void {
+		const loading = this.loadingCtrl.create();
+		loading.present();
 		// typescript merge dictionaries
 		let waypoint: Waypoint = { ...this.waypoint, ...this.waypointForm.value };
 		waypoint.reading_attributes.truck_id = this.currentAssignment.driver_truck_assignment.truck.id;
@@ -121,6 +124,7 @@ export class WaypointFormPage implements OnInit {
 				// regardless of connection status, update locally saved assignment and nav back
 				this.waypointService.update(waypoint)
 					.finally(() => {
+						loading.dismiss();
 						this.assignmentService.updateStoredCurrentAssignment(this.currentAssignment).then(() => this.navCtrl.pop())
 					}).subscribe();
 			}
@@ -128,6 +132,7 @@ export class WaypointFormPage implements OnInit {
 			{
 				this.waypointService.create(waypoint)
 					.finally(() => {
+						loading.dismiss();
 						this.assignmentService.updateStoredCurrentAssignment(this.currentAssignment).then(() => this.navCtrl.pop())
 					}).subscribe()
 			}

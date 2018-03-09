@@ -3,7 +3,7 @@ import { Client } from './client';
 
 export class Order {
 	id: string;
-	our_reference: string;
+	client_reference: string;
 	client: Client;
 	waypoints: Waypoint[];
 	starting_waypoint: Waypoint;
