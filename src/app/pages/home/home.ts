@@ -51,13 +51,13 @@ export class HomePage implements OnInit {
 	online: boolean;
 	
 	activityIconMap = {
-		"pickup": "arrow-up",
-		"deliver": "arrow-down",
-		"service": "build",
-		"fuel": "color-fill",
-		"office": "home",
-		"handover": "home",
-		"trailer_change": "swap"
+		"PICKUP": "arrow-up",
+		"DELIVER": "arrow-down",
+		"SERVICE": "build",
+		"FUEL": "color-fill",
+		"OFFICE": "home",
+		"HANDOVER": "home",
+		"TRAILER_CHANGE": "swap"
 	}
 
 	waypointFormPage: any;
@@ -135,6 +135,11 @@ export class HomePage implements OnInit {
 								this.nextWaypointLocationText = text;
 							});
 						}
+					}
+					else
+					{
+						// server responded but no assignment returned
+						this.currentAssignment = null;
 					}
 					loading.dismiss();
 				},

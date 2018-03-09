@@ -6,7 +6,7 @@
 	},
 	"HOME": {
 		"ORDER": "Zlecenie",
-		"NO_ORDER_MSG": "Nie ma dla ciebie wyznaczonej trasy w tym momencie.",
+		"NO_ORDER_MSG": "Bez zlecenia",
 		"PREVIOUS_WAYPOINT": "Poprzedni",
 		"DRIVING_TO": "W drodze do",
 		"CURRENTLY_AT": "Teraz w",

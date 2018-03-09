@@ -44,6 +44,7 @@ export class AssignmentService {
 				return this.http.get(url, {headers: headers})
 					.map(response => {
 						let assignment: Assignment = response.json() as Assignment;
+						// server will return NULL if there are no further assignments
 						this.updateStoredCurrentAssignment(assignment);
 						return assignment;
 					})

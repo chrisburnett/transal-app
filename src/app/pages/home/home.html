@@ -1,7 +1,7 @@
 <ion-header>
 	<ion-navbar color="primary">
 		<ion-title *ngIf="currentAssignment">
-			{{currentAssignment.driver_truck_assignment.truck.registration}} ({{'HOME.ORDER'|translate}} {{currentAssignment.order.our_reference}})
+			{{currentAssignment.driver_truck_assignment.truck.registration}} ({{'HOME.ORDER'|translate}} {{currentAssignment.reference}})
 		</ion-title>
 		<ion-buttons start>
 			<button *ngIf="currentUser" ion-button icon-only (click)="logout()">
@@ -19,9 +19,19 @@
 
 	<!-- contingencies -->
 	<div *ngIf="!currentAssignment">
-		{{'HOME.NO_ORDER_MSG'|translate}}
+		<div class="aligner">
+			<div class="aligner-item">
+				<h1><ion-icon name="information-circle"></ion-icon></h1>
+				<h1>{{'HOME.NO_ORDER_MSG'|translate}}</h1>
+
+			</div>
+		</div>
 	</div>
 
+	<!-- <div *ngIf="!currentWaypoint">
+		 {{'HOME.NO_MORE_WAYPOINTS_MSG'|translate}}
+		 </div> -->
+	
 	<!-- waypoint cards -->
 	<div *ngIf="currentAssignment">
 		<ion-card class="previousCard" [ngClass]="{'unexpected': !previousWaypoint.scheduled}" *ngIf="previousWaypoint">
@@ -104,10 +114,6 @@
 			</ion-card-content>
 		</ion-card>
 	</div>
-
-	<ion-card-content *ngIf="!currentWaypoint">
-		{{'HOME.NO_MORE_WAYPOINTS_MSG'|translate}}
-	</ion-card-content>
 	
 	<ion-footer>
 		<ion-toolbar>
