@@ -65,7 +65,7 @@
 					<p>{{currentWaypoint.location.number}} {{currentWaypoint.location.street}}</p>
 					<p>{{currentWaypoint.location.city}} {{currentWaypoint.location.postcode}} {{currentWaypoint.location.country_code}}</p>
 				</ion-item>
-				<ion-item>
+				<ion-item *ngIf="currentWaypoint.scheduled">
 					<h4>{{'HOME.DUE'|translate}}</h4>
 					<div>{{currentWaypointDatestring}} <span *ngIf="!currentWaypoint.actual_date" [ngClass]="{'overdue': currentWaypointOverdue, 'pending': !currentWaypointOverdue}">({{timeToCurrentWaypoint}})</span></div>
 				</ion-item>
