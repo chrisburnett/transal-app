@@ -45,7 +45,7 @@ export class WaypointFormPage implements OnInit {
 				country_code: ['', Validators.required]
 			}),
 			reading_attributes: this.formBuilder.group({
-				odometer: [''],
+				odometer: ['', Validators.required],
 				maut: ['']
 			}),
 			additional_km: [''],
@@ -69,6 +69,21 @@ export class WaypointFormPage implements OnInit {
 				}
 			}
 		);
+
+		// conditionally require reason if additional_km entered
+		this.waypointForm.controls.additional_km.valueChanges.subscribe(
+			(additional_km: string) => {
+				if(additional_km != "") {
+					this.waypointForm.controls.additional_km_reason.setValidators(Validators.required);
+					this.waypointForm.controls.additional_km_reason.updateValueAndValidity();
+				}
+				else {
+					this.waypointForm.controls.additional_km_reason.setValidators(null);
+					this.waypointForm.controls.additional_km_reason.updateValueAndValidity();
+				}
+					
+			}
+		)
 
 		// if location manually edited, clear id/code
 		// fingers crossed this doesn't create an infinite loop
