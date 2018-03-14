@@ -7,4 +7,5 @@ export class Reading {
 	waypoint: Waypoint;
 	truck: Truck;
 	truck_id: string;
+	user_id: string;
 }
