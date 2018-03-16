@@ -117,7 +117,7 @@
 	
 	<ion-footer>
 		<ion-toolbar>
-			<button [navPush]="waypointFormPage" [navParams]="{ currentAssignment: currentAssignment }" ion-button block>{{'HOME.NEW_WAYPOINT'|translate}}</button>
+			<button *ngIf="currentWaypoint && currentWaypoint.actual_date == null && currentWaypoint.scheduled" [navPush]="waypointFormPage" [navParams]="{ currentAssignment: currentAssignment }" ion-button block>{{'HOME.NEW_WAYPOINT'|translate}}</button>
 		</ion-toolbar>
 	</ion-footer>
 </ion-content>
