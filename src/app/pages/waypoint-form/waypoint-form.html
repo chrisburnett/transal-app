@@ -23,7 +23,7 @@
 				</ion-select>
 			</ion-item>
 
-			<div formGroupName="reading_attributes">
+			<div *ngIf="waypoint.id" formGroupName="reading_attributes">
 				<ion-item>
 					<ion-label>{{'NEW_READING.ODOMETER'|translate}}</ion-label>
 					<ion-input type="text" formControlName="odometer"></ion-input>
@@ -35,17 +35,19 @@
 			</div>
 
 
-			<ion-item>
-				<ion-label>{{'NEW_WAYPOINT.ADDITIONAL_KM'|translate}}</ion-label>
-				<ion-input #reasonCtrl formControlName="additional_km"></ion-input>
-			</ion-item>
-			<ion-item *ngIf="reasonCtrl.value!=''">
-				<ion-label>{{'NEW_WAYPOINT.ADDITIONAL_KM_REASON'|translate}}</ion-label>
-				<ion-input formControlName="additional_km_reason"></ion-input>
-			</ion-item>
+			<div *ngIf="waypoint.id">
+				<ion-item>
+					<ion-label>{{'NEW_WAYPOINT.ADDITIONAL_KM'|translate}}</ion-label>
+					<ion-input #reasonCtrl formControlName="additional_km"></ion-input>
+				</ion-item>
+				<ion-item *ngIf="reasonCtrl.value!=''">
+					<ion-label>{{'NEW_WAYPOINT.ADDITIONAL_KM_REASON'|translate}}</ion-label>
+					<ion-input formControlName="additional_km_reason"></ion-input>
+				</ion-item>
+			</div>
 			
 			
-			<div formGroupName="location_attributes" *ngIf="!waypoint.scheduled">
+			<div formGroupName="location_attributes" *ngIf="!waypoint.scheduled && !waypoint.id">
 				<ion-item-divider color="light">
 					<ion-label>
 						{{'NEW_WAYPOINT.LOCATION'|translate}}
@@ -118,7 +120,7 @@
 			</div>
 			<!-- end only if changing trailers -->
 
-			<pallet-record-fields [parentFormGroup]="waypointForm" [palletTypes]="currentAssignment.pallet_types"></pallet-record-fields>
+			<pallet-record-fields *ngIf="waypoint.id && currentAssignment.pallet_types" [parentFormGroup]="waypointForm" [palletTypes]="currentAssignment.pallet_types"></pallet-record-fields>
 			
 	   		<button type="submit" [disabled]="!waypointForm.valid" ion-button>{{'NEW_WAYPOINT.SUBMIT'|translate}}</button>
 			<button color="light" ion-button navPop>{{'NEW_WAYPOINT.CANCEL'|translate}}</button>

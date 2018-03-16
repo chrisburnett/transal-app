@@ -1,21 +1,35 @@
 <div [formGroup]="parentFormGroup">
 	<div formArrayName="pallet_records_attributes">
-		<div *ngFor="let palletType of palletTypes; let i = index">
-			<div [formGroup]="parentFormGroup.controls.pallet_records_attributes.controls[i]">
-				<ion-input type="hidden" formControlName="pallet_type_id"></ion-input>
-				<ion-item>
-					<ion-label>{{'NEW_PALLET_RECORD.PICKUP'|translate}}</ion-label>
-					<ion-input type="text" formControlName="picked_up"></ion-input>
-				</ion-item>
-				<ion-item>
-					<ion-label>{{'NEW_PALLET_RECORD.DROPOFF'|translate}}</ion-label>
-					<ion-input type="text" formControlName="dropped_off"></ion-input>
-				</ion-item>
-				<ion-item>
-					<ion-label>{{'NEW_PALLET_RECORD.DEFECT'|translate}}</ion-label>
-					<ion-input type="text" formControlName="damaged"></ion-input>
-				</ion-item>
-			</div>
-		</div>
+		<ion-list>
+			<ion-list-header>
+				Palety
+			</ion-list-header>
+			<ion-item-group *ngFor="let palletType of palletTypes; let i = index">
+				<div [formGroup]="parentFormGroup.controls.pallet_records_attributes.controls[i]">
+					<ion-item-divider>{{palletType.name}}</ion-item-divider>
+					<ion-input type="hidden" formControlName="pallet_type_id"></ion-input>
+					<ion-row>
+						<ion-col col-4>
+							<ion-item>
+								<ion-label stacked>{{'NEW_PALLET_RECORD.PICKUP'|translate}}</ion-label>
+								<ion-input type="number" formControlName="picked_up"></ion-input>
+							</ion-item>
+						</ion-col>
+						<ion-col col-4>
+							<ion-item>
+								<ion-label stacked>{{'NEW_PALLET_RECORD.DROPOFF'|translate}}</ion-label>
+								<ion-input type="number" formControlName="dropped_off"></ion-input>
+							</ion-item>
+						</ion-col>
+						<ion-col col-4>
+							<ion-item>
+								<ion-label stacked>{{'NEW_PALLET_RECORD.DEFECT'|translate}}</ion-label>
+								<ion-input type="number" formControlName="damaged"></ion-input>
+							</ion-item>
+						</ion-col>
+					</ion-row>
+				</div>
+			</ion-item-group>
+		</ion-list>
 	</div>
 </div>

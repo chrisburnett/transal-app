@@ -37,12 +37,12 @@ export class WaypointFormPage implements OnInit {
 			location_attributes : this.formBuilder.group({
 				id: [''],
 				code: [''],
-				name: ['', Validators.required],
+				name: [''],
 				number: [''],
-				street: ['', Validators.required],
+				street: [''],
 				city: [''],
-				postcode: ['', Validators.required],
-				country_code: ['', Validators.required]
+				postcode: [''],
+				country_code: ['']
 			}),
 			reading_attributes: this.formBuilder.group({
 				odometer: ['', Validators.required],
@@ -91,7 +91,8 @@ export class WaypointFormPage implements OnInit {
 			data => {
 				this.waypointForm.controls.location_attributes.get('code').setValue('', {emitEvent: false});
 				this.waypointForm.controls.location_attributes.get('id').setValue('', {emitEvent: false});
-			});
+			}
+		);
 
 	}
 
@@ -109,18 +110,33 @@ export class WaypointFormPage implements OnInit {
 			//this.waypoint.actual_date = this.waypoint.scheduled_date;
 
 			this.translate.get('NEW_WAYPOINT.NEW_WAYPOINT').subscribe((text: string) => this.title = text);
+
+			// set validation
+			// if we are collecting location, validate on it
+			// if no location ID, then it's new (unscheduled) OR we never knew
+			// the location and we should prompt the driver
+			let location = this.waypointForm.controls.location_attributes;
+
+			location.get("name").setValidators(Validators.required)
+			location.get("street").setValidators(Validators.required)
+			location.get("postcode").setValidators(Validators.required)
+			location.get("country_code").setValidators(Validators.required)
+
+			// don't require km stand when creating unplanned WP
+			// it will be provided later at checking
+			let reading = this.waypointForm.controls.reading_attributes;
+			reading.get("odometer").setValidators(null);
 		}
 		else
 		{
 			this.translate.get('CHECK_IN.CHECK_IN').subscribe((text: string) => this.title = text);
 			this.waypointForm.controls.activity.setValue(this.waypoint.activity);
-
-			// for existing waypoints we don't need this structure
-			this.waypointForm.removeControl('location_attributes');
 		}
+
 	}
 
 	submit(): void {
+		debugger
 		const loading = this.loadingCtrl.create();
 		loading.present();
 		// typescript merge dictionaries
@@ -135,7 +151,7 @@ export class WaypointFormPage implements OnInit {
 		}
 
 		let doSubmit = () => {
-			if(waypoint.scheduled)
+			if(waypoint.id)
 			{
 				// regardless of connection status, update locally saved assignment and nav back
 				this.waypointService.update(waypoint)
@@ -153,17 +169,18 @@ export class WaypointFormPage implements OnInit {
 					}).subscribe()
 			}
 		};
-		
-		this.geolocation.getCurrentPosition()
-			.then((resp) => {
- 				waypoint.gps_location_lat = String(resp.coords.latitude);
- 				waypoint.gps_location_long = String(resp.coords.longitude);
-				doSubmit();
-			})
-			.catch((error) => {
-				console.log('Error getting location', error);
-				doSubmit();
-			});
+
+		doSubmit();
+		// this.geolocation.getCurrentPosition()
+		// 	.then((resp) => {
+ 		// 		waypoint.gps_location_lat = String(resp.coords.latitude);
+ 		// 		waypoint.gps_location_long = String(resp.coords.longitude);
+		// 		doSubmit();
+		// 	})
+		// 	.catch((error) => {
+		// 		console.log('Error getting location', error);
+		// 		doSubmit();
+		// 	});
 	}
 
 	showLocationSearchModal(): void {
