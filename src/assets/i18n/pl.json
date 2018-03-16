@@ -58,6 +58,12 @@
 		"LOCATION_NAME_VALIDATION_MSG": "Podaj nazwę miejsca",
 		"SEARCH": "Wyszukaj lokalizację"
 	},
+	"NEW_PALLET_RECORD": {
+		"PALLET_TYPE": "Rodzaj paletu",
+		"PICKUP": "Pobrano",
+		"DROPOFF": "Zdano",
+		"DEFECT": "Defekt"
+	},
 	"CHECK_IN": {
 		"CHECK_IN": "Zameldowanie się to punktu trasy"
 	},

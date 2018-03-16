@@ -118,6 +118,8 @@
 			</div>
 			<!-- end only if changing trailers -->
 
+			<pallet-record-fields [parentFormGroup]="waypointForm" [palletTypes]="currentAssignment.pallet_types"></pallet-record-fields>
+			
 	   		<button type="submit" [disabled]="!waypointForm.valid" ion-button>{{'NEW_WAYPOINT.SUBMIT'|translate}}</button>
 			<button color="light" ion-button navPop>{{'NEW_WAYPOINT.CANCEL'|translate}}</button>
 		</ion-item-group>

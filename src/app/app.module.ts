@@ -17,6 +17,7 @@ import { MyApp } from './app.component';
 import { HomePage } from './pages/home/home';
 import { LoginPage } from './pages/login/login';
 import { WaypointFormPage } from './pages/waypoint-form/waypoint-form';
+import { PalletRecordFields } from './pages/waypoint-form/pallet-record-fields';
 import { LocationSearchModal } from './pages/location-search-modal/location-search-modal';
 import { AuthService } from '../providers/auth-service/auth-service';
 import { AssignmentService } from '../providers/assignment-service/assignment-service';
@@ -36,7 +37,8 @@ export function createTranslateLoader(http: Http) {
 		HomePage,
 		LoginPage,
 		WaypointFormPage,
-		LocationSearchModal
+		LocationSearchModal,
+		PalletRecordFields
 	],
 	imports: [
 		BrowserModule,

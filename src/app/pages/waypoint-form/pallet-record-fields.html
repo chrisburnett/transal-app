@@ -1,0 +1,21 @@
+<div [formGroup]="parentFormGroup">
+	<div formArrayName="pallet_records_attributes">
+		<div *ngFor="let palletType of palletTypes; let i = index">
+			<div [formGroup]="parentFormGroup.controls.pallet_records_attributes.controls[i]">
+				<ion-input type="hidden" formControlName="pallet_type_id"></ion-input>
+				<ion-item>
+					<ion-label>{{'NEW_PALLET_RECORD.PICKUP'|translate}}</ion-label>
+					<ion-input type="text" formControlName="picked_up"></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label>{{'NEW_PALLET_RECORD.DROPOFF'|translate}}</ion-label>
+					<ion-input type="text" formControlName="dropped_off"></ion-input>
+				</ion-item>
+				<ion-item>
+					<ion-label>{{'NEW_PALLET_RECORD.DEFECT'|translate}}</ion-label>
+					<ion-input type="text" formControlName="damaged"></ion-input>
+				</ion-item>
+			</div>
+		</div>
+	</div>
+</div>

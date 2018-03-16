@@ -1,5 +1,6 @@
 import { Order } from './order';
 import { DriverTruckAssignment } from './driver-truck-assignment';
+import { PalletType } from './pallet-type';
 
 export class Assignment {
 	order: Order;
@@ -7,4 +8,5 @@ export class Assignment {
 	reference: string;
 	priority: number;
 	year: number;
+	pallet_types: PalletType[];
 }
