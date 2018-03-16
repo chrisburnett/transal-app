@@ -106,7 +106,7 @@ export class WaypointFormPage implements OnInit {
 		 	this.waypoint.scheduled = false;
 			this.waypoint.reading_attributes = new Reading();
 			this.waypoint.scheduled_date = new Date();
-			this.waypoint.actual_date = this.waypoint.scheduled_date;
+			//this.waypoint.actual_date = this.waypoint.scheduled_date;
 
 			this.translate.get('NEW_WAYPOINT.NEW_WAYPOINT').subscribe((text: string) => this.title = text);
 		}
