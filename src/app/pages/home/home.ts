@@ -48,6 +48,8 @@ export class HomePage implements OnInit {
 	nextWaypointLocationText: string;
 	previousWaypointLocationText: string;
 
+	distanceToCurrentWaypoint: number;
+	
 	online: boolean;
 	
 	activityIconMap = {
@@ -98,7 +100,8 @@ export class HomePage implements OnInit {
 					if(assignment)
 					{
 						this.currentAssignment = assignment;
-						this.currentWaypoint = Order.getCurrentWaypoint(assignment.order);	
+						this.currentWaypoint = Order.getCurrentWaypoint(assignment.order);
+						this.distanceToCurrentWaypoint = this.currentWaypoint.distance_from_previous;
 						this.previousWaypoint = Order.getPreviousWaypoint(assignment.order);
 						this.nextWaypoint = Order.getNextWaypoint(assignment.order);
 						

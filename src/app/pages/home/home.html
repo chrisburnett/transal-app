@@ -48,6 +48,7 @@
 		<ion-card (tap)="currentCardTapped($event)" class="currentCard" [ngClass]="{'overdue': currentWaypointOverdue, 'currentCardCheckedIn': currentWaypoint.actual_date != null}" *ngIf="currentWaypoint">
 			<ion-card-header *ngIf="currentWaypoint.actual_date == null">
 				{{'HOME.DRIVING_TO'|translate}}: {{currentWaypointLocationText}}
+				<ion-badge float-right>{{distanceToCurrentWaypoint}} km</ion-badge>
 			</ion-card-header>
 			<ion-card-header *ngIf="currentWaypoint.actual_date">
 				{{'HOME.CURRENTLY_AT'|translate}}: {{currentWaypointLocationText}}

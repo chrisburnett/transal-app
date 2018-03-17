@@ -61,7 +61,7 @@
 		"KM_CONFIRM_WARNING": "Uwaga - różnica między przejechanymi kilometrami a zaplanowaną trasą wynosi więcej niż 20km",
 		"KM_CONFIRM_OK": "Potwierdź",
 		"KM_CONFIRM_CANCEL": "Anuluj",
-		"KM_CONFIRM_TOO_FEW_KM": "UWAGA TODO TRANSLATE"
+		"KM_CONFIRM_TOO_FEW_KM": "Uwaga - nie można wprowadzić mniejszego stanu kilometrów niż poprzedni odczyt"
 	},
 	"NEW_PALLET_RECORD": {
 		"PALLET_TYPE": "Rodzaj paletu",

@@ -139,7 +139,6 @@ export class WaypointFormPage implements OnInit {
 	submit(): void {
 		debugger
 		const loading = this.loadingCtrl.create();
-		loading.present();
 		// typescript merge dictionaries
 		let waypoint: Waypoint = { ...this.waypoint, ...this.waypointForm.value };
 		waypoint.reading_attributes.truck_id = this.currentAssignment.driver_truck_assignment.truck.id;
@@ -151,28 +150,42 @@ export class WaypointFormPage implements OnInit {
 			waypoint.location_id = waypoint.location_attributes.id;
 		}
 
+		let createOrUpdate = () => {
+				if(waypoint.id)
+				{
+					// regardless of connection status, update locally saved assignment and nav back
+					this.waypointService.update(waypoint)
+						.finally(() => {
+							loading.dismiss();
+							this.assignmentService.updateStoredCurrentAssignment(this.currentAssignment).then(() => this.navCtrl.pop())
+						}).subscribe();
+				}
+				else
+				{
+					this.waypointService.create(waypoint)
+						.finally(() => {
+							loading.dismiss();
+							this.assignmentService.updateStoredCurrentAssignment(this.currentAssignment).then(() => this.navCtrl.pop())
+						}).subscribe()
+				}
+			}
+		
 		let doSubmit = () => {
-			if(waypoint.id)
-			{
-				// regardless of connection status, update locally saved assignment and nav back
-				this.waypointService.update(waypoint)
-					.finally(() => {
-						loading.dismiss();
-						this.assignmentService.updateStoredCurrentAssignment(this.currentAssignment).then(() => this.navCtrl.pop())
-					}).subscribe();
-			}
-			else
-			{
-				this.waypointService.create(waypoint)
-					.finally(() => {
-						loading.dismiss();
-						this.assignmentService.updateStoredCurrentAssignment(this.currentAssignment).then(() => this.navCtrl.pop())
-					}).subscribe()
-			}
+			loading.present();
+			this.geolocation.getCurrentPosition()
+			.then((resp) => {
+ 				waypoint.gps_location_lat = String(resp.coords.latitude);
+ 				waypoint.gps_location_long = String(resp.coords.longitude);
+				createOrUpdate();
+			})
+			.catch((error) => {
+				console.log('Error getting location', error);
+				createOrUpdate();
+			});
+			
 		};
 
 		// check for alert conditions - if delta > 20km
-		// TODO: SPECIAL CASE FOR FIRST WP
 		if(Math.abs(this.waypoint.distance_from_previous - (waypoint.reading_attributes.odometer - this.waypoint.odometer_from_previous)) > 20)
 		{
 			loading.dismiss();
