@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { AlertController } from 'ionic-angular';
 import { IonicPage, NavController, ModalController, NavParams } from 'ionic-angular';
 import { Waypoint } from '../../waypoint';
 import { Reading } from '../../reading';
@@ -31,7 +32,7 @@ export class WaypointFormPage implements OnInit {
 
 	title: string;
 	
-	constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private waypointService: WaypointService, private assignmentService: AssignmentService, public translate: TranslateService, private geolocation: Geolocation, private loadingCtrl: LoadingController) {
+	constructor(private formBuilder: FormBuilder, public navCtrl: NavController, public modalCtrl: ModalController, public navParams: NavParams, private waypointService: WaypointService, private assignmentService: AssignmentService, public translate: TranslateService, private geolocation: Geolocation, private loadingCtrl: LoadingController, public alertCtrl: AlertController) {
 		this.waypointForm = this.formBuilder.group({
 			activity: ['', Validators.required],
 			location_attributes : this.formBuilder.group({
@@ -170,7 +171,22 @@ export class WaypointFormPage implements OnInit {
 			}
 		};
 
-		doSubmit();
+		// check for alert conditions - if delta > 20km
+		// TODO: SPECIAL CASE FOR FIRST WP
+		if(Math.abs(this.waypoint.distance_from_previous - (waypoint.reading_attributes.odometer - this.waypoint.odometer_from_previous)) > 20)
+		{
+			loading.dismiss();
+			this.showKmConfirm(doSubmit);
+		}
+		else if(waypoint.reading_attributes.odometer < this.waypoint.odometer_from_previous)
+		{
+			loading.dismiss();
+			this.showIncorrectKMAlert();
+		}
+		else
+		{
+			doSubmit();
+		}
 		// this.geolocation.getCurrentPosition()
 		// 	.then((resp) => {
  		// 		waypoint.gps_location_lat = String(resp.coords.latitude);
@@ -182,6 +198,39 @@ export class WaypointFormPage implements OnInit {
 		// 		doSubmit();
 		// 	});
 	}
+
+	showKmConfirm(onConfirm): void {
+		let confirm = this.alertCtrl.create({
+			title: this.translate.instant('NEW_WAYPOINT.KM_CONFIRM_TITLE'),
+			message: this.translate.instant('NEW_WAYPOINT.KM_CONFIRM_WARNING'),
+			buttons: [
+				{
+				text: this.translate.instant('NEW_WAYPOINT.KM_CONFIRM_CANCEL'),
+				handler: () => {
+					
+				}
+			},
+				{
+				text: this.translate.instant('NEW_WAYPOINT.KM_CONFIRM_OK'),
+				handler: () => {
+					onConfirm();
+				}
+			}
+			]
+		});
+		confirm.present();
+	}
+
+	showIncorrectKMAlert() {
+		let alert = this.alertCtrl.create({
+			title: this.translate.instant('NEW_WAYPOINT.KM_CONFIRM_TITLE'),
+			message: this.translate.instant('NEW_WAYPOINT.KM_CONFIRM_TOO_FEW_KM'),
+			buttons: ['OK']
+		});
+		alert.present();
+}
+
+	
 
 	showLocationSearchModal(): void {
 		let lsm = this.modalCtrl.create(LocationSearchModal, {location_attributes: this.waypointForm.controls.location_attributes});

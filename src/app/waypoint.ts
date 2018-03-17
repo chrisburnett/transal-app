@@ -28,4 +28,6 @@ export class Waypoint implements Offline {
 	dirty: boolean;
 	next_waypoint_id: Number;
 	next_waypoint: Waypoint;
+	odometer_from_previous: number;
+	distance_from_previous: number;
 }

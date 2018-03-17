@@ -56,7 +56,12 @@
 		"LITRES_DIESEL": "Ilość litrów",
 		"PRICE_PER_LITRE": "Cena diesla",
 		"LOCATION_NAME_VALIDATION_MSG": "Podaj nazwę miejsca",
-		"SEARCH": "Wyszukaj lokalizację"
+		"SEARCH": "Wyszukaj lokalizację",
+		"KM_CONFIRM_TITLE": "Potwierdź KM",
+		"KM_CONFIRM_WARNING": "Uwaga - różnica między przejechanymi kilometrami a zaplanowaną trasą wynosi więcej niż 20km",
+		"KM_CONFIRM_OK": "Potwierdź",
+		"KM_CONFIRM_CANCEL": "Anuluj",
+		"KM_CONFIRM_TOO_FEW_KM": "UWAGA TODO TRANSLATE"
 	},
 	"NEW_PALLET_RECORD": {
 		"PALLET_TYPE": "Rodzaj paletu",
