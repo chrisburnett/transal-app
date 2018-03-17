@@ -26,11 +26,11 @@
 			<div *ngIf="waypoint.id" formGroupName="reading_attributes">
 				<ion-item>
 					<ion-label>{{'NEW_READING.ODOMETER'|translate}}</ion-label>
-					<ion-input type="text" formControlName="odometer"></ion-input>
+					<ion-input type="number" formControlName="odometer"></ion-input>
 				</ion-item>
 				<ion-item *ngIf="activityCtrl.value=='handover'">
 					<ion-label>{{'NEW_READING.MAUT'|translate}}</ion-label>
-					<ion-input formControlName="maut"></ion-input>
+					<ion-input type="number" formControlName="maut"></ion-input>
 				</ion-item>
 			</div>
 
@@ -38,7 +38,7 @@
 			<div *ngIf="waypoint.id">
 				<ion-item>
 					<ion-label>{{'NEW_WAYPOINT.ADDITIONAL_KM'|translate}}</ion-label>
-					<ion-input #reasonCtrl formControlName="additional_km"></ion-input>
+					<ion-input type="number" #reasonCtrl formControlName="additional_km"></ion-input>
 				</ion-item>
 				<ion-item *ngIf="reasonCtrl.value!=''">
 					<ion-label>{{'NEW_WAYPOINT.ADDITIONAL_KM_REASON'|translate}}</ion-label>
@@ -93,11 +93,11 @@
 				</ion-item-divider>
 				<ion-item [ngClass]="{'has-error': !waypointForm.controls.price_per_litre.valid && waypointForm.controls.price_per_litre.touched}">
 					<ion-label>{{'NEW_WAYPOINT.PRICE_PER_LITRE'|translate}}</ion-label>
-					<ion-input formControlName="price_per_litre"></ion-input>
+					<ion-input type="number" formControlName="price_per_litre"></ion-input>
 				</ion-item>
 				<ion-item *ngIf="activityCtrl.value=='fuel'" [ngClass]="{'has-error': !waypointForm.controls.litres_diesel.valid && waypointForm.controls.litres_diesel.touched}">
 					<ion-label>{{'NEW_WAYPOINT.LITRES_DIESEL'|translate}}</ion-label>
-					<ion-input formControlName="litres_diesel"></ion-input>
+					<ion-input type="number" formControlName="litres_diesel"></ion-input>
 				</ion-item>
 			</div>
 			<!-- end only if fuelling -->
