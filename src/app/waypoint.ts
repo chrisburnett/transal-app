@@ -2,6 +2,7 @@ import { Location } from './location';
 import { Trailer } from './trailer';
 import { Reading } from './reading';
 import { Offline } from './offline';
+import { PalletRecord } from './pallet-record';
 
 export class Waypoint implements Offline {
 	id: Number;
@@ -23,6 +24,7 @@ export class Waypoint implements Offline {
 	price_per_litre: Number;
 	additional_km_reason: string;
 	reading_attributes: Reading;
+	pallet_records_attributes: PalletRecord[];
 	order_id: string;
 	read: boolean;
 	dirty: boolean;

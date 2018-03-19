@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { PalletType } from '../../pallet-type';
 
 @Component({
@@ -14,12 +14,17 @@ export class PalletRecordFields {
 	@Input('palletTypes')
 	public palletTypes: PalletType[];
 
+	@Input('enforcePalletExchange')
+	public enforcePalletExchange: boolean;
+	
 	constructor(private formBuilder: FormBuilder) {}
 	
 	ngOnInit(): void {
 
+		// if pallet exchange required, set minimum 1
+		let m: number = this.enforcePalletExchange ? 1 : 0;
+		
 		// add formarray
-		debugger;
 		this.parentFormGroup.addControl('pallet_records_attributes', this.formBuilder.array(
 			this.palletTypes.map(
 				(pt) => this.formBuilder.group({

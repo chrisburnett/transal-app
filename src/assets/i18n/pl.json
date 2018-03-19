@@ -64,6 +64,8 @@
 		"KM_CONFIRM_TOO_FEW_KM": "Uwaga - nie można wprowadzić mniejszego stanu kilometrów niż poprzedni odczyt"
 	},
 	"NEW_PALLET_RECORD": {
+		"ALERT_TITLE": "Uwaga",
+		"ALERT_NO_PALLETS_EXCHANGED": "Nie można wymeldować się bez wprowadzenia ilości wymienionych palet",
 		"PALLET_TYPE": "Rodzaj paletu",
 		"PICKUP": "Pobrano",
 		"DROPOFF": "Zdano",

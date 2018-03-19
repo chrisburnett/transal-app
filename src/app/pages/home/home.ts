@@ -172,7 +172,10 @@ export class HomePage implements OnInit {
 		this.assignmentService.updateStoredCurrentAssignment(this.currentAssignment);
 
 		// for driver changeover, collect a reading on checkout
-		if(this.currentWaypoint.activity == "handover") {
+		// alternatively if collecting pallet information, we need to get this now too
+		if(this.currentWaypoint.activity == "handover" ||
+		   (this.currentWaypoint.activity != "fuel" && this.currentAssignment.pallet_types))
+		{
 			this.navCtrl.push(WaypointFormPage, { waypoint: this.currentWaypoint, currentAssignment: this.currentAssignment });	
 		}
 		else

@@ -134,10 +134,16 @@ export class WaypointFormPage implements OnInit {
 			this.waypointForm.controls.activity.setValue(this.waypoint.activity);
 		}
 
+		// special case - checking out sometimes requires gathering
+		// pallet info, don't require KM/Additional again - disable validation
+		if(this.waypoint.actual_departure_date && this.waypoint.activity != "handover")
+		{
+			this.waypointForm.controls.reading_attributes.get("odometer").setValidators(null)
+		}
+
 	}
 
 	submit(): void {
-		debugger
 		const loading = this.loadingCtrl.create();
 		// typescript merge dictionaries
 		let waypoint: Waypoint = { ...this.waypoint, ...this.waypointForm.value };
@@ -186,52 +192,67 @@ export class WaypointFormPage implements OnInit {
 		};
 
 		// check for alert conditions - if delta > 20km
-		if(Math.abs(this.waypoint.distance_from_previous - (waypoint.reading_attributes.odometer - this.waypoint.odometer_from_previous)) > 20)
+		if(!waypoint.actual_departure_date) {
+			if(waypoint.reading_attributes.odometer < this.waypoint.odometer_from_previous)
+			{
+				loading.dismiss();
+				this.showIncorrectKMAlert();
+				return;
+			}
+			else if(Math.abs(this.waypoint.distance_from_previous - (waypoint.reading_attributes.odometer - this.waypoint.odometer_from_previous)) > 20)
+			{
+				loading.dismiss();
+				this.showKmConfirm().then(
+					() => {
+						doSubmit();
+					},
+					() => {});
+				return;
+			}
+		}
+		// CHECKING OUT
+		// if pallet tracking required, exchange enforced and none
+		// of the exchange values is non-zero
+		else if(this.currentAssignment.pallet_types &&
+				waypoint.actual_departure_date != null &&
+				waypoint.activity != 'fuel' &&
+				this.currentAssignment.order.enforce_pallet_exchange &&
+				!waypoint.pallet_records_attributes.some((pr) => {
+					return pr.picked_up != 0 || pr.dropped_off != 0;
+				}))
 		{
 			loading.dismiss();
-			this.showKmConfirm(doSubmit);
+			this.showPalletExchangeRequiredAlert();
+			return;
 		}
-		else if(waypoint.reading_attributes.odometer < this.waypoint.odometer_from_previous)
-		{
-			loading.dismiss();
-			this.showIncorrectKMAlert();
-		}
-		else
-		{
-			doSubmit();
-		}
-		// this.geolocation.getCurrentPosition()
-		// 	.then((resp) => {
- 		// 		waypoint.gps_location_lat = String(resp.coords.latitude);
- 		// 		waypoint.gps_location_long = String(resp.coords.longitude);
-		// 		doSubmit();
-		// 	})
-		// 	.catch((error) => {
-		// 		console.log('Error getting location', error);
-		// 		doSubmit();
-		// 	});
+
+		// if we get here then all is fine, submit
+		loading.dismiss();
+		doSubmit();
 	}
 
-	showKmConfirm(onConfirm): void {
-		let confirm = this.alertCtrl.create({
-			title: this.translate.instant('NEW_WAYPOINT.KM_CONFIRM_TITLE'),
-			message: this.translate.instant('NEW_WAYPOINT.KM_CONFIRM_WARNING'),
-			buttons: [
-				{
-				text: this.translate.instant('NEW_WAYPOINT.KM_CONFIRM_CANCEL'),
-				handler: () => {
-					
-				}
-			},
-				{
-				text: this.translate.instant('NEW_WAYPOINT.KM_CONFIRM_OK'),
-				handler: () => {
-					onConfirm();
-				}
-			}
-			]
-		});
-		confirm.present();
+	showKmConfirm(): Promise<any> {
+		return new Promise<any> (
+			(resolve, reject) => {
+				let confirm = this.alertCtrl.create({
+					title: this.translate.instant('NEW_WAYPOINT.KM_CONFIRM_TITLE'),
+					message: this.translate.instant('NEW_WAYPOINT.KM_CONFIRM_WARNING'),
+					buttons: [
+						{
+						text: this.translate.instant('NEW_WAYPOINT.KM_CONFIRM_CANCEL'),
+						handler: () => {
+							reject();
+						}
+					}, {
+						text: this.translate.instant('NEW_WAYPOINT.KM_CONFIRM_OK'),
+						handler: () => {
+							resolve();
+						}
+					}
+					]
+		  		});
+				confirm.present();
+			});
 	}
 
 	showIncorrectKMAlert() {
@@ -241,7 +262,16 @@ export class WaypointFormPage implements OnInit {
 			buttons: ['OK']
 		});
 		alert.present();
-}
+	}
+
+	showPalletExchangeRequiredAlert() {
+		let alert = this.alertCtrl.create({
+			title: this.translate.instant('NEW_PALLET_RECORD.ALERT_TITLE'),
+			message: this.translate.instant('NEW_PALLET_RECORD.ALERT_NO_PALLETS_EXCHANGED'),
+			buttons: ['OK']
+		});
+		alert.present();
+	}
 
 	
 
