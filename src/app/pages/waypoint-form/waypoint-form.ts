@@ -157,37 +157,40 @@ export class WaypointFormPage implements OnInit {
 		}
 
 		let createOrUpdate = () => {
-				if(waypoint.id)
-				{
-					// regardless of connection status, update locally saved assignment and nav back
-					this.waypointService.update(waypoint)
-						.finally(() => {
-							loading.dismiss();
-							this.assignmentService.updateStoredCurrentAssignment(this.currentAssignment).then(() => this.navCtrl.pop())
-						}).subscribe();
-				}
-				else
-				{
-					this.waypointService.create(waypoint)
-						.finally(() => {
-							loading.dismiss();
-							this.assignmentService.updateStoredCurrentAssignment(this.currentAssignment).then(() => this.navCtrl.pop())
-						}).subscribe()
-				}
+			if(waypoint.id)
+			{
+				// regardless of connection status, update locally saved assignment and nav back
+				this.waypointService.update(waypoint)
+					.finally(() => {
+						this.waypoint = waypoint;
+						loading.dismiss();
+						this.assignmentService.updateStoredCurrentAssignment(this.currentAssignment).then(() => this.navCtrl.pop())
+					}).subscribe();
 			}
+			else
+			{
+				this.waypointService.create(waypoint)
+					.finally(() => {
+						this.waypoint = waypoint;
+						loading.dismiss();
+						this.assignmentService.updateStoredCurrentAssignment(this.currentAssignment).then(() => this.navCtrl.pop())
+					}).subscribe()
+			}
+		}
 		
 		let doSubmit = () => {
 			loading.present();
-			this.geolocation.getCurrentPosition()
-			.then((resp) => {
- 				waypoint.gps_location_lat = String(resp.coords.latitude);
- 				waypoint.gps_location_long = String(resp.coords.longitude);
-				createOrUpdate();
-			})
-			.catch((error) => {
-				console.log('Error getting location', error);
-				createOrUpdate();
-			});
+			// this.geolocation.getCurrentPosition()
+			// .then((resp) => {
+ 			// 	waypoint.gps_location_lat = String(resp.coords.latitude);
+ 			// 	waypoint.gps_location_long = String(resp.coords.longitude);
+			// 	createOrUpdate();
+			// })
+			// .catch((error) => {
+			// 	console.log('Error getting location', error);
+			// 	createOrUpdate();
+			// });
+			createOrUpdate();
 			
 		};
 

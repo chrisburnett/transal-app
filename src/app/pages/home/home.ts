@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Inject } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { AlertController } from 'ionic-angular';
 import { LoadingController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
 import { User } from '../../user';
 import { LoginPage } from '../login/login';
-import { WaypointFormPage } from '../waypoint-form/waypoint-form';
 
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../providers/auth-service/auth-service';
@@ -32,42 +30,21 @@ export class HomePage implements OnInit {
 	previousWaypoint: Waypoint;
 	nextWaypoint: Waypoint;
 	
-	timeToCurrentWaypoint: string;
-	timeToNextWaypoint: string;
-
-	currentWaypointDatestring: string;
-	currentWaypointArrivalDatestring: string;
-	currentWaypointOverdue: boolean;
 	previousWaypointDatestring: string;
 	nextWaypointDatestring: string;
 
-	currentWaypointIconName: string;
 	nextWaypointIconName: string;
 	previousWaypointIconName: string;
-	currentWaypointLocationText: string;
+	
 	nextWaypointLocationText: string;
 	previousWaypointLocationText: string;
-
-	distanceToCurrentWaypoint: number;
 	
 	online: boolean;
+
+
+	constructor(@Inject(APP_CONFIG) private config, public loadingCtrl: LoadingController, public navCtrl: NavController, public authService: AuthService, public assignmentService: AssignmentService, public waypointService: WaypointService, public translate: TranslateService, public network: Network) {}
 	
-	activityIconMap = {
-		"PICKUP": "arrow-up",
-		"DELIVER": "arrow-down",
-		"SERVICE": "build",
-		"FUEL": "color-fill",
-		"OFFICE": "home",
-		"HANDOVER": "home",
-		"TRAILER_CHANGE": "swap"
-	}
-
-	waypointFormPage: any;
-
-	constructor(@Inject(APP_CONFIG) private config, public alertCtrl: AlertController, public loadingCtrl: LoadingController, public navCtrl: NavController, public authService: AuthService, public assignmentService: AssignmentService, public waypointService: WaypointService, public translate: TranslateService, public network: Network) {}
-
 	ngOnInit() {
-		this.waypointFormPage = WaypointFormPage;
 		this.authService.getCurrentUser().then((user) => {
 			if(user) {
 				this.currentUser = user;
@@ -80,7 +57,7 @@ export class HomePage implements OnInit {
 		this.load();
 	}
 
-	load(): void {
+	public load(): void {
 		const loading = this.loadingCtrl.create();
 		loading.present();
 
@@ -100,32 +77,14 @@ export class HomePage implements OnInit {
 					if(assignment)
 					{
 						this.currentAssignment = assignment;
-						this.currentWaypoint = Order.getCurrentWaypoint(assignment.order);
-						this.distanceToCurrentWaypoint = this.currentWaypoint.distance_from_previous;
+						this.currentWaypoint = Order.getCurrentWaypoint(this.currentAssignment.order);
 						this.previousWaypoint = Order.getPreviousWaypoint(assignment.order);
 						this.nextWaypoint = Order.getNextWaypoint(assignment.order);
 						
-						if(this.currentWaypoint)
-						{
-							if(this.currentWaypoint.scheduled)
-							{
-								this.timeToCurrentWaypoint = Date.now().valueOf() > this.currentWaypoint.scheduled_date.valueOf() ?
-									moment(this.currentWaypoint.scheduled_date).toNow() :
-									moment(this.currentWaypoint.scheduled_date).fromNow();
-								this.currentWaypointDatestring = moment(this.currentWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
-								this.currentWaypointOverdue = Date.now().valueOf() > this.currentWaypoint.scheduled_date.valueOf();
-							}
-							this.currentWaypointArrivalDatestring = moment(this.currentWaypoint.actual_date).format("ddd, D MMM YYYY, H:mm:ss a");
-							this.currentWaypointIconName = this.activityIconMap[this.currentWaypoint.activity];
-							
-							this.translate.get('HOME.' + this.currentWaypoint.activity.toUpperCase()).subscribe((text: string) => {
-								this.currentWaypointLocationText = text;
-							});
-						}
 						
 						if(this.previousWaypoint) {
 							this.previousWaypointDatestring = moment(this.previousWaypoint.actual_departure_date).format("ddd, D MMM YYYY, H:mm:ss a");
-							this.previousWaypointIconName = this.activityIconMap[this.previousWaypoint.activity];
+							this.previousWaypointIconName = this.config.activityIconMap[this.previousWaypoint.activity];
 							this.translate.get('HOME.' + this.previousWaypoint.activity.toUpperCase()).subscribe((text: string) => {
 								this.previousWaypointLocationText = text;
 							});
@@ -133,7 +92,7 @@ export class HomePage implements OnInit {
 						
 						if(this.nextWaypoint) {
 							this.nextWaypointDatestring = moment(this.nextWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
-							this.nextWaypointIconName = this.activityIconMap[this.nextWaypoint.activity];
+							this.nextWaypointIconName = this.config.activityIconMap[this.nextWaypoint.activity];
 							this.translate.get('HOME.' + this.nextWaypoint.activity.toUpperCase()).subscribe((text: string) => {
 								this.nextWaypointLocationText = text;
 							});
@@ -162,59 +121,4 @@ export class HomePage implements OnInit {
 		this.navCtrl.setRoot(LoginPage);
 	}
 
-	checkIn(): void {
-		this.currentWaypoint.actual_date = new Date(Date.now());
-		this.navCtrl.push(WaypointFormPage, { waypoint: this.currentWaypoint, currentAssignment: this.currentAssignment });
-	}
-
-	checkOut(): void {
-		this.currentWaypoint.actual_departure_date = new Date(Date.now());
-		this.assignmentService.updateStoredCurrentAssignment(this.currentAssignment);
-
-		// for driver changeover, collect a reading on checkout
-		// alternatively if collecting pallet information, we need to get this now too
-		if(this.currentWaypoint.activity == "handover" ||
-		   (this.currentWaypoint.activity != "fuel" && this.currentAssignment.pallet_types))
-		{
-			this.navCtrl.push(WaypointFormPage, { waypoint: this.currentWaypoint, currentAssignment: this.currentAssignment });	
-		}
-		else
-		{
-			// reload from storage regardless of connection
-			this.waypointService.update(this.currentWaypoint).subscribe(
-				() => {
-					this.load(); // on success
-				},
-				() => {
-					this.load(); // on failure
-				});
-		}
-	}
-	
-	showConfirm(): void {
-		let confirm = this.alertCtrl.create({
-			title: this.translate.instant('HOME.CHECK_IN_TITLE'),
-			message: this.translate.instant('HOME.CHECK_IN_MSG'),
-			buttons: [
-				{
-				text: this.translate.instant('HOME.CHECK_IN_NO'),
-				handler: () => {
-					
-				}
-			},
-				{
-				text: this.translate.instant('HOME.CHECK_IN_YES'),
-				handler: () => {
-					this.checkIn();
-				}
-			}
-			]
-		});
-		confirm.present();
-	}
-
-	currentCardTapped(event): void {
-		this.currentWaypoint.read = true;
-		this.waypointService.update(this.currentWaypoint).subscribe();
-	}
 }
