@@ -5,7 +5,7 @@ import { LoadingController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
 import { User } from '../../user';
 import { LoginPage } from '../login/login';
-
+import { WaypointFormPage } from '../waypoint-form/waypoint-form';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../providers/auth-service/auth-service';
 import { AssignmentService } from '../../../providers/assignment-service/assignment-service';
@@ -41,10 +41,12 @@ export class HomePage implements OnInit {
 	
 	online: boolean;
 
+	waypointFormPage: any;
 
 	constructor(@Inject(APP_CONFIG) private config, public loadingCtrl: LoadingController, public navCtrl: NavController, public authService: AuthService, public assignmentService: AssignmentService, public waypointService: WaypointService, public translate: TranslateService, public network: Network) {}
 	
 	ngOnInit() {
+		this.waypointFormPage = WaypointFormPage;
 		this.authService.getCurrentUser().then((user) => {
 			if(user) {
 				this.currentUser = user;
