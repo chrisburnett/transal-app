@@ -37,7 +37,6 @@ export class CurrentWaypoint implements OnInit {
 	constructor(@Inject(APP_CONFIG) private config, public alertCtrl: AlertController, public translate: TranslateService, public navCtrl: NavController, public assignmentService: AssignmentService, public waypointService: WaypointService) {}
 	
 	ngOnInit() {
-		this.distanceToCurrentWaypoint = this.currentWaypoint.distance_from_previous;
 		if(this.currentWaypoint)
 		{
 			if(this.currentWaypoint.scheduled)
