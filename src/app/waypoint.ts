@@ -32,4 +32,5 @@ export class Waypoint implements Offline {
 	next_waypoint: Waypoint;
 	odometer_from_previous: number;
 	distance_from_previous: number;
+	distance_to_next: number;
 }
