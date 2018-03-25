@@ -27,38 +27,16 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- <div *ngIf="!currentWaypoint">
-		 {{'HOME.NO_MORE_WAYPOINTS_MSG'|translate}}
-		 </div> -->
 	
 	<!-- waypoint cards -->
 	<div *ngIf="currentAssignment">
-		<ion-card class="previousCard" [ngClass]="{'unexpected': !previousWaypoint.scheduled}" *ngIf="previousWaypoint">
-			<ion-card-header>
-				<ion-icon name="{{previousWaypointIconName}}" item-start small></ion-icon> {{'HOME.PREVIOUS_WAYPOINT'|translate}}: {{previousWaypointLocationText}}
-			</ion-card-header>
-			<ion-card-content>
-				<h2>{{previousWaypoint.location.name}}</h2>
-				<p>{{previousWaypoint.location.number}} {{previousWaypoint.location.street}}</p>
-				<p>{{previousWaypoint.location.city}} {{previousWaypoint.location.postcode}} {{previousWaypoint.location.country_code}}</p>
-				<p>{{previousWaypointDatestring}}</p>
-			</ion-card-content>
-		</ion-card>
+
+		<waypoint-panel [waypoint]="previousWaypoint"></waypoint-panel>
 
 		<current-waypoint [currentWaypoint]="currentWaypoint" [currentAssignment]="currentAssignment" (waypointUpdated)="load()"></current-waypoint>
+
+		<waypoint-panel [waypoint]="nextWaypoint"></waypoint-panel>
 		
-		<ion-card class="nextCard" *ngIf="nextWaypoint">
-			<ion-card-header>
-				<ion-icon name="{{nextWaypointIconName}}" item-start small></ion-icon> {{'HOME.NEXT_WAYPOINT'|translate}}: {{nextWaypointLocationText}}
-			</ion-card-header>
-			<ion-card-content>
-				<h2>{{nextWaypoint.location.name}}</h2>
-				<p>{{nextWaypoint.location.number}} {{nextWaypoint.location.street}}</p>
-				<p>{{nextWaypoint.location.city}} {{nextWaypoint.location.postcode}} {{nextWaypoint.location.country_code}}</p>
-				<p>{{nextWaypointDatestring}}</p>
-			</ion-card-content>
-		</ion-card>
 	</div>
 	
 	<ion-footer>

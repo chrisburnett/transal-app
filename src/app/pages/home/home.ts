@@ -30,20 +30,11 @@ export class HomePage implements OnInit {
 	previousWaypoint: Waypoint;
 	nextWaypoint: Waypoint;
 	
-	previousWaypointDatestring: string;
-	nextWaypointDatestring: string;
-
-	nextWaypointIconName: string;
-	previousWaypointIconName: string;
-	
-	nextWaypointLocationText: string;
-	previousWaypointLocationText: string;
-	
 	online: boolean;
 
 	waypointFormPage: any;
 
-	constructor(@Inject(APP_CONFIG) private config, public loadingCtrl: LoadingController, public navCtrl: NavController, public authService: AuthService, public assignmentService: AssignmentService, public waypointService: WaypointService, public translate: TranslateService, public network: Network) {}
+	constructor(@Inject(APP_CONFIG) private config, public loadingCtrl: LoadingController, public modalCtrl: ModalController, public navCtrl: NavController, public authService: AuthService, public assignmentService: AssignmentService, public waypointService: WaypointService, public translate: TranslateService, public network: Network) {}
 	
 	ngOnInit() {
 		this.waypointFormPage = WaypointFormPage;
@@ -82,23 +73,6 @@ export class HomePage implements OnInit {
 						this.currentWaypoint = Order.getCurrentWaypoint(this.currentAssignment.order);
 						this.previousWaypoint = Order.getPreviousWaypoint(assignment.order);
 						this.nextWaypoint = Order.getNextWaypoint(assignment.order);
-						
-						
-						if(this.previousWaypoint) {
-							this.previousWaypointDatestring = moment(this.previousWaypoint.actual_departure_date).format("ddd, D MMM YYYY, H:mm:ss a");
-							this.previousWaypointIconName = this.config.activityIconMap[this.previousWaypoint.activity];
-							this.translate.get('HOME.' + this.previousWaypoint.activity.toUpperCase()).subscribe((text: string) => {
-								this.previousWaypointLocationText = text;
-							});
-						}
-						
-						if(this.nextWaypoint) {
-							this.nextWaypointDatestring = moment(this.nextWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
-							this.nextWaypointIconName = this.config.activityIconMap[this.nextWaypoint.activity];
-							this.translate.get('HOME.' + this.nextWaypoint.activity.toUpperCase()).subscribe((text: string) => {
-								this.nextWaypointLocationText = text;
-							});
-						}
 					}
 					else
 					{

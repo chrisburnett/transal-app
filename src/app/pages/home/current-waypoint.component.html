@@ -42,17 +42,23 @@
 				</ion-col>
 			</ion-row>
 		</ion-item>
-		<ion-item *ngIf="currentWaypoint.actual_date == null">
-			<button ion-button icon-left clear item-end (click)="showConfirm()">
-				<ion-icon name="navigate"></ion-icon>
-				{{'HOME.CHECK_IN'|translate}}
-			</button>
-		</ion-item>
-		<ion-item *ngIf="currentWaypoint.actual_date">
-			<button ion-button icon-left clear item-end (click)="checkOut()">
-				<ion-icon name="navigate"></ion-icon>
-				{{'HOME.CHECK_OUT'|translate}}
-			</button>
-		</ion-item>
+		<ion-row>
+			<ion-col>
+				<button [navPush]="locationNotesPage" [navParams]="{ waypoint: currentWaypoint }" ion-button icon-left clear item-end>
+					<ion-icon name="alert"></ion-icon>
+					{{'HOME.NOTES'|translate}}
+				</button>
+			</ion-col>
+			<ion-col>
+				<button ion-button icon-left clear item-end *ngIf="currentWaypoint.actual_date == null" (click)="showConfirm()">
+					<ion-icon name="navigate"></ion-icon>
+					{{'HOME.CHECK_IN'|translate}}
+				</button>
+				<button *ngIf="currentWaypoint.actual_date" ion-button icon-left clear item-end (click)="checkOut()">
+					<ion-icon name="navigate"></ion-icon>
+					{{'HOME.CHECK_OUT'|translate}}
+				</button>
+			</ion-col>
+		</ion-row>
 	</ion-card-content>
 </ion-card>

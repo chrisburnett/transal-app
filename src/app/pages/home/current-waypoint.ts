@@ -9,6 +9,7 @@ import { NavController } from 'ionic-angular';
 import { AlertController } from 'ionic-angular';
 
 import { WaypointFormPage } from '../waypoint-form/waypoint-form';
+import { LocationNotesPage } from '../location-notes-page/location-notes-page';
 import { AssignmentService } from '../../../providers/assignment-service/assignment-service';
 import { WaypointService } from '../../../providers/waypoint-service/waypoint-service';
 
@@ -33,8 +34,12 @@ export class CurrentWaypoint implements OnInit {
 
 	public currentWaypointIconName: string;
 	public currentWaypointLocationText: string;
+
+	public locationNotesPage: any;
 	
-	constructor(@Inject(APP_CONFIG) private config, public alertCtrl: AlertController, public translate: TranslateService, public navCtrl: NavController, public assignmentService: AssignmentService, public waypointService: WaypointService) {}
+	constructor(@Inject(APP_CONFIG) private config, public alertCtrl: AlertController, public translate: TranslateService, public navCtrl: NavController, public assignmentService: AssignmentService, public waypointService: WaypointService) {
+		this.locationNotesPage = LocationNotesPage;
+	}
 	
 	ngOnInit() {
 		if(this.currentWaypoint)

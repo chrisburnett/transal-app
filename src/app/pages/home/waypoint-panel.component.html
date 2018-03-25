@@ -1,0 +1,11 @@
+<ion-card class="previousCard" [ngClass]="{'unexpected': !waypoint.scheduled}" *ngIf="waypoint">
+	<ion-card-header>
+		<ion-icon name="{{waypointIconName}}" item-start small></ion-icon> {{'HOME.PREVIOUS_WAYPOINT'|translate}}: {{waypointLocationText}}
+	</ion-card-header>
+	<ion-card-content>
+		<h2>{{waypoint.location.name}}</h2>
+		<p>{{waypoint.location.number}} {{waypoint.location.street}}</p>
+		<p>{{waypoint.location.city}} {{waypoint.location.postcode}} {{waypoint.location.country_code}}</p>
+		<p>{{waypointDatestring}}</p>
+	</ion-card-content>
+</ion-card>
