@@ -17,10 +17,12 @@ import { MyApp } from './app.component';
 import { HomePage } from './pages/home/home';
 import { LoginPage } from './pages/login/login';
 import { WaypointFormPage } from './pages/waypoint-form/waypoint-form';
+import { LocationNotesPage } from './pages/location-notes-page/location-notes-page';
 import { CurrentWaypoint } from './pages/home/current-waypoint';
 import { WaypointPanel } from './pages/home/waypoint-panel';
 import { PalletRecordFields } from './pages/waypoint-form/pallet-record-fields';
 import { LocationSearchModal } from './pages/location-search-modal/location-search-modal';
+import { OrderNotesModal, FilterEmptyWPNotes } from './pages/order-notes-modal/order-notes-modal';
 import { AuthService } from '../providers/auth-service/auth-service';
 import { AssignmentService } from '../providers/assignment-service/assignment-service';
 import { WaypointService } from '../providers/waypoint-service/waypoint-service';
@@ -39,10 +41,13 @@ export function createTranslateLoader(http: Http) {
 		HomePage,
 		LoginPage,
 		WaypointFormPage,
+		LocationNotesPage,
 		CurrentWaypoint,
 		WaypointPanel,
 		LocationSearchModal,
-		PalletRecordFields
+		OrderNotesModal,
+		PalletRecordFields,
+		FilterEmptyWPNotes
 	],
 	imports: [
 		BrowserModule,
@@ -65,9 +70,11 @@ export function createTranslateLoader(http: Http) {
 		HomePage,
 		LoginPage,
 		WaypointFormPage,
+		LocationNotesPage,
 		CurrentWaypoint,
-		LocationSearchModal
 		WaypointPanel,
+		LocationSearchModal,
+		OrderNotesModal
 	],
 	providers: [
 		StatusBar,

@@ -1,0 +1,42 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>
+			{{'ORDER_NOTES.TITLE'|translate}}
+		</ion-title>
+		<ion-buttons start>
+			<button ion-button (click)="dismiss()">
+				<span ion-text color="primary" showWhen="ios">{{'ORDER_NOTES.CLOSE'|translate}}</span>
+				<ion-icon name="md-close" showWhen="android, windows"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+	<ion-list>
+		<ion-list-header>
+			{{'ORDER_NOTES.ORDER_NOTES_TITLE'|translate}}
+		</ion-list-header>
+		<ion-item>
+			<p>{{order.notes}}</p>
+		</ion-item>
+	</ion-list>	
+	
+	<ion-list>
+		<ion-list-header>
+			{{'ORDER_NOTES.WAYPOINT_NOTES_TITLE'|translate}}
+		</ion-list-header>
+		<ion-item *ngFor="let wp of order.waypoints | onlyWpsWithNotes">
+			<h2>{{wp.location.name}}</h2>
+			<p>{{wp.notes}}</p>
+		</ion-item>
+	</ion-list>
+
+</ion-content>
+
+<ion-footer>
+	<ion-toolbar>
+		<button color="light" ion-button block navPop>{{'ORDER_NOTES.CLOSE'|translate}}</button>
+	</ion-toolbar>
+</ion-footer>

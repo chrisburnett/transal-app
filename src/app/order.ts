@@ -8,6 +8,7 @@ export class Order {
 	waypoints: Waypoint[];
 	starting_waypoint: Waypoint;
 	enforce_pallet_exchange: boolean;
+	notes: string;
 
 	static getNextWaypoint(order): Waypoint {
 		return order.waypoints.filter(wp => wp.id == Order.getCurrentWaypoint(order).next_waypoint_id)[0];

@@ -41,7 +41,15 @@
 	
 	<ion-footer>
 		<ion-toolbar>
-			<button *ngIf="currentWaypoint && currentWaypoint.actual_date == null && currentWaypoint.scheduled" [navPush]="waypointFormPage" [navParams]="{ currentAssignment: currentAssignment }" ion-button block>{{'HOME.NEW_WAYPOINT'|translate}}</button>
+			<ion-row>
+				<ion-col>
+					<button *ngIf="currentWaypoint && currentWaypoint.actual_date == null && currentWaypoint.scheduled" [navPush]="waypointFormPage" [navParams]="{ currentAssignment: currentAssignment }" ion-button block>{{'HOME.NEW_WAYPOINT'|translate}}</button>
+					<!-- order notes modal -->
+				</ion-col>
+				<ion-col>
+					<button ion-button block (click)="showOrderNotesModal()">{{'HOME.SHOW_NOTES_BUTTON'|translate}}</button>
+				</ion-col>
+			</ion-row>
 		</ion-toolbar>
 	</ion-footer>
 </ion-content>

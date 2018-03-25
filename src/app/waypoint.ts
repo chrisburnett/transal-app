@@ -7,6 +7,7 @@ import { PalletRecord } from './pallet-record';
 export class Waypoint implements Offline {
 	id: Number;
 	location_attributes: Location;
+	location: Location;
 	location_id: string;
 	trailer: Trailer;
 	confirm_leaving_trailer: Number;
@@ -25,6 +26,7 @@ export class Waypoint implements Offline {
 	additional_km_reason: string;
 	reading_attributes: Reading;
 	pallet_records_attributes: PalletRecord[];
+	notes: string;
 	order_id: string;
 	read: boolean;
 	dirty: boolean;

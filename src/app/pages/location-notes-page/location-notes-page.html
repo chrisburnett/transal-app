@@ -1,0 +1,43 @@
+<ion-header>
+	<ion-navbar>
+		<ion-title>{{'LOCATION_NOTES.TITLE'|translate}}</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	<ion-card *ngIf="waypoint.notes && waypoint.notes != ''">
+		<ion-card-header>
+			{{'LOCATION_NOTES.WAYPOINT_NOTES'|translate}}
+		</ion-card-header>
+		<ion-card-content>
+			{{waypoint.notes}}
+		</ion-card-content>
+	</ion-card>
+
+	<ion-card>
+		<ion-card-header>
+			{{'LOCATION_NOTES.LOCATION_NOTES'|translate}}
+		</ion-card-header>
+		<ion-card-content>
+			<form [formGroup]="locationForm" (ngSubmit)="submit()">
+				
+				<ion-textarea type="text" rows="8" formControlName="notes" name="notes"></ion-textarea>
+
+				<div>
+					<ion-note>
+						{{'LOCATION_NOTES.LAST_UPDATE'|translate}}: {{location.last_revision_whodunnit}} {{last_revision_datestring}}
+					</ion-note>
+				</div>
+				
+				<div>
+					<button ion-button type="submit">{{'LOCATION_NOTES.SUBMIT'|translate}}</button>	
+					<button color="light" ion-button navPop>{{'LOCATION_NOTES.CANCEL'|translate}}</button>
+				</div>
+				
+			</form>		
+		</ion-card-content>
+	</ion-card>
+		
+	
+</ion-content>
+		

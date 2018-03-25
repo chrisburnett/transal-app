@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Inject } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { LoadingController } from 'ionic-angular';
+import { LoadingController, ModalController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
 import { User } from '../../user';
 import { LoginPage } from '../login/login';
 import { WaypointFormPage } from '../waypoint-form/waypoint-form';
+import { OrderNotesModal } from '../order-notes-modal/order-notes-modal';
 import { TranslateService } from '@ngx-translate/core';
 import { AuthService } from '../../../providers/auth-service/auth-service';
 import { AssignmentService } from '../../../providers/assignment-service/assignment-service';
@@ -95,6 +96,11 @@ export class HomePage implements OnInit {
 	logout(): void {
 		this.authService.logout();
 		this.navCtrl.setRoot(LoginPage);
+	}
+
+	showOrderNotesModal(): void {
+		let onm = this.modalCtrl.create(OrderNotesModal, { order: this.currentAssignment.order } );
+		onm.present();
 	}
 
 }

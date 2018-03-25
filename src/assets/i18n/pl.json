@@ -28,10 +28,27 @@
 		"CHECK_IN_MSG": "Czy jesteś pewny, że chcesz się zameldować?",
 		"CHECK_IN_NO": "Nie",
 		"CHECK_IN_YES": "Tak",
+		"NOTES": "Uwagi",
 		"CURRENT_WAYPOINT_UNCONFIRMED": "Naciśnij, aby potwierdzić punkt",
 		"CURRENT_WAYPOINT_CONFIRMED": "Potwierdzony",
 		"TRAILER": "Obecna naczepa",
-		"NEXT_TRAILER": "Następna naczepa"
+		"NEXT_TRAILER": "Następna naczepa",
+		"SHOW_NOTES_BUTTON": "Uwagi zlecenia"
+	},
+	"LOCATION_NOTES": {
+		"TITLE": "Uwagi",
+		"LOCATION_NOTES": "Uwagi dot. miejsca",
+		"WAYPOINT_NOTES": "Informacja o punkcie",
+		"SUBMIT": "Wprowadź",
+		"LABEL": "Dodaj uwagi",
+		"LAST_UPDATE": "Ostatnia aktualizacja",
+		"CANCEL": "Anuluj"
+	},
+	"ORDER_NOTES": {
+		"TITLE": "Uwagi",
+		"ORDER_NOTES_TITLE": "Informacja o zleceniu",
+		"WAYPOINT_NOTES_TITLE": "Informacja o punktach",
+		"CLOSE": "Zamknij"
 	},
 	"NEW_WAYPOINT": {
 		"NEW_WAYPOINT": "Dodaj nieplanowany punkt trasy",
