@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe, PipeTransform, Inject } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { IonicPage, NavController, ModalController, NavParams } from 'ionic-angular';
 import { TranslateService } from '@ngx-translate/core';
-import { LocationService } from '../../../providers/location-service/location-service';
+import { LocationNoteService } from '../../../providers/location-note-service/location-note-service';
 import { LoadingController } from 'ionic-angular';
 import { Waypoint } from '../../waypoint';
 import { Location } from '../../location';
+import { LocationNote } from '../../location-note';
 import { Storage } from '@ionic/storage';
 
+import { APP_CONFIG } from '../../app.config';
 import * as moment from 'moment';
 
 @IonicPage()
@@ -21,13 +23,13 @@ export class LocationNotesPage implements OnInit {
 	// append form input to existing value and submit
 	public waypoint: Waypoint;
 	public location: Location;
-	public last_revision_datestring: string;
-	public locationForm: FormGroup;
+	public location_notes: LocationNote[];
+	public locationNoteForm: FormGroup;
 	
-	constructor(public formBuilder: FormBuilder, public locationService: LocationService, public translate: TranslateService, public navParams: NavParams, public loadingCtrl: LoadingController, public storage: Storage, public navCtrl: NavController)
+	constructor(@Inject(APP_CONFIG) private config, public formBuilder: FormBuilder, public locationNoteService: LocationNoteService, public translate: TranslateService, public navParams: NavParams, public loadingCtrl: LoadingController, public storage: Storage, public navCtrl: NavController)
 	{
-		this.locationForm = this.formBuilder.group({
-			notes: ['']
+		this.locationNoteForm = this.formBuilder.group({
+			note: ['']
 		});
 	}
 	
@@ -35,21 +37,36 @@ export class LocationNotesPage implements OnInit {
 	ngOnInit(): void {
 		this.waypoint = this.navParams.get("waypoint");
 		this.location = this.waypoint.location;
-		this.locationForm.controls.notes.setValue(this.location.notes);
-		this.last_revision_datestring = moment(this.location.last_revision_date).format("ddd, D MMM YYYY, H:mm:ss a");
+
+		// TODO: NOTE: not ideal - at the moment, the server sends us all
+		// notes, even ones that haven't been accepted. This is just
+		// to simplify the controller, but really we shouldn't be
+		// getting unaccepted notes
+		this.location_notes = this.location.location_notes.filter(ln => ln.accepted == true);
 	}
 
 	submit(): void {
 		const loading = this.loadingCtrl.create();
-
-		this.location.notes = this.locationForm.value.notes
-		
+		let newLocationNote: LocationNote = { location_id: this.location.id, ...this.locationNoteForm.value };
 		loading.present();
-		this.locationService.update(this.location).
+		this.locationNoteService.create(newLocationNote).
 			finally(() => {
 				loading.dismiss();
 				this.navCtrl.pop();
 			}).subscribe();
 	}
 	
+}
+
+@Pipe({
+    name: 'momentPipe'
+})
+export class MomentPipe implements PipeTransform {
+
+	constructor(@Inject(APP_CONFIG) private config) {}
+	
+    transform(value: Date|moment.Moment): any {
+        moment().locale(this.config.lang);
+		return moment().calendar().toLowerCase();
+    }
 }

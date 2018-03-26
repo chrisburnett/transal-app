@@ -37,11 +37,12 @@
 	},
 	"LOCATION_NOTES": {
 		"TITLE": "Uwagi",
-		"LOCATION_NOTES": "Uwagi dot. miejsca",
+		"LOCATION_NOTES": "Nowe uwagi dot. miejsca",
 		"WAYPOINT_NOTES": "Informacja o punkcie",
+		"PREVIOUS_NOTES": "Poprzednie uwagi",
 		"SUBMIT": "Wprowadź",
 		"LABEL": "Dodaj uwagi",
-		"LAST_UPDATE": "Ostatnia aktualizacja",
+		"LAST_UPDATE": "Napisane przez",
 		"CANCEL": "Anuluj"
 	},
 	"ORDER_NOTES": {

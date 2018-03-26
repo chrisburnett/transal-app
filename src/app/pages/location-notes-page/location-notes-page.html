@@ -16,27 +16,35 @@
 
 	<ion-card>
 		<ion-card-header>
-			{{'LOCATION_NOTES.LOCATION_NOTES'|translate}}
+			{{'LOCATION_NOTES.LOCATION_NOTES'|translate}}: {{location.name}}
 		</ion-card-header>
 		<ion-card-content>
-			<form [formGroup]="locationForm" (ngSubmit)="submit()">
-				
-				<ion-textarea type="text" rows="8" formControlName="notes" name="notes"></ion-textarea>
-
-				<div>
-					<ion-note>
-						{{'LOCATION_NOTES.LAST_UPDATE'|translate}}: {{location.last_revision_whodunnit}} {{last_revision_datestring}}
-					</ion-note>
-				</div>
+			<form [formGroup]="locationNoteForm" (ngSubmit)="submit()">
+				<ion-textarea type="text" rows="8" formControlName="note" name="note"></ion-textarea>
 				
 				<div>
 					<button ion-button type="submit">{{'LOCATION_NOTES.SUBMIT'|translate}}</button>	
 					<button color="light" ion-button navPop>{{'LOCATION_NOTES.CANCEL'|translate}}</button>
 				</div>
-				
-			</form>		
+			</form>
+
+			
 		</ion-card-content>
 	</ion-card>
+
+	
+	
+	<ion-list *ngIf="location_notes.length > 0">
+		<ion-list-header>{{'LOCATION_NOTES.PREVIOUS_NOTES'|translate}}</ion-list-header>
+		<div *ngFor="let ln of location_notes">
+			<ion-item>
+				{{ln.note}}
+				<ion-note item-end>
+					{{ln?.user?.username}}, {{ln.created_at|momentPipe}}
+				</ion-note>
+			</ion-item>
+		</div>
+	</ion-list>
 		
 	
 </ion-content>

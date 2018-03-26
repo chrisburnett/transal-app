@@ -17,7 +17,7 @@ import { MyApp } from './app.component';
 import { HomePage } from './pages/home/home';
 import { LoginPage } from './pages/login/login';
 import { WaypointFormPage } from './pages/waypoint-form/waypoint-form';
-import { LocationNotesPage } from './pages/location-notes-page/location-notes-page';
+import { LocationNotesPage, MomentPipe } from './pages/location-notes-page/location-notes-page';
 import { CurrentWaypoint } from './pages/home/current-waypoint';
 import { WaypointPanel } from './pages/home/waypoint-panel';
 import { PalletRecordFields } from './pages/waypoint-form/pallet-record-fields';
@@ -27,7 +27,7 @@ import { AuthService } from '../providers/auth-service/auth-service';
 import { AssignmentService } from '../providers/assignment-service/assignment-service';
 import { WaypointService } from '../providers/waypoint-service/waypoint-service';
 import { LocationService } from '../providers/location-service/location-service';
-
+import { LocationNoteService } from '../providers/location-note-service/location-note-service';
 import { AuthHttp } from 'angular2-jwt';
 import { APP_CONFIG, AppConfig } from './app.config';
 
@@ -47,7 +47,8 @@ export function createTranslateLoader(http: Http) {
 		LocationSearchModal,
 		OrderNotesModal,
 		PalletRecordFields,
-		FilterEmptyWPNotes
+		FilterEmptyWPNotes,
+		MomentPipe
 	],
 	imports: [
 		BrowserModule,
@@ -85,6 +86,7 @@ export function createTranslateLoader(http: Http) {
 		AssignmentService,
 		WaypointService,
 		LocationService,
+		LocationNoteService,
 		AuthHttp,
 		Network,
 		Geolocation

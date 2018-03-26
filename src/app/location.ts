@@ -1,3 +1,5 @@
+import { LocationNote } from './location-note';
+
 export class Location {
 	id: string;
 	code: string;
@@ -11,4 +13,6 @@ export class Location {
 	last_revision_whodunnit: string;
 	last_revision_date: string;
 	notes: string;
+	location_notes: [LocationNote];
+	location_notes_attributes: [LocationNote];
 }
