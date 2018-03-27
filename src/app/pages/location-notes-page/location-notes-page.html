@@ -37,10 +37,10 @@
 	<ion-list *ngIf="location_notes.length > 0">
 		<ion-list-header>{{'LOCATION_NOTES.PREVIOUS_NOTES'|translate}}</ion-list-header>
 		<div *ngFor="let ln of location_notes">
-			<ion-item>
-				{{ln.note}}
-				<ion-note item-end>
-					{{ln?.user?.username}}, {{ln.created_at|momentPipe}}
+			<ion-item text-wrap>
+				<p>{{ln.note}}</p>
+				<ion-note>
+					{{ln?.user?.name}} {{ln?.user?.surname}}, {{ln.created_at|momentPipe}}
 				</ion-note>
 			</ion-item>
 		</div>
