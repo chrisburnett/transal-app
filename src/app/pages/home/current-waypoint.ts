@@ -17,7 +17,8 @@ import * as moment from 'moment';
 
 @Component({
 	selector: 'current-waypoint',
-	templateUrl: 'current-waypoint.component.html'
+	templateUrl: 'current-waypoint.component.html',
+	styles: [ '.position-number { font-weight: bold; color: #999999; }' ]
 })
 export class CurrentWaypoint implements OnInit {
 

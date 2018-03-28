@@ -12,10 +12,14 @@ import { Order } from '../../order';
 export class OrderNotesModal {
 
 	public order: Order;
+	public orderHasWaypointNote: boolean;
 	
 	constructor(public viewCtrl: ViewController, public params: NavParams)
 	{
 		this.order = this.params.get("order");
+		this.orderHasWaypointNote = this.order.waypoints.some((wp) => {
+			return wp.notes != "";
+		});
 	}
 	
 }

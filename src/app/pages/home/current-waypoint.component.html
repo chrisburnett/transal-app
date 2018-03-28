@@ -7,6 +7,8 @@
 		{{'HOME.CURRENTLY_AT'|translate}}: {{currentWaypointLocationText}}
 	</ion-card-header>
 	<ion-card-content>
+		<h1 class="position-number" float-right>{{currentWaypoint.position}}</h1>
+
 		<ion-item *ngIf="online && !currentWaypoint.read" class="current-waypoint-unconfirmed">
 			<ion-icon name="ios-alert-outline"></ion-icon> {{'HOME.CURRENT_WAYPOINT_UNCONFIRMED'|translate}}
 		</ion-item>
@@ -16,8 +18,8 @@
 		<ion-item>
 			<ion-icon name="{{currentWaypointIconName}}" item-start large></ion-icon>
 			<h2>{{currentWaypoint.location.name}}</h2>
-			<p>{{currentWaypoint.location.number}} {{currentWaypoint.location.street}}</p>
-			<p>{{currentWaypoint.location.city}} {{currentWaypoint.location.postcode}} {{currentWaypoint.location.country_code}}</p>
+			<p>{{currentWaypoint.location.street}} {{currentWaypoint.location.number}} </p>
+			<p>{{currentWaypoint.location.country_code}}-{{currentWaypoint.location.postcode}} {{currentWaypoint.location.city}}</p>
 		</ion-item>
 		<ion-item *ngIf="currentWaypoint.scheduled">
 			<h4>{{'HOME.DUE'|translate}}</h4>

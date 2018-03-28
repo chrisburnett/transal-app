@@ -14,7 +14,7 @@
 
 <ion-content>
 
-	<ion-list>
+	<ion-list *ngIf="order.notes && order.notes != ''">
 		<ion-list-header>
 			{{'ORDER_NOTES.ORDER_NOTES_TITLE'|translate}}
 		</ion-list-header>
@@ -23,12 +23,12 @@
 		</ion-item>
 	</ion-list>	
 	
-	<ion-list>
+	<ion-list *ngIf="orderHasWaypointNote">
 		<ion-list-header>
 			{{'ORDER_NOTES.WAYPOINT_NOTES_TITLE'|translate}}
 		</ion-list-header>
 		<ion-item *ngFor="let wp of order.waypoints | onlyWpsWithNotes">
-			<h2>{{wp.location.name}}</h2>
+			<h4>{{wp.location.name}}</h4>
 			<p>{{wp.notes}}</p>
 		</ion-item>
 	</ion-list>

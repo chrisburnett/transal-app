@@ -7,7 +7,8 @@ import * as moment from 'moment';
 
 @Component({
 	selector: 'waypoint-panel',
-	templateUrl: 'waypoint-panel.component.html'
+	templateUrl: 'waypoint-panel.component.html',
+	styles: [ '.position-number { color: #CCCCCC; font-weight: bold; }' ]
 })
 export class WaypointPanel implements OnInit {
 
@@ -21,7 +22,18 @@ export class WaypointPanel implements OnInit {
 	
 	ngOnInit() {
 		if(this.waypoint) {
-			this.waypointDatestring = moment(this.waypoint.actual_departure_date).format("ddd, D MMM YYYY, H:mm:ss a");
+			if(this.waypoint.actual_departure_date)
+			{
+				this.waypointDatestring = "Data wyjazadu: " + moment(this.waypoint.actual_departure_date).format("ddd, D MMM YYYY, H:mm:ss a");
+			}
+			else if(this.waypoint.scheduled_date)
+			{
+				this.waypointDatestring = "Planowana data: " + moment(this.waypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
+			}
+			else
+			{
+				this.waypointDatestring = "";
+			}
 			this.waypointIconName = this.config.activityIconMap[this.waypoint.activity];
 			this.translate.get('HOME.' + this.waypoint.activity.toUpperCase()).subscribe((text: string) => {
 				this.waypointLocationText = text;
