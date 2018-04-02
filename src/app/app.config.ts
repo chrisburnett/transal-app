@@ -19,6 +19,7 @@ export const AppConfig: IAppConfig = {
 		"FUEL": "color-fill",
 		"OFFICE": "home",
 		"HANDOVER": "home",
-		"TRAILER_CHANGE": "swap"
+		"TRAILER_CHANGE": "swap",
+		"TRUCK_WASH": "swap"
 	}
 }
