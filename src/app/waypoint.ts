@@ -9,9 +9,6 @@ export class Waypoint implements Offline {
 	location_attributes: Location;
 	location: Location;
 	location_id: string;
-	trailer: Trailer;
-	confirm_leaving_trailer: Number;
-	confirm_pickup_trailer: Number;
 	scheduled_date: Date;
 	actual_date: Date;
 	actual_departure_date: Date;
@@ -35,4 +32,7 @@ export class Waypoint implements Offline {
 	odometer_from_previous: number;
 	distance_from_previous: number;
 	distance_to_next: number;
+	expected_trailer: Trailer;
+	actual_trailer: Trailer;
+	new_trailer_registration: string;
 }

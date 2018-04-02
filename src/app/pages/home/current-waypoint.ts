@@ -24,7 +24,8 @@ export class CurrentWaypoint implements OnInit {
 
 	@Input() currentAssignment: Assignment;
 	@Input() currentWaypoint: Waypoint;
-
+	@Input() previousWaypoint: Waypoint;
+	
 	@Output() waypointUpdated = new EventEmitter();
 	
 	public distanceToCurrentWaypoint: number;
@@ -37,6 +38,8 @@ export class CurrentWaypoint implements OnInit {
 	public currentWaypointLocationText: string;
 
 	public locationNotesPage: any;
+	public expectedTrailer: string;
+	public actualTrailer: string;
 	
 	constructor(@Inject(APP_CONFIG) private config, public alertCtrl: AlertController, public translate: TranslateService, public navCtrl: NavController, public assignmentService: AssignmentService, public waypointService: WaypointService) {
 		this.locationNotesPage = LocationNotesPage;
@@ -72,24 +75,28 @@ export class CurrentWaypoint implements OnInit {
 		this.currentWaypoint.actual_departure_date = new Date(Date.now());
 		this.assignmentService.updateStoredCurrentAssignment(this.currentAssignment);
 
+		// NOTE: OLD BEHAVIOUR - ONLY OPEN DIALOG IF HANDOVER OR PALLETS
 		// for driver changeover, collect a reading on checkout
 		// alternatively if collecting pallet information, we need to get this now too
-		if(this.currentWaypoint.activity == "handover" ||
-		   (this.currentWaypoint.activity != "fuel" && this.currentAssignment.pallet_types))
-		{
-			this.navCtrl.push(WaypointFormPage, { waypoint: this.currentWaypoint, currentAssignment: this.currentAssignment });	
-		}
-		else
-		{
-			// reload from storage regardless of connection
-			this.waypointService.update(this.currentWaypoint).subscribe(
-				() => {
-					this.waypointUpdated.emit(); // on success
-				},
-				() => {
-					this.waypointUpdated.emit(); // on failure
-				});
-		}
+		// if(this.currentWaypoint.activity == "handover" ||
+		//    (this.currentWaypoint.activity != "fuel" && this.currentAssignment.pallet_types))
+		// {
+		// 	this.navCtrl.push(WaypointFormPage, { waypoint: this.currentWaypoint, currentAssignment: this.currentAssignment });	
+		// }
+		// else
+		// {
+		// 	// reload from storage regardless of connection
+		// 	this.waypointService.update(this.currentWaypoint).subscribe(
+		// 		() => {
+		// 			this.waypointUpdated.emit(); // on success
+		// 		},
+		// 		() => {
+		// 			this.waypointUpdated.emit(); // on failure
+		// 		});
+		// }
+
+		// NOTE: always now opening the checkout dialog because drivers may need to enter a trailer swap record
+		this.navCtrl.push(WaypointFormPage, { waypoint: this.currentWaypoint, currentAssignment: this.currentAssignment });
 	}
 
 	showConfirm(): void {

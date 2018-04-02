@@ -14,7 +14,7 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class LocationService implements AutoCompleteService {
 	formValueAttribute = "";
-	labelAttribute = "value";
+	labelAttribute = "autocompleteValue";
 	constructor(@Inject(APP_CONFIG) private config, public storage: Storage, public http: Http) {}
 
 	url = `http://${this.config.apiEndpoint}/locations`;

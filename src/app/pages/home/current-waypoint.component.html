@@ -7,7 +7,7 @@
 		{{'HOME.CURRENTLY_AT'|translate}}: {{currentWaypointLocationText}}
 	</ion-card-header>
 	<ion-card-content>
-		<h1 class="position-number" float-right>{{currentWaypoint.position}}</h1>
+		<h1 class="position-number" float-right>{{currentWaypoint.position + 1}}</h1>
 
 		<ion-item *ngIf="online && !currentWaypoint.read" class="current-waypoint-unconfirmed">
 			<ion-icon name="ios-alert-outline"></ion-icon> {{'HOME.CURRENT_WAYPOINT_UNCONFIRMED'|translate}}
@@ -31,16 +31,28 @@
 		</ion-item>
 		<ion-item>
 			<ion-row *ngIf="currentWaypoint">
-				<ion-col *ngIf="currentWaypoint.trailer" col-5 no-padding>
+				<ion-col *ngIf="previousWaypoint && previousWaypoint.expected_trailer; else prevNoTrailer" col-5>
 					<h4>{{'HOME.TRAILER'|translate}}</h4>
-					{{currentWaypoint.trailer.registration}}
+					{{previousWaypoint.expected_trailer.registration}}
+					<hr>
+					<div *ngIf="currentWaypoint && previousWaypoint && previousWaypoint.actual_trailer && previousWaypoint.actual_trailer?.registration != previousWaypoint.expected_trailer?.registration">
+						<h4 ion-text color="danger">{{'HOME.DIFFERENT_TRAILER_WARNING'|translate}}</h4>
+						<span ion-text color="danger">{{previousWaypoint.actual_trailer.registration}}</span>
+					</div>
 				</ion-col>
-				<ion-col *ngIf="nextWaypoint && nextWaypoint.trailer && currentWaypoint.trailer && nextWaypoint.trailer.registration != currentWaypoint.trailer.registration" col-2>
+				<ng-template #prevNoTrailer>
+					<ion-col col-5 no-padding>
+						<h4>{{'HOME.TRAILER'|translate}}</h4>
+						{{'HOME.NO_TRAILER'|translate}}
+					</ion-col>
+				</ng-template>
+				<ion-col *ngIf="currentWaypoint && currentWaypoint.expected_trailer.registration != previousWaypoint?.expected_trailer.registration" col-2>
 					<ion-icon name="arrow-forward" item-start large></ion-icon>
 				</ion-col>
-				<ion-col *ngIf="nextWaypoint && nextWaypoint.trailer && currentWaypoint.trailer && nextWaypoint.trailer.registration != currentWaypoint.trailer.registration" col-5>
+				<ion-col *ngIf="currentWaypoint && currentWaypoint.expected_trailer.registration != previousWaypoint?.expected_trailer.registration" col-5>
 					<h4>{{'HOME.NEXT_TRAILER'|translate}}</h4>
-					{{nextWaypoint.trailer.registration}}
+					{{currentWaypoint.expected_trailer.registration}}
+					
 				</ion-col>
 			</ion-row>
 		</ion-item>

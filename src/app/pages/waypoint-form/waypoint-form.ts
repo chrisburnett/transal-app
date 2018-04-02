@@ -53,8 +53,7 @@ export class WaypointFormPage implements OnInit {
 			price_per_litre: [''],
 			litres_diesel: [''],
 			additional_km_reason: [''],
-			confirm_pickup_trailer_id: [''],
-			confirm_leaving_trailer_id: ['']
+			new_trailer_registration: ['']
 		});
 
 		// conditionally require values if fuelling selected
@@ -149,6 +148,9 @@ export class WaypointFormPage implements OnInit {
 		let waypoint: Waypoint = { ...this.waypoint, ...this.waypointForm.value };
 		waypoint.reading_attributes.truck_id = this.currentAssignment.driver_truck_assignment.truck.id;
 		waypoint.reading_attributes.user_id = this.currentAssignment.driver_truck_assignment.user.id;
+
+		// ensure trailer id references properly formatted as it is used as a key
+		waypoint.new_trailer_registration = this.formatTrailerRegistration(waypoint.new_trailer_registration);
 		waypoint.order_id = this.currentAssignment.order.id;
 
 		if(waypoint.location_attributes && waypoint.location_attributes.id != '')
@@ -180,6 +182,7 @@ export class WaypointFormPage implements OnInit {
 		
 		let doSubmit = () => {
 			loading.present();
+			// TODO: RE-ENABLE ON PROD
 			// this.geolocation.getCurrentPosition()
 			// .then((resp) => {
  			// 	waypoint.gps_location_lat = String(resp.coords.latitude);
@@ -281,6 +284,18 @@ export class WaypointFormPage implements OnInit {
 	showLocationSearchModal(): void {
 		let lsm = this.modalCtrl.create(LocationSearchModal, {location_attributes: this.waypointForm.controls.location_attributes});
 		lsm.present();
+	}
+
+	formatTrailerRegistration(trailerRegistration: string)
+	{
+		if(trailerRegistration != null)
+		{
+			return trailerRegistration.trim().toUpperCase();
+		}
+		else
+		{
+			return null;
+		}
 	}
 	
 }

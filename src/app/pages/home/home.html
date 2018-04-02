@@ -33,7 +33,7 @@
 
 		<waypoint-panel [waypoint]="previousWaypoint"></waypoint-panel>
 
-		<current-waypoint [currentWaypoint]="currentWaypoint" [currentAssignment]="currentAssignment" (waypointUpdated)="load()"></current-waypoint>
+		<current-waypoint [currentWaypoint]="currentWaypoint" [previousWaypoint]="previousWaypoint" [currentAssignment]="currentAssignment" (waypointUpdated)="load()"></current-waypoint>
 
 		<waypoint-panel [waypoint]="nextWaypoint"></waypoint-panel>
 		

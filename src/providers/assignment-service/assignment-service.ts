@@ -43,7 +43,6 @@ export class AssignmentService {
 				headers.append('Authorization', 'Bearer ' + token);
 				return this.http.get(url, {headers: headers})
 					.map(response => {
-						debugger
 						let assignment: Assignment = response.json() as Assignment;
 						// server will return NULL if there are no further assignments
 						this.updateStoredCurrentAssignment(assignment);

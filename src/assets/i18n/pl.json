@@ -31,9 +31,11 @@
 		"NOTES": "Użyteczne informacje",
 		"CURRENT_WAYPOINT_UNCONFIRMED": "Naciśnij, aby potwierdzić punkt",
 		"CURRENT_WAYPOINT_CONFIRMED": "Potwierdzony",
-		"TRAILER": "Obecna naczepa",
+		"TRAILER": "Planowana naczepa",
 		"NEXT_TRAILER": "Następna naczepa",
-		"SHOW_NOTES_BUTTON": "Uwagi zlecenia"
+		"SHOW_NOTES_BUTTON": "Uwagi zlecenia",
+		"NO_TRAILER": "Bez naczepy",
+		"DIFFERENT_TRAILER_WARNING": "Obecna naczepa"
 	},
 	"LOCATION_NOTES": {
 		"TITLE": "Użyteczne informacje",
@@ -68,7 +70,7 @@
 		"SUBMIT": "Wprowadź",
 		"CANCEL": "Anuluj",
 		"FUELLING": "Tankowanie",
-		"TRAILER_CHANGE": "Zmaina naczep",
+		"TRAILER_CHANGE": "Wymiana naczep (wprowadzić w razie potrzeby)",
 		"ADDITIONAL_KM": "Km dodatkowe",
 		"ADDITIONAL_KM_REASON": "Dodatkowa informacja",
 		"LITRES_DIESEL": "Ilość litrów",

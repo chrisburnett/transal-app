@@ -104,22 +104,19 @@
 			<!-- end only if fuelling -->
 
 			<!-- only if changing trailers -->
-			<div *ngIf="activityCtrl.value=='trailer_change'">
+			<!--<div *ngIf="activityCtrl.value=='trailer_change'">-->
+			<div *ngIf="waypoint.id && waypoint.actual_departure_date">
 				<ion-item-divider color="light">
 					<ion-label>
 						{{'NEW_WAYPOINT.TRAILER_CHANGE'|translate}}
 					</ion-label>
 				</ion-item-divider>
 				<ion-item>
-					<ion-label>{{'NEW_WAYPOINT.TRAILER_LEAVING'|translate}}</ion-label>
-					<ion-input formControlName="confirm_leaving_trailer_id"></ion-input>
-				</ion-item>
-				<ion-item *ngIf="activityCtrl.value=='trailer_change'">
 					<ion-label>{{'NEW_WAYPOINT.TRAILER_PICKUP'|translate}}</ion-label>
-					<ion-input formControlName="confirm_pickup_trailer_id"></ion-input>
+					<ion-input formControlName="new_trailer_registration"></ion-input>
 				</ion-item>
 			</div>
-			<!-- end only if changing trailers -->
+			
 
 			<pallet-record-fields *ngIf="waypoint.id && waypoint.actual_departure_date && currentAssignment.pallet_types && waypoint.activity != 'fuel'" [parentFormGroup]="waypointForm" [palletTypes]="currentAssignment.pallet_types" [enforcePalletExchange]="currentAssignment.order.enforce_pallet_exchange"></pallet-record-fields>
 			

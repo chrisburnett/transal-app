@@ -72,8 +72,8 @@ export class HomePage implements OnInit {
 					{
 						this.currentAssignment = assignment;
 						this.currentWaypoint = Order.getCurrentWaypoint(this.currentAssignment.order);
-						this.previousWaypoint = Order.getPreviousWaypoint(assignment.order);
-						this.nextWaypoint = Order.getNextWaypoint(assignment.order);
+						this.previousWaypoint = Order.getPreviousWaypoint(this.currentAssignment.order);
+						this.nextWaypoint = Order.getNextWaypoint(this.currentAssignment.order);
 					}
 					else
 					{
