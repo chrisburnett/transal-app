@@ -45,13 +45,15 @@
 		"SUBMIT": "Wprowadź",
 		"LABEL": "Dodaj",
 		"LAST_UPDATE": "Napisane przez",
-		"CANCEL": "Anuluj"
+		"CANCEL": "Anuluj",
+		"NO_NOTES": "Brak obserwacji"
 	},
 	"ORDER_NOTES": {
 		"TITLE": "Uwagi",
 		"ORDER_NOTES_TITLE": "Informacja o zleceniu",
 		"WAYPOINT_NOTES_TITLE": "Informacja o punktach",
-		"CLOSE": "Zamknij"
+		"CLOSE": "Zamknij",
+		"NO_NOTES": "Brak uwag"
 	},
 	"NEW_WAYPOINT": {
 		"NEW_WAYPOINT": "Dodaj nieplanowany punkt trasy",

@@ -14,14 +14,17 @@
 
 <ion-content>
 
-	<ion-list *ngIf="order.notes && order.notes != ''">
+	<ion-list>
 		<ion-list-header>
 			{{'ORDER_NOTES.ORDER_NOTES_TITLE'|translate}}
 		</ion-list-header>
 		<ion-item text-wrap>
-			<p>{{order.notes}}</p>
+			<p *ngIf="order.notes && order.notes != ''; else noNotes">{{order.notes}}</p>
 		</ion-item>
-	</ion-list>	
+		<ng-template #noNotes>
+			<p>{{'ORDER_NOTES.NO_NOTES'|translate}}</p>
+		</ng-template>
+	</ion-list>
 	
 	<ion-list *ngIf="orderHasWaypointNote">
 		<ion-list-header>
