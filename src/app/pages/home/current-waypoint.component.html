@@ -31,7 +31,7 @@
 		</ion-item>
 		<ion-item>
 			<ion-row *ngIf="currentWaypoint">
-				<ion-col *ngIf="previousWaypoint && previousWaypoint.expected_trailer; else prevNoTrailer" col-5>
+				<ion-col *ngIf="previousWaypoint && previousWaypoint.expected_trailer != null; else prevNoTrailer" col-5>
 					<h4>{{'HOME.TRAILER'|translate}}</h4>
 					{{previousWaypoint.expected_trailer.registration}}
 					<hr>
@@ -46,10 +46,10 @@
 						{{'HOME.NO_TRAILER'|translate}}
 					</ion-col>
 				</ng-template>
-				<ion-col *ngIf="currentWaypoint && currentWaypoint.expected_trailer.registration != previousWaypoint?.expected_trailer.registration" col-2>
+				<ion-col *ngIf="currentWaypoint && currentWaypoint.expected_trailer != null && currentWaypoint.expected_trailer.registration != previousWaypoint?.expected_trailer.registration" col-2>
 					<ion-icon name="arrow-forward" item-start large></ion-icon>
 				</ion-col>
-				<ion-col *ngIf="currentWaypoint && currentWaypoint.expected_trailer.registration != previousWaypoint?.expected_trailer.registration" col-5>
+				<ion-col *ngIf="currentWaypoint && currentWaypoint.expected_trailer != null && currentWaypoint.expected_trailer.registration != previousWaypoint?.expected_trailer.registration" col-5>
 					<h4>{{'HOME.NEXT_TRAILER'|translate}}</h4>
 					{{currentWaypoint.expected_trailer.registration}}
 					
