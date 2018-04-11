@@ -53,10 +53,10 @@ export class CurrentWaypoint implements OnInit {
 				this.timeToCurrentWaypoint = Date.now().valueOf() > this.currentWaypoint.scheduled_date.valueOf() ?
 					moment(this.currentWaypoint.scheduled_date).toNow() :
 					moment(this.currentWaypoint.scheduled_date).fromNow();
-				this.currentWaypointDatestring = moment(this.currentWaypoint.scheduled_date).format("ddd, D MMM YYYY, H:mm:ss a");
+				this.currentWaypointDatestring = moment(this.currentWaypoint.scheduled_date).format("ddd, D MMM YYYY");
 				this.currentWaypointOverdue = Date.now().valueOf() > this.currentWaypoint.scheduled_date.valueOf();
 			}
-			this.currentWaypointArrivalDatestring = moment(this.currentWaypoint.actual_date).format("ddd, D MMM YYYY, H:mm:ss a");
+			this.currentWaypointArrivalDatestring = moment(this.currentWaypoint.actual_date).format("ddd, D MMM YYYY");
 			this.currentWaypointIconName = this.config.activityIconMap[this.currentWaypoint.activity];
 			
 			this.translate.get('HOME.' + this.currentWaypoint.activity.toUpperCase()).subscribe((text: string) => {
@@ -67,7 +67,7 @@ export class CurrentWaypoint implements OnInit {
 
 	checkIn(): void {
 		this.currentWaypoint.actual_date = new Date(Date.now());
-		this.currentWaypointArrivalDatestring = moment(this.currentWaypoint.actual_date).format("ddd, D MMM YYYY, H:mm:ss a");
+		this.currentWaypointArrivalDatestring = moment(this.currentWaypoint.actual_date).format("ddd, D MMM YYYY");
 		this.navCtrl.push(WaypointFormPage, { waypoint: this.currentWaypoint, currentAssignment: this.currentAssignment });
 	}
 

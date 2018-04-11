@@ -10,6 +10,7 @@ export class Waypoint implements Offline {
 	location: Location;
 	location_id: string;
 	scheduled_date: Date;
+	scheduled_time: string;
 	actual_date: Date;
 	actual_departure_date: Date;
 	gps_location_lat: string;
