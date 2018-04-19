@@ -26,13 +26,33 @@ export class Order {
 		}
 	}
 
-	static getPreviousWaypoint(order): Waypoint {
+	static getPreviousWaypoints(order): Waypoint[] {
 		if(order.waypoints.length === 0)
 		{
 			return null;
 		}
 		return order.waypoints
 			.filter(wp => wp.actual_departure_date != null)
-			.sort((wpA, wpB) => new Date(wpB.actual_departure_date).valueOf() - new Date(wpA.actual_departure_date).valueOf())[0]; 
+			.sort((wpA, wpB) => wpA.position - wpB.position);
 	}
+	
+	static getNextWaypoints(order): Waypoint[] {
+		if(order.waypoints.length === 0)
+		{
+			return null;
+		}
+		return order.waypoints
+			.filter(wp => wp.actual_departure_date == null)
+			.sort((wpA, wpB) => wpA.position - wpB.position)
+			.slice(1) // don't include the current WP
+		
+	}
+	
+	static getPreviousWaypoint(order): Waypoint {
+		const wps = this.getPreviousWaypoints(order);
+		return wps[wps.length-1];
+	}
+
+	
+	
 }

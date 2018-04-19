@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Inject } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, Content } from 'ionic-angular';
 import { LoadingController, ModalController } from 'ionic-angular';
 import { Network } from '@ionic-native/network';
 import { User } from '../../user';
@@ -24,12 +24,16 @@ import * as moment from 'moment';
 	templateUrl: 'home.html'
 })
 export class HomePage implements OnInit {
-
+	@ViewChild(Content) content: Content;
+	
 	currentUser: User;
 	currentAssignment: Assignment;
-	currentWaypoint: Waypoint;
 	previousWaypoint: Waypoint;
 	nextWaypoint: Waypoint;
+
+	currentWaypoint: Waypoint;
+	previousWaypoints: Waypoint[];
+	nextWaypoints: Waypoint[];
 	
 	online: boolean;
 
@@ -71,14 +75,22 @@ export class HomePage implements OnInit {
 					if(assignment)
 					{
 						this.currentAssignment = assignment;
-						this.currentWaypoint = Order.getCurrentWaypoint(this.currentAssignment.order);
-						this.previousWaypoint = Order.getPreviousWaypoint(this.currentAssignment.order);
-						this.nextWaypoint = Order.getNextWaypoint(this.currentAssignment.order);
+						this.currentWaypoint = Order.getCurrentWaypoint(assignment.order);
+						this.previousWaypoint = Order.getPreviousWaypoint(assignment.order);
+						this.nextWaypoint = Order.getNextWaypoint(assignment.order);
+
+						this.previousWaypoints = Order.getPreviousWaypoints(assignment.order);
+						this.nextWaypoints = Order.getNextWaypoints(assignment.order);
 					}
 					else
 					{
 						// server responded but no assignment returned
 						this.currentAssignment = null;
+					}
+					let currentWaypointCard =  document.getElementById('currentWaypoint')
+					if(currentWaypointCard != null) {
+						let yOffset = currentWaypointCard.offsetTop;
+						this.content.scrollTo(0, yOffset, 500)
 					}
 					loading.dismiss();
 				},

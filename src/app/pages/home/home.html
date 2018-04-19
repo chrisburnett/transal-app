@@ -27,15 +27,14 @@
 			</div>
 		</div>
 	</div>
-	
 	<!-- waypoint cards -->
 	<div *ngIf="currentAssignment">
 
-		<waypoint-panel [waypoint]="previousWaypoint"></waypoint-panel>
+		<waypoint-panel *ngFor="let wp of previousWaypoints" [waypoint]="wp"></waypoint-panel>
 
-		<current-waypoint [currentWaypoint]="currentWaypoint" [previousWaypoint]="previousWaypoint" [currentAssignment]="currentAssignment" (waypointUpdated)="load()"></current-waypoint>
+		<current-waypoint id="currentWaypoint" [currentWaypoint]="currentWaypoint" [previousWaypoint]="previousWaypoint" [currentAssignment]="currentAssignment" (waypointUpdated)="load()"></current-waypoint>
 
-		<waypoint-panel [waypoint]="nextWaypoint"></waypoint-panel>
+		<waypoint-panel *ngFor="let wp of nextWaypoints" [waypoint]="wp"></waypoint-panel>
 		
 	</div>
 	

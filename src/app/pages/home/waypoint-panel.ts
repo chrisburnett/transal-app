@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnChanges, Input, Inject } from '@angular/core';
 import { Waypoint } from '../../waypoint';
 import { TranslateService } from '@ngx-translate/core';
 import { APP_CONFIG, AppConfig } from '../../app.config';
@@ -10,7 +10,7 @@ import * as moment from 'moment';
 	templateUrl: 'waypoint-panel.component.html',
 	styles: [ '.position-number { color: #CCCCCC; font-weight: bold; }' ]
 })
-export class WaypointPanel implements OnInit {
+export class WaypointPanel implements OnChanges {
 
 	@Input() waypoint: Waypoint;
 
@@ -20,7 +20,7 @@ export class WaypointPanel implements OnInit {
 	
 	constructor(@Inject(APP_CONFIG) private config, public translate: TranslateService) {}
 	
-	ngOnInit() {
+	ngOnChanges() {
 		if(this.waypoint) {
 			if(this.waypoint.actual_departure_date)
 			{

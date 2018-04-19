@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, Inject, EventEmitter } from '@angular/core';
+import { Component, OnChanges, Input, Output, Inject, EventEmitter } from '@angular/core';
 import { Order } from '../../order'; 
 import { Assignment } from '../../assignment';
 import { Waypoint } from '../../waypoint';
@@ -20,7 +20,7 @@ import * as moment from 'moment';
 	templateUrl: 'current-waypoint.component.html',
 	styles: [ '.position-number { font-weight: bold; color: #999999; }' ]
 })
-export class CurrentWaypoint implements OnInit {
+export class CurrentWaypoint implements OnChanges {
 
 	@Input() currentAssignment: Assignment;
 	@Input() currentWaypoint: Waypoint;
@@ -45,7 +45,7 @@ export class CurrentWaypoint implements OnInit {
 		this.locationNotesPage = LocationNotesPage;
 	}
 	
-	ngOnInit() {
+	ngOnChanges() {
 		if(this.currentWaypoint)
 		{
 			if(this.currentWaypoint.scheduled)
