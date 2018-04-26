@@ -36,4 +36,5 @@ export class Waypoint implements Offline {
 	expected_trailer: Trailer;
 	actual_trailer: Trailer;
 	new_trailer_registration: string;
+	position: number;
 }

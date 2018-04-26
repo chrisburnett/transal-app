@@ -28,7 +28,7 @@
 		</div>
 	</div>
 	<!-- waypoint cards -->
-	<div *ngIf="currentAssignment">
+	<div *ngIf="currentAssignment" margin-bottom>
 
 		<waypoint-panel *ngFor="let wp of previousWaypoints" [waypoint]="wp"></waypoint-panel>
 
@@ -38,6 +38,16 @@
 		
 	</div>
 	
+	<!-- next order previews -->
+	<div *ngFor="let na of nextAssignments" margin-top>
+		<hr>
+		<h1 margin-top>{{'HOME.ASSIGNMENT_DIVIDER_TEXT'|translate}} {{na.order.client_reference}}
+			<button small ion-button float-right (click)="showOrderNotesModal(na.order)">
+				{{'HOME.SHOW_NOTES_NEXT_ASSIGNMENT_BUTTON'|translate}}
+			</button>
+		</h1>
+		<waypoint-panel *ngFor="let wp of na.order.waypoints" [waypoint]="wp"></waypoint-panel>
+	</div>
 </ion-content>
 
 <ion-footer>

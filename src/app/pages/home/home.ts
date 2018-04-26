@@ -28,6 +28,7 @@ export class HomePage implements OnInit {
 	
 	currentUser: User;
 	currentAssignment: Assignment;
+	nextAssignments: Assignment[];
 	previousWaypoint: Waypoint;
 	nextWaypoint: Waypoint;
 
@@ -71,16 +72,23 @@ export class HomePage implements OnInit {
 		
 		this.assignmentService.getCurrentAssignment()
 			.subscribe(
-				(assignment: Assignment) => {
-					if(assignment)
+				(assignments: Assignment[]) => {
+					if(assignments.length > 0)
 					{
-						this.currentAssignment = assignment;
-						this.currentWaypoint = Order.getCurrentWaypoint(assignment.order);
-						this.previousWaypoint = Order.getPreviousWaypoint(assignment.order);
-						this.nextWaypoint = Order.getNextWaypoint(assignment.order);
+						this.nextAssignments = assignments.slice(1).map((a) => {
+							a.order.waypoints = Order.sortWaypoints(a.order.waypoints);
+							return a;
+						});
+						this.currentAssignment = assignments[0];
+						const order = this.currentAssignment.order;
+						
+						this.currentWaypoint = Order.getCurrentWaypoint(order);
+						this.previousWaypoint = Order.getPreviousWaypoint(order);
+						this.nextWaypoint = Order.getNextWaypoint(order);
 
-						this.previousWaypoints = Order.getPreviousWaypoints(assignment.order);
-						this.nextWaypoints = Order.getNextWaypoints(assignment.order);
+						this.previousWaypoints = Order.getPreviousWaypoints(order);
+						this.nextWaypoints = Order.getNextWaypoints(order);
+
 					}
 					else
 					{

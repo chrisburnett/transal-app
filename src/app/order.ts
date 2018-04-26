@@ -10,6 +10,9 @@ export class Order {
 	enforce_pallet_exchange: boolean;
 	notes: string;
 
+	static sortWaypoints(waypoints: Waypoint[]): Waypoint[] {
+		return waypoints.sort((wpA, wpB) => wpA.position - wpB.position);
+	}
 	static getNextWaypoint(order): Waypoint {
 		return order.waypoints.filter(wp => wp.id == Order.getCurrentWaypoint(order).next_waypoint_id)[0];
 	}
