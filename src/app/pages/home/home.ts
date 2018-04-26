@@ -118,8 +118,8 @@ export class HomePage implements OnInit {
 		this.navCtrl.setRoot(LoginPage);
 	}
 
-	showOrderNotesModal(): void {
-		let onm = this.modalCtrl.create(OrderNotesModal, { order: this.currentAssignment.order } );
+	showOrderNotesModal(order: Order): void {
+		let onm = this.modalCtrl.create(OrderNotesModal, { order: order } );
 		onm.present();
 	}
 

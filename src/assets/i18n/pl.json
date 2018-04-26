@@ -34,8 +34,9 @@
 		"TRAILER": "Planowana naczepa",
 		"NEXT_TRAILER": "Następna naczepa",
 		"SHOW_NOTES_BUTTON": "Uwagi zlecenia",
+		"SHOW_NOTES_NEXT_ASSIGNMENT_BUTTON": "Szczegóły",
 		"NO_TRAILER": "Bez naczepy",
-		"DIFFERENT_TRAILER_WARNING": "Obecna naczepa"
+		"DIFFERENT_TRAILER_WARNING": "Obecna naczepa",
 		"ASSIGNMENT_DIVIDER_TEXT": "Zlecenie"
 	},
 	"LOCATION_NOTES": {
